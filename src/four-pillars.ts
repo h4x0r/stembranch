@@ -21,7 +21,7 @@ function utcDays(year: number, month: number, day: number): number {
  * Day pillar: Based on 60-cycle counting from reference epoch.
  * Hour pillar: Based on 2-hour 時辰 divisions.
  *
- * Uses exact astronomical solar term boundaries via full VSOP87B computation.
+ * Uses exact astronomical solar term boundaries via full VSOP87D computation.
  *
  * @param date - Local date/time to compute pillars for
  * @returns The four pillars (年柱、月柱、日柱、時柱)

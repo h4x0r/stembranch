@@ -1,12 +1,16 @@
 /**
- * Apparent geocentric ecliptic longitude of the Sun, computed from VSOP87B
+ * Apparent geocentric ecliptic longitude of the Sun, computed from VSOP87D
  * Earth heliocentric coordinates with aberration and nutation corrections.
  *
- * Replaces astronomy-engine's SearchSunLongitude with a self-contained
- * implementation that depends only on our VSOP87B coefficient data.
+ * VSOP87D provides coordinates in the ecliptic of date (precession built in),
+ * eliminating the need for an external precession formula and avoiding the
+ * frame-mismatch issue that occurs with VSOP87B + separate precession.
+ *
+ * Includes sxwnl's DE405 correction polynomial to compensate for VSOP87
+ * truncation errors, achieving sub-second solar term precision.
  */
 
-import { EARTH_L, EARTH_R, evaluateVsopSeries } from './vsop87b-earth';
+import { EARTH_L, EARTH_R, evaluateVsopSeries } from './vsop87d-earth';
 import { deltaT } from './delta-t';
 
 const DEG_TO_RAD = Math.PI / 180;
@@ -16,7 +20,7 @@ const ARCSEC_TO_RAD = Math.PI / 180 / 3600;
 /**
  * Convert a UT Date to Julian Date in Terrestrial Time (JD_TT).
  *
- * VSOP87B is formulated in TT (Terrestrial Time), but JavaScript Date
+ * VSOP87 is formulated in TT (Terrestrial Time), but JavaScript Date
  * objects are in UT. We add ΔT to convert:  TT = UT + ΔT
  */
 function dateToJD_TT(date: Date): number {
@@ -26,7 +30,7 @@ function dateToJD_TT(date: Date): number {
 }
 
 /**
- * Convert a UT Date to Julian millennia from J2000.0 in TT (for VSOP87B).
+ * Convert a UT Date to Julian millennia from J2000.0 in TT (for VSOP87).
  */
 function dateToJulianMillennia(date: Date): number {
   return (dateToJD_TT(date) - 2451545.0) / 365250.0;
@@ -162,15 +166,16 @@ function normalizeRadians(rad: number): number {
 /**
  * Compute apparent geocentric ecliptic longitude of the Sun in degrees [0, 360).
  *
- * VSOP87B gives heliocentric coordinates referred to the ecliptic of J2000.0.
- * To obtain the apparent longitude referred to the ecliptic of date, we apply:
- * 1. Evaluate VSOP87B heliocentric longitude L and radius R
- * 2. Convert to geocentric: lon = L + PI
- * 3. Apply FK5 correction (~-0.09" offset)
- * 4. Precess from J2000 ecliptic to ecliptic of date (Lieske 1979 / IAU 1976)
- * 5. Apply nutation in longitude (IAU2000B, 77 lunisolar terms)
- * 6. Apply aberration correction
- * 7. Normalize to [0, 360)
+ * VSOP87D gives heliocentric coordinates referred to the ecliptic of date
+ * (precession is built into the coefficients). We apply:
+ * 1. Evaluate VSOP87D heliocentric longitude L and radius R
+ * 2. Apply sxwnl's DE405 correction (compensates for VSOP87 truncation)
+ * 3. Convert to geocentric: lon = L + PI
+ * 4. Apply nutation in longitude (IAU2000B, 77 lunisolar terms)
+ * 5. Apply aberration correction
+ * 6. Normalize to [0, 360)
+ *
+ * No external precession or FK5 correction needed with VSOP87D.
  *
  * @param date - The moment to compute longitude for
  * @returns Solar longitude in degrees [0, 360)
@@ -179,28 +184,25 @@ export function getSunLongitude(date: Date): number {
   const tau = dateToJulianMillennia(date);
   const T = dateToJulianCenturies(date);
 
-  // Heliocentric longitude and radius from VSOP87B (radians / AU)
-  const L = evaluateVsopSeries(EARTH_L, tau);
+  // Heliocentric longitude and radius from VSOP87D (radians / AU)
+  let L = evaluateVsopSeries(EARTH_L, tau);
   const R = evaluateVsopSeries(EARTH_R, tau);
+
+  // sxwnl's DE405-fitted correction for VSOP87D longitude.
+  // Source: 許劍偉 (Xu Jianwei), DE405-fitted polynomial correction.
+  // Compensates for VSOP87 truncation and precession rate offset vs DE405.
+  // Units: radians (the polynomial gives arcseconds, divided by 206264.806)
+  L += (-0.0728 - 2.7702 * tau - 1.1019 * tau * tau - 0.0996 * tau * tau * tau)
+    / 206264.806;
 
   // Convert heliocentric to geocentric: add 180 degrees (PI radians)
   let lon = L + Math.PI;
 
-  // FK5 correction (Meeus, p. 166): small frame rotation ~-0.09033"
-  lon += (-0.09033) * ARCSEC_TO_RAD;
-
-  // Precession: convert from J2000 ecliptic to ecliptic of date
-  // Using Lieske 1979 (IAU 1976) precession for consistency with VSOP87B,
-  // which was constructed using the same precession constants.
-  //   pA = (5029.0966 + 2.22226*T - 0.000042*T²) * T  arcseconds
+  // Nutation in longitude (IAU2000B, 77 lunisolar terms)
+  // Fundamental arguments (Delaunay parameters, IERS Conventions 2010):
   const T2 = T * T;
   const T3 = T2 * T;
   const T4 = T3 * T;
-  const pA = (5029.0966 + 2.22226 * T - 0.000042 * T2) * T;
-  lon += pA * ARCSEC_TO_RAD;
-
-  // Nutation in longitude (IAU2000B, 30 dominant terms)
-  // Fundamental arguments (Delaunay parameters, IERS Conventions 2010):
   const l  = ((485868.249036 + 1717915923.2178 * T + 31.8792 * T2
     + 0.051635 * T3 - 0.00024470 * T4) % 1296000) * ARCSEC_TO_RAD;
   const lp = ((1287104.79305 + 129596581.0481 * T - 0.5532 * T2

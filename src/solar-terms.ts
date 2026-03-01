@@ -31,7 +31,7 @@ export const MONTH_BOUNDARY_INDICES = [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22
 
 /**
  * Compute the exact moment of a solar term using astronomical calculation.
- * Uses VSOP87B-based solar longitude computation for sub-minute accuracy.
+ * Uses VSOP87D-based solar longitude computation for sub-minute accuracy.
  *
  * @param targetLongitude - Solar ecliptic longitude in degrees (0-360)
  * @param year - Gregorian year
@@ -47,7 +47,7 @@ export function findSolarTermMoment(targetLongitude: number, year: number, start
   return result;
 }
 
-/** Cache for getSolarTermsForYear to avoid redundant VSOP87B evaluations */
+/** Cache for getSolarTermsForYear to avoid redundant VSOP87D evaluations */
 const solarTermsCache = new Map<number, SolarTerm[]>();
 
 /**

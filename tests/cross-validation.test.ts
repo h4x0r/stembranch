@@ -95,7 +95,7 @@ describe('Cross-validation: Day Pillar (日柱) vs sxwnl', () => {
     for (const ref of fixtures) {
       const { year, month, day } = parseDateStr(ref.date);
       // Day pillar is purely arithmetic — no solar term dependency.
-      // Compute directly to avoid expensive VSOP87B calls across 917 years.
+      // Compute directly to avoid expensive VSOP87D calls across 917 years.
       const computed = computeDayPillar(year, month, day);
 
       if (computed === ref.stemBranch) {
@@ -205,8 +205,12 @@ describe('Cross-validation: Solar Terms (節氣) vs sxwnl', () => {
         `  Within 5 min: ${within5min}/${computed} (${((within5min / computed) * 100).toFixed(1)}%)`,
       );
 
-      expect(maxDevMinutes).toBeLessThan(30);
-      expect(avgDevMinutes).toBeLessThan(2);
+      // Core precision: P50 < 3s (median is sub-second with VSOP87D + DE405 correction)
+      expect(p50).toBeLessThan(0.05); // 3 seconds
+      // Edge tolerance: max < 2 min (DeltaT prediction uncertainty for 2090-2100)
+      expect(maxDevMinutes).toBeLessThan(2);
+      // Average: < 15s (pulled up by DeltaT-induced tail at range edges)
+      expect(avgDevMinutes).toBeLessThan(0.25);
       expect(failed).toBe(0);
     },
   );

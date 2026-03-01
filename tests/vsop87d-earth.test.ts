@@ -1,27 +1,27 @@
 import { describe, it, expect } from 'vitest';
-import { EARTH_L, EARTH_B, EARTH_R, evaluateVsopSeries } from '../src/vsop87b-earth';
+import { EARTH_L, EARTH_B, EARTH_R, evaluateVsopSeries } from '../src/vsop87d-earth';
 
-describe('VSOP87B Earth coefficients', () => {
+describe('VSOP87D Earth coefficients', () => {
   it('has 6 series for longitude (L)', () => {
     expect(EARTH_L).toHaveLength(6);
   });
-  it('has 6 series for latitude (B)', () => {
-    expect(EARTH_B).toHaveLength(6);
+  it('has 5 series for latitude (B)', () => {
+    expect(EARTH_B).toHaveLength(5);
   });
   it('has 6 series for radius (R)', () => {
     expect(EARTH_R).toHaveLength(6);
   });
-  it('L has 1184 total terms', () => {
+  it('L has 1080 total terms', () => {
     const total = EARTH_L.reduce((sum, s) => sum + s.length, 0);
-    expect(total).toBe(1184);
+    expect(total).toBe(1080);
   });
-  it('B has 402 total terms', () => {
+  it('B has 348 total terms', () => {
     const total = EARTH_B.reduce((sum, s) => sum + s.length, 0);
-    expect(total).toBe(402);
+    expect(total).toBe(348);
   });
-  it('R has 978 total terms', () => {
+  it('R has 997 total terms', () => {
     const total = EARTH_R.reduce((sum, s) => sum + s.length, 0);
-    expect(total).toBe(978);
+    expect(total).toBe(997);
   });
   it('each term is [amplitude, phase, frequency]', () => {
     const term = EARTH_L[0][0];
@@ -39,14 +39,14 @@ describe('evaluateVsopSeries', () => {
     expect(evaluateVsopSeries(series, 0)).toBeCloseTo(1.0, 10);
   });
 
-  it('multiplies higher series by t^n (Horner)', () => {
+  it('multiplies higher series by t^n', () => {
     // series[0] empty, series[1] = [[2.0, 0, 0]] => 2.0 * t^1
     // At t=3: result = 6.0
     const series: [number, number, number][][] = [[], [[2.0, 0, 0]]];
     expect(evaluateVsopSeries(series, 3.0)).toBeCloseTo(6.0, 10);
   });
 
-  it('combines multiple series with Horner method', () => {
+  it('combines multiple series', () => {
     // s0 = [[1.0, 0, 0]] => 1.0
     // s1 = [[2.0, 0, 0]] => 2.0 * t
     // s2 = [[3.0, 0, 0]] => 3.0 * t^2
@@ -75,9 +75,9 @@ describe('evaluateVsopSeries', () => {
   });
 
   it('cross-validates L at t=0 (J2000.0)', () => {
-    // At t=0, each term reduces to A*cos(B). All 623 L0 terms contribute.
-    // The dominant constant term [1.75347, 0, 0] gives 1.75347, but the
-    // other periodic terms shift the sum. Verified against VSOP87B_Full.ts.
+    // At t=0, each term reduces to A*cos(B). The dominant L0 constant term
+    // [1.75347, 0, 0] gives 1.75347, shifted by other periodic terms.
+    // VSOP87D values differ slightly from VSOP87B due to built-in precession.
     const L = evaluateVsopSeries(EARTH_L, 0);
     expect(L).toBeCloseTo(1.75192, 4);
   });
