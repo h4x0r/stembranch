@@ -6,7 +6,12 @@
  * Input:  data/solar-catalog.txt, data/lunar-catalog.txt
  * Output: src/eclipse-data.ts
  *
- * Range: 1000 CE to 3000 CE
+ * Range: 2000 BCE (year -1999) to 3000 CE (full NASA catalog)
+ *
+ * Note: The NASA catalog uses the Julian calendar for dates before
+ * 1582-10-15 and Gregorian calendar after. Our Date objects use
+ * proleptic Gregorian throughout, so pre-1582 dates may differ
+ * by 10-13 days from the actual Julian calendar date.
  *
  * Attribution: Eclipse Predictions by Fred Espenak and Jean Meeus (NASA's GSFC)
  */
@@ -18,7 +23,7 @@ const MONTHS = {
   Jul: 7, Aug: 8, Sep: 9, Oct: 10, Nov: 11, Dec: 12,
 };
 
-const MIN_YEAR = 1000;
+const MIN_YEAR = -1999;
 const MAX_YEAR = 3000;
 
 function parseSolarCatalog(text) {
@@ -85,22 +90,24 @@ function parseLunarCatalog(text) {
 
 /**
  * Encode eclipses as a compact string.
- * Format: each eclipse = 9 chars: YYYYMMDDX
- * where X = type char (T/A/P/H for solar, T/P/N for lunar)
+ * Format: each eclipse = 10 chars: SYYYYMMDDX
+ * where S = '+' or '-' (sign), YYYY = 4-digit absolute year,
+ *       MM = month, DD = day, X = type char
  *
- * Magnitude stored separately as 4-digit integers (mag * 10000).
+ * Magnitude stored separately as integers (abs(mag) * 10000).
  */
 function encodeCompact(entries) {
   const dateTypes = entries.map(e => {
-    const y = String(e.year).padStart(4, '0');
+    const sign = e.year < 0 ? '-' : '+';
+    const y = String(Math.abs(e.year)).padStart(4, '0');
     const m = String(e.month).padStart(2, '0');
     const d = String(e.day).padStart(2, '0');
-    return `${y}${m}${d}${e.type}`;
+    return `${sign}${y}${m}${d}${e.type}`;
   }).join('');
 
   const magnitudes = entries.map(e => {
-    // Encode magnitude as 5-digit integer (mag * 10000)
-    // Range: -0.2000 to 2.0000 → -2000 to 20000
+    // Encode magnitude as integer (abs(mag) * 10000)
+    // Range: 0 to 20000
     const val = Math.round(Math.abs(e.magnitude) * 10000);
     return val;
   });
@@ -116,8 +123,8 @@ const lunarText = readFileSync('data/lunar-catalog.txt', 'utf-8');
 const solarEntries = parseSolarCatalog(solarText);
 const lunarEntries = parseLunarCatalog(lunarText);
 
-console.log(`Solar eclipses (${MIN_YEAR}-${MAX_YEAR}): ${solarEntries.length}`);
-console.log(`Lunar eclipses (${MIN_YEAR}-${MAX_YEAR}): ${lunarEntries.length}`);
+console.log(`Solar eclipses (${MIN_YEAR} to ${MAX_YEAR}): ${solarEntries.length}`);
+console.log(`Lunar eclipses (${MIN_YEAR} to ${MAX_YEAR}): ${lunarEntries.length}`);
 
 // Verify known eclipses
 const apr8 = solarEntries.find(e => e.year === 2024 && e.month === 4 && e.day === 8);
@@ -125,6 +132,14 @@ console.log('2024-04-08 total solar:', apr8 ? `${apr8.type} mag=${apr8.magnitude
 
 const aug21 = solarEntries.find(e => e.year === 2017 && e.month === 8 && e.day === 21);
 console.log('2017-08-21 total solar:', aug21 ? `${aug21.type} mag=${aug21.magnitude}` : 'NOT FOUND');
+
+// Check BCE entries
+const bce = solarEntries.filter(e => e.year < 0);
+console.log(`BCE solar eclipses: ${bce.length}`);
+if (bce.length > 0) {
+  console.log(`  First: year ${bce[0].year}, month ${bce[0].month}, day ${bce[0].day}`);
+  console.log(`  Last: year ${bce[bce.length - 1].year}, month ${bce[bce.length - 1].month}, day ${bce[bce.length - 1].day}`);
+}
 
 const solarEncoded = encodeCompact(solarEntries);
 const lunarEncoded = encodeCompact(lunarEntries);
@@ -136,7 +151,7 @@ console.log(`Lunar encoded string length: ${lunarEncoded.dateTypes.length} chars
 const tsContent = `/**
  * NASA Five Millennium Canon of Eclipses — Static Dataset
  *
- * Range: ${MIN_YEAR} CE to ${MAX_YEAR} CE
+ * Range: ${MIN_YEAR} (${Math.abs(MIN_YEAR) + 1} BCE) to ${MAX_YEAR} CE
  * Solar eclipses: ${solarEntries.length}
  * Lunar eclipses: ${lunarEntries.length}
  *
@@ -146,12 +161,16 @@ const tsContent = `/**
  *
  * Attribution: Eclipse Predictions by Fred Espenak and Jean Meeus (NASA's GSFC)
  *
- * Encoding: each eclipse = 9 chars in the packed string: YYYYMMDDX
- *   YYYY = year (0-padded), MM = month, DD = day, X = type
+ * Note: Pre-1582 dates use the Julian calendar in the NASA catalog but are
+ * decoded as proleptic Gregorian dates in JavaScript. This causes a 10-13 day
+ * offset for dates before October 1582.
+ *
+ * Encoding: each eclipse = 10 chars in the packed string: SYYYYMMDDX
+ *   S = '+' or '-' (sign), YYYY = 4-digit year, MM = month, DD = day, X = type
  *   Solar types: T=Total, A=Annular, P=Partial, H=Hybrid
  *   Lunar types: T=Total, P=Partial, N=Penumbral
  *
- * Magnitudes: parallel Uint16Array of mag×10000
+ * Magnitudes: parallel Uint16Array of abs(mag)×10000
  *   Solar: eclipse magnitude (ratio of diameters)
  *   Lunar: umbral magnitude for T/P, penumbral magnitude for N
  */

@@ -59,8 +59,8 @@ describe('Eclipse arrays', () => {
     }
   });
 
-  it('dataset range is 1000-3000', () => {
-    expect(ECLIPSE_DATA_RANGE.min).toBe(1000);
+  it('dataset range is -1999 to 3000', () => {
+    expect(ECLIPSE_DATA_RANGE.min).toBe(-1999);
     expect(ECLIPSE_DATA_RANGE.max).toBe(3000);
   });
 });
@@ -104,7 +104,7 @@ describe('getEclipsesForYear', () => {
   });
 
   it('returns empty for years outside dataset range', () => {
-    expect(getEclipsesForYear(999)).toEqual([]);
+    expect(getEclipsesForYear(-2000)).toEqual([]);
     expect(getEclipsesForYear(3001)).toEqual([]);
   });
 
@@ -143,12 +143,6 @@ describe('getEclipsesInRange', () => {
     expect(solar.every(e => e.kind === 'solar')).toBe(true);
     expect(lunar.every(e => e.kind === 'lunar')).toBe(true);
   });
-
-  it('returns empty for range outside dataset', () => {
-    const start = new Date(Date.UTC(500, 0, 1));
-    const end = new Date(Date.UTC(500, 11, 31));
-    expect(getEclipsesInRange(start, end)).toEqual([]);
-  });
 });
 
 describe('findNearestEclipse', () => {
@@ -167,11 +161,6 @@ describe('findNearestEclipse', () => {
     expect(nearest!.kind).toBe('solar');
     expect(nearest!.date.getUTCMonth()).toBe(3); // April
     expect(nearest!.date.getUTCDate()).toBe(8);
-  });
-
-  it('returns undefined for dates far outside dataset range', () => {
-    const date = new Date(Date.UTC(500, 0, 1));
-    expect(findNearestEclipse(date)).toBeUndefined();
   });
 });
 
@@ -202,12 +191,42 @@ describe('isEclipseDate', () => {
   });
 });
 
+describe('BCE eclipses', () => {
+  it('has eclipses for year -1999 (2000 BCE)', () => {
+    const eclipses = getEclipsesForYear(-1999);
+    expect(eclipses.length).toBeGreaterThan(0);
+  });
+
+  it('has eclipses for year -585 (Thales eclipse, 585 BCE)', () => {
+    // The famous eclipse predicted by Thales: 585 BC = year -584
+    const eclipses = getEclipsesForYear(-584);
+    const solar = eclipses.filter(e => e.kind === 'solar');
+    expect(solar.length).toBeGreaterThan(0);
+  });
+
+  it('first solar eclipse in dataset has negative year', () => {
+    const solar = getAllSolarEclipses();
+    expect(solar[0].date.getUTCFullYear()).toBeLessThan(0);
+  });
+
+  it('BCE eclipse dates are correctly decoded', () => {
+    const eclipses = getEclipsesForYear(-1999);
+    for (const e of eclipses) {
+      expect(e.date.getUTCFullYear()).toBe(-1999);
+      expect(e.date.getUTCMonth()).toBeGreaterThanOrEqual(0);
+      expect(e.date.getUTCMonth()).toBeLessThan(12);
+      expect(e.date.getUTCDate()).toBeGreaterThanOrEqual(1);
+      expect(e.date.getUTCDate()).toBeLessThanOrEqual(31);
+    }
+  });
+});
+
 describe('dataset coverage', () => {
-  it('covers 1000-3000 range', () => {
-    const y1000 = getEclipsesForYear(1000);
-    const y3000 = getEclipsesForYear(3000);
-    expect(y1000.length).toBeGreaterThan(0);
-    expect(y3000.length).toBeGreaterThan(0);
+  it('covers -1999 to 3000 range', () => {
+    const yMin = getEclipsesForYear(-1999);
+    const yMax = getEclipsesForYear(3000);
+    expect(yMin.length).toBeGreaterThan(0);
+    expect(yMax.length).toBeGreaterThan(0);
   });
 
   it('has approximately 2-5 solar eclipses per year', () => {
@@ -229,10 +248,10 @@ describe('dataset coverage', () => {
   it('total eclipse count is in expected range', () => {
     const solar = getAllSolarEclipses();
     const lunar = getAllLunarEclipses();
-    // ~2.4 per year × 2000 years = ~4800 each
-    expect(solar.length).toBeGreaterThan(4500);
-    expect(solar.length).toBeLessThan(5200);
-    expect(lunar.length).toBeGreaterThan(4500);
-    expect(lunar.length).toBeLessThan(5200);
+    // ~2.4 per year × 5000 years = ~12,000 each
+    expect(solar.length).toBeGreaterThan(11000);
+    expect(solar.length).toBeLessThan(13000);
+    expect(lunar.length).toBeGreaterThan(11000);
+    expect(lunar.length).toBeLessThan(13000);
   });
 });

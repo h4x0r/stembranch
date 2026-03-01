@@ -5,7 +5,7 @@ import {
   ECLIPSE_DATA_RANGE,
 } from './eclipse-data';
 
-const ENTRY_LEN = 9; // YYYYMMDDX per eclipse
+const ENTRY_LEN = 10; // SYYYYMMDDX per eclipse (S = +/- sign)
 
 /** Decode a packed eclipse string into Eclipse objects (lazy, cached) */
 function decodePacked(
@@ -17,17 +17,16 @@ function decodePacked(
   const result: Eclipse[] = new Array(count);
   for (let i = 0; i < count; i++) {
     const offset = i * ENTRY_LEN;
-    const year = parseInt(packed.slice(offset, offset + 4), 10);
-    const month = parseInt(packed.slice(offset + 4, offset + 6), 10);
-    const day = parseInt(packed.slice(offset + 6, offset + 8), 10);
-    const type = packed[offset + 8] as SolarEclipseType | LunarEclipseType;
+    const sign = packed[offset] === '-' ? -1 : 1;
+    const year = sign * parseInt(packed.slice(offset + 1, offset + 5), 10);
+    const month = parseInt(packed.slice(offset + 5, offset + 7), 10);
+    const day = parseInt(packed.slice(offset + 7, offset + 9), 10);
+    const type = packed[offset + 9] as SolarEclipseType | LunarEclipseType;
     const magnitude = magnitudes[i] / 10000;
-    result[i] = {
-      date: new Date(Date.UTC(year, month - 1, day)),
-      kind,
-      type,
-      magnitude,
-    };
+    // Use setUTCFullYear to avoid JS Date's 0-99 → 1900-1999 mapping
+    const date = new Date(Date.UTC(year, month - 1, day));
+    date.setUTCFullYear(year);
+    result[i] = { date, kind, type, magnitude };
   }
   return result;
 }
@@ -74,7 +73,7 @@ function bisect(eclipses: Eclipse[], ts: number): number {
 
 /**
  * Get all eclipses (solar + lunar) for a given year, sorted by date.
- * Returns empty array for years outside the dataset range (1000–3000).
+ * Returns empty array for years outside the dataset range (-1999 to 3000).
  */
 export function getEclipsesForYear(year: number): Eclipse[] {
   if (year < ECLIPSE_DATA_RANGE.min || year > ECLIPSE_DATA_RANGE.max) return [];
