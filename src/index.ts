@@ -21,6 +21,10 @@ export type {
   WesternZodiacSign,
   WesternZodiacResult,
   TrueSolarTimeResult,
+  Eclipse,
+  EclipseKind,
+  SolarEclipseType,
+  LunarEclipseType,
 } from './types';
 
 // ── 天干 (Heavenly Stems) ──────────────────────────────────
@@ -100,6 +104,14 @@ export {
   animalFromBranch, branchFromAnimal,
   getChineseZodiac, getZodiacBySpringStart, getChineseZodiacLunarNewYear,
 } from './chinese-zodiac';
+
+// ── 日月食 (Eclipses) ────────────────────────────────────────
+export {
+  getAllSolarEclipses, getAllLunarEclipses,
+  getEclipsesForYear, getEclipsesInRange,
+  findNearestEclipse, isEclipseDate,
+  ECLIPSE_DATA_RANGE,
+} from './eclipses';
 
 // ── 星座 (Western Zodiac) ──────────────────────────────────
 export { getWesternZodiac } from './western-zodiac';

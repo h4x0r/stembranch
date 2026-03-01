@@ -88,6 +88,18 @@ export interface WesternZodiacResult {
   element: string; // Western element (Fire/Earth/Air/Water)
 }
 
+// ── 日月食 (Eclipses) ────────────────────────────────────────
+export type EclipseKind = 'solar' | 'lunar';
+export type SolarEclipseType = 'T' | 'A' | 'P' | 'H';
+export type LunarEclipseType = 'T' | 'P' | 'N';
+
+export interface Eclipse {
+  date: Date;
+  kind: EclipseKind;
+  type: SolarEclipseType | LunarEclipseType;
+  magnitude: number;
+}
+
 // ── True Solar Time ────────────────────────────────────────
 export interface TrueSolarTimeResult {
   trueSolarTime: Date;

@@ -3,3 +3,6 @@ dist/
 coverage/
 *.tsbuildinfo
 .DS_Store
+
+# Raw NASA eclipse catalog files (regenerate with: node data/generate-eclipse-data.mjs)
+data/*.txt

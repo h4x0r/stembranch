@@ -147,6 +147,7 @@ Solar term timing detail:
 | Stem/branch cycles | Lookup tables | Standard 10-stem, 12-branch sequences |
 | Lunar New Year dates | Hardcoded table | 58 dates (1990-2050) |
 | Equation of Time | Spencer 1971 Fourier | Accurate to ~30 seconds |
+| Eclipse dates | NASA Five Millennium Canon | 9,624 eclipses (1000–3000 CE) |
 
 ## API Reference
 
@@ -302,6 +303,18 @@ Solar term timing detail:
 | `ZODIAC_ENGLISH` | `Record<ChineseZodiacAnimal, string>` (鼠→Rat, etc.) |
 | `getChineseZodiac(date, boundary?)` | Zodiac with configurable year boundary |
 
+### Eclipses (日月食)
+
+| Export | Description |
+|---|---|
+| `getAllSolarEclipses()` | All solar eclipses (1000–3000 CE), sorted by date |
+| `getAllLunarEclipses()` | All lunar eclipses (1000–3000 CE), sorted by date |
+| `getEclipsesForYear(year)` | All eclipses for a given year |
+| `getEclipsesInRange(start, end, kind?)` | Eclipses in a date range, optionally filtered |
+| `findNearestEclipse(date, kind?)` | Nearest eclipse to a given date |
+| `isEclipseDate(date)` | Check if a UTC date has an eclipse |
+| `ECLIPSE_DATA_RANGE` | `{ min: 1000, max: 3000 }` |
+
 ### Western Zodiac (星座)
 
 | Export | Description |
@@ -327,6 +340,10 @@ interface HiddenStem { stem: Stem; proportion: number; }
 interface Pillar { stem: Stem; branch: Branch; }
 interface FourPillars { year: Pillar; month: Pillar; day: Pillar; hour: Pillar; }
 interface SolarTerm { name: string; longitude: number; date: Date; }
+type EclipseKind = 'solar' | 'lunar';
+type SolarEclipseType = 'T' | 'A' | 'P' | 'H';
+type LunarEclipseType = 'T' | 'P' | 'N';
+interface Eclipse { date: Date; kind: EclipseKind; type: SolarEclipseType | LunarEclipseType; magnitude: number; }
 ```
 
 ## Limitations
