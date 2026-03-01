@@ -1,6 +1,6 @@
 # stembranch
 
-Astronomical Chinese calendar computation for TypeScript.
+Astronomical Chinese calendar and 四柱八字 computation for TypeScript. Solar terms, lunar calendar, stem-branch cycles, and divination metadata — all from first principles.
 
 [![npm](https://img.shields.io/npm/v/stembranch)](https://www.npmjs.com/package/stembranch)
 [![license](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
@@ -23,7 +23,7 @@ const pillars = computeFourPillars(new Date(2024, 1, 10, 14, 30));
 npm install stembranch
 ```
 
-Zero production dependencies. Self-contained VSOP87D implementation (2,425 terms) with sub-second solar term precision.
+Zero production dependencies. Self-contained VSOP87D (2,425 terms) and Meeus Ch. 49 new moon algorithms with sub-second solar term precision and full lunar calendar computation.
 
 ## Quickstart
 
@@ -145,6 +145,10 @@ Validated against [sxwnl](https://github.com/sxwnl/sxwnl), the gold standard Chi
 | Year Pillar (年柱) | 2,412 dates | 1900-2100 | **100%** match |
 | Month Pillar (月柱) | 2,412 dates | 1900-2100 | **100%** match |
 | Solar Terms (節氣) | 4,824 terms | 1900-2100 | avg **0.6s** deviation |
+| Lunar New Year (農曆) | 61 dates | 1990-2050 | **100%** match |
+| Intercalary Months (閏月) | 10 years | 2001-2025 | **100%** match |
+
+Lunar calendar validated against Hong Kong Observatory / USNO data, including correct handling of the 二〇三三年問題 (2033 problem).
 
 Solar term timing detail:
 
@@ -162,17 +166,24 @@ Full analysis with statistical charts: [docs/accuracy.md](docs/accuracy.md)
 
 | Component | Source | Method |
 |---|---|---|
-| Solar longitude | Self-contained VSOP87D | Full 2,425-term planetary theory + DE405 correction |
+| Solar longitude | VSOP87D | Full 2,425-term planetary theory + DE405 correction |
+| New moon | Meeus Ch. 49 | 25 periodic + 14 planetary correction terms |
+| Lunar calendar | Computed | 冬至-anchor algorithm with zhongqi month numbering |
+| Julian Day | Meeus Ch. 7 | Julian/Gregorian calendar conversion |
 | DeltaT (ΔT) | Espenak & Meeus + sxwnl | Polynomial (pre-2016), sxwnl cubic table (2016-2050), parabolic extrapolation (2050+) |
 | Nutation | IAU2000B | 77-term lunisolar nutation series |
-| Day pillar | Arithmetic | Epoch: 2000-01-07 = 甲子日 |
-| Stem/branch cycles | Lookup tables | Standard 10-stem, 12-branch sequences |
-| Lunar New Year dates | Computed | Meeus Ch. 49 new moon + VSOP87D solar terms |
-| Julian Day Number | Meeus Ch. 7 | Julian/Gregorian calendar conversion |
 | Equation of Time | Spencer 1971 Fourier | Accurate to ~30 seconds |
 | Eclipse dates | NASA Five Millennium Canon | 23,962 eclipses (-1999 to 3000 CE) |
+| Day pillar | Arithmetic | Epoch: 2000-01-07 = 甲子日 |
+| Stem/branch cycles | Lookup tables | Standard 10-stem, 12-branch sequences |
 
 ## API Reference
+
+### Four Pillars (四柱)
+
+| Export | Description |
+|---|---|
+| `computeFourPillars(date)` | Compute year, month, day, and hour pillars |
 
 ### Stems and Branches
 
@@ -305,11 +316,28 @@ Full analysis with statistical charts: [docs/accuracy.md](docs/accuracy.md)
 | `findSpringStart(year)` | Exact moment of 立春 |
 | `getSolarMonthExact(date)` | Which solar month a date falls in |
 
-### Four Pillars (四柱)
+### Lunar Calendar (農曆)
 
 | Export | Description |
 |---|---|
-| `computeFourPillars(date)` | Compute year, month, day, and hour pillars |
+| `getLunarMonthsForYear(lunarYear)` | All lunar months for a year (12 or 13) |
+| `getLunarNewYear(gregorianYear)` | Lunar New Year date (正月初一) |
+| `gregorianToLunar(date)` | Convert Gregorian date to lunar date |
+
+### New Moon (朔日)
+
+| Export | Description |
+|---|---|
+| `newMoonJDE(k)` | JDE of new moon for lunation number k (Meeus Ch. 49) |
+| `findNewMoonsInRange(startJD, endJD)` | All new moon JDEs in a Julian Day range |
+
+### Julian Day Number (儒略日)
+
+| Export | Description |
+|---|---|
+| `julianDayNumber(year, month, day, calendar?)` | JD for a calendar date (Julian, Gregorian, or auto) |
+| `jdToCalendarDate(jd, calendar?)` | Convert JD back to calendar date |
+| `julianCalendarToDate(year, month, day)` | Convert a Julian calendar date to a JS Date |
 
 ### DeltaT (ΔT)
 
@@ -325,14 +353,6 @@ Full analysis with statistical charts: [docs/accuracy.md](docs/accuracy.md)
 | `equationOfTime(date)` | EoT in minutes (Spencer 1971) |
 | `trueSolarTime(clockTime, longitude, standardMeridian?)` | Corrected solar time with breakdown |
 
-### Chinese Zodiac (生肖)
-
-| Export | Description |
-|---|---|
-| `ZODIAC_ANIMALS` | `['鼠','牛','虎','兔','龍','蛇','馬','羊','猴','雞','狗','豬']` |
-| `ZODIAC_ENGLISH` | `Record<ChineseZodiacAnimal, string>` (鼠→Rat, etc.) |
-| `getChineseZodiac(date, boundary?)` | Zodiac with configurable year boundary |
-
 ### Eclipses (日月食)
 
 | Export | Description |
@@ -345,28 +365,13 @@ Full analysis with statistical charts: [docs/accuracy.md](docs/accuracy.md)
 | `isEclipseDate(date)` | Check if a UTC date has an eclipse |
 | `ECLIPSE_DATA_RANGE` | `{ min: -1999, max: 3000 }` |
 
-### Julian Day Number (儒略日)
+### Chinese Zodiac (生肖)
 
 | Export | Description |
 |---|---|
-| `julianDayNumber(year, month, day, calendar?)` | JD for a calendar date (Julian, Gregorian, or auto) |
-| `jdToCalendarDate(jd, calendar?)` | Convert JD back to calendar date |
-| `julianCalendarToDate(year, month, day)` | Convert a Julian calendar date to a JS Date |
-
-### New Moon (朔日)
-
-| Export | Description |
-|---|---|
-| `newMoonJDE(k)` | JDE of new moon for lunation number k (Meeus Ch. 49) |
-| `findNewMoonsInRange(startJD, endJD)` | All new moon JDEs in a Julian Day range |
-
-### Lunar Calendar (農曆)
-
-| Export | Description |
-|---|---|
-| `getLunarMonthsForYear(lunarYear)` | All lunar months for a year (12 or 13) |
-| `getLunarNewYear(gregorianYear)` | Lunar New Year date (正月初一) |
-| `gregorianToLunar(date)` | Convert Gregorian date to lunar date |
+| `ZODIAC_ANIMALS` | `['鼠','牛','虎','兔','龍','蛇','馬','羊','猴','雞','狗','豬']` |
+| `ZODIAC_ENGLISH` | `Record<ChineseZodiacAnimal, string>` (鼠→Rat, etc.) |
+| `getChineseZodiac(date, boundary?)` | Zodiac with configurable year boundary (立春 or 初一) |
 
 ### Western Zodiac (星座)
 
