@@ -1,0 +1,57 @@
+{
+  "name": "stembranch",
+  "version": "0.1.0",
+  "description": "Chinese calendar, astronomy, and 干支 (Heavenly Stems & Earthly Branches) computation library",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "lint": "tsc --noEmit",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "chinese-calendar",
+    "heavenly-stems",
+    "earthly-branches",
+    "tiangan",
+    "dizhi",
+    "ganzhi",
+    "four-pillars",
+    "bazi",
+    "solar-terms",
+    "wuxing",
+    "five-elements",
+    "chinese-zodiac",
+    "shengxiao",
+    "astronomy"
+  ],
+  "author": "h4x0r",
+  "license": "MIT",
+  "dependencies": {
+    "astronomy-engine": "^2.1.19"
+  },
+  "devDependencies": {
+    "tsup": "^8.4.0",
+    "typescript": "^5.7.0",
+    "vitest": "^3.0.0"
+  }
+}
