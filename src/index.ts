@@ -129,3 +129,17 @@ export { newMoonJDE, findNewMoonsInRange } from './new-moon';
 // ── 農曆 (Lunar Calendar) ──────────────────────────────────
 export { getLunarMonthsForYear, getLunarNewYear, gregorianToLunar } from './lunar-calendar';
 export type { LunarMonth, LunarDate } from './lunar-calendar';
+
+// ── 建除十二神 (Twelve Day Officers) ─────────────────────────
+export {
+  JIANCHU_OFFICERS, JIANCHU_AUSPICIOUS,
+  getJianChuOfficer, getJianChuForDate,
+} from './jianchu';
+export type { JianChuOfficer } from './jianchu';
+
+// ── 紫白九星 (Purple-White Nine Stars) ───────────────────────
+export {
+  ZI_BAI_STARS,
+  getYearStar, getMonthStar, getDayStar, getHourStar, getZiBai,
+} from './zi-bai';
+export type { ZiBaiStar, ZiBaiStarInfo } from './zi-bai';
