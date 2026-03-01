@@ -118,3 +118,14 @@ export {
 
 // ── 星座 (Western Zodiac) ──────────────────────────────────
 export { getWesternZodiac } from './western-zodiac';
+
+// ── 儒略日 (Julian Day Number) ─────────────────────────────
+export { julianDayNumber, jdToCalendarDate, julianCalendarToDate } from './julian-day';
+export type { CalendarType } from './julian-day';
+
+// ── 朔日 (New Moon) ────────────────────────────────────────
+export { newMoonJDE, findNewMoonsInRange } from './new-moon';
+
+// ── 農曆 (Lunar Calendar) ──────────────────────────────────
+export { getLunarMonthsForYear, getLunarNewYear, gregorianToLunar } from './lunar-calendar';
+export type { LunarMonth, LunarDate } from './lunar-calendar';

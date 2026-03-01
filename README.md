@@ -47,6 +47,24 @@ const springStart = findSpringStart(2024);
 // → 2024-02-04T00:27:... UTC (立春, solar longitude 315°)
 ```
 
+### Lunar Calendar (農曆)
+
+```typescript
+import { getLunarNewYear, gregorianToLunar, getLunarMonthsForYear } from 'stembranch';
+
+// Compute Lunar New Year from first principles (no lookup table)
+const lny = getLunarNewYear(2024);
+// → 2024-02-10 (Beijing midnight, expressed as UTC)
+
+// Convert a Gregorian date to a lunar date
+const lunar = gregorianToLunar(new Date(2024, 1, 10));
+// → { year: 2024, month: 1, day: 1, isLeapMonth: false }
+
+// Get all lunar months for a year (12 or 13 months)
+const months = getLunarMonthsForYear(2023);
+// → 13 months (contains 閏二月)
+```
+
 ### Ten Relations (十神)
 
 ```typescript
@@ -149,7 +167,8 @@ Full analysis with statistical charts: [docs/accuracy.md](docs/accuracy.md)
 | Nutation | IAU2000B | 77-term lunisolar nutation series |
 | Day pillar | Arithmetic | Epoch: 2000-01-07 = 甲子日 |
 | Stem/branch cycles | Lookup tables | Standard 10-stem, 12-branch sequences |
-| Lunar New Year dates | Hardcoded table | 58 dates (1990-2050) |
+| Lunar New Year dates | Computed | Meeus Ch. 49 new moon + VSOP87D solar terms |
+| Julian Day Number | Meeus Ch. 7 | Julian/Gregorian calendar conversion |
 | Equation of Time | Spencer 1971 Fourier | Accurate to ~30 seconds |
 | Eclipse dates | NASA Five Millennium Canon | 23,962 eclipses (-1999 to 3000 CE) |
 
@@ -326,6 +345,29 @@ Full analysis with statistical charts: [docs/accuracy.md](docs/accuracy.md)
 | `isEclipseDate(date)` | Check if a UTC date has an eclipse |
 | `ECLIPSE_DATA_RANGE` | `{ min: -1999, max: 3000 }` |
 
+### Julian Day Number (儒略日)
+
+| Export | Description |
+|---|---|
+| `julianDayNumber(year, month, day, calendar?)` | JD for a calendar date (Julian, Gregorian, or auto) |
+| `jdToCalendarDate(jd, calendar?)` | Convert JD back to calendar date |
+| `julianCalendarToDate(year, month, day)` | Convert a Julian calendar date to a JS Date |
+
+### New Moon (朔日)
+
+| Export | Description |
+|---|---|
+| `newMoonJDE(k)` | JDE of new moon for lunation number k (Meeus Ch. 49) |
+| `findNewMoonsInRange(startJD, endJD)` | All new moon JDEs in a Julian Day range |
+
+### Lunar Calendar (農曆)
+
+| Export | Description |
+|---|---|
+| `getLunarMonthsForYear(lunarYear)` | All lunar months for a year (12 or 13) |
+| `getLunarNewYear(gregorianYear)` | Lunar New Year date (正月初一) |
+| `gregorianToLunar(date)` | Convert Gregorian date to lunar date |
+
 ### Western Zodiac (星座)
 
 | Export | Description |
@@ -355,12 +397,11 @@ type EclipseKind = 'solar' | 'lunar';
 type SolarEclipseType = 'T' | 'A' | 'P' | 'H';
 type LunarEclipseType = 'T' | 'P' | 'N';
 interface Eclipse { date: Date; kind: EclipseKind; type: SolarEclipseType | LunarEclipseType; magnitude: number; }
+
+type CalendarType = 'julian' | 'gregorian' | 'auto';
+interface LunarMonth { monthNumber: number; isLeapMonth: boolean; startDate: Date; days: number; }
+interface LunarDate { year: number; month: number; day: number; isLeapMonth: boolean; }
 ```
-
-## Limitations
-
-- **No lunar calendar.** The library computes solar terms and stem-branch cycles. It does not compute lunar months, new moons, or 閏月 (intercalary months). The Lunar New Year zodiac function uses a hardcoded lookup table (1990-2050) with a February 1 fallback outside that range.
-- **Proleptic Gregorian calendar.** JavaScript's `Date` uses the proleptic Gregorian calendar for all dates. Day pillar computations before 1582 may differ from sxwnl, which uses the Julian calendar for those dates.
 
 ## License
 
