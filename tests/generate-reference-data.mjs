@@ -77,7 +77,7 @@ function generateDayPillarData() {
   const results = [];
 
   // Sample every 57 days (59 is prime, co-prime with 60) from 1583-01-01 to 2500-12-31
-  // This ensures we hit all 60 GanZhi combinations across the range
+  // This ensures we hit all 60 stem-branch combinations across the range
   const startJD = runInContext('JD.JD(1583, 1, 1)', sxwnl);
   const endJD = runInContext('JD.JD(2500, 12, 31)', sxwnl);
 
@@ -93,9 +93,9 @@ function generateDayPillarData() {
     results.push({
       date: dateStr,
       d0,
-      ganzhi: gz,
-      ganIdx,
-      zhiIdx,
+      stemBranch: gz,
+      stemIdx: ganIdx,
+      branchIdx: zhiIdx,
     });
   }
 
@@ -164,13 +164,13 @@ function generateYearMonthPillarData() {
   const results = [];
 
   for (let year = 1900; year <= 2100; year++) {
-    // Compute lichun for this year
-    const approxLichunD0 = (year - 2000) * 365.2422 + 3 * 15.2184 - 10;
-    let lichunD0;
+    // Compute spring start (立春) for this year
+    const approxSpringD0 = (year - 2000) * 365.2422 + 3 * 15.2184 - 10;
+    let springStartD0;
     try {
-      lichunD0 = runInContext(`obb.qi_accurate2(${approxLichunD0})`, sxwnl);
+      springStartD0 = runInContext(`obb.qi_accurate2(${approxSpringD0})`, sxwnl);
     } catch (e) {
-      console.warn(`  Warning: Failed lichun for ${year}: ${e.message}`);
+      console.warn(`  Warning: Failed spring start for ${year}: ${e.message}`);
       continue;
     }
 
@@ -205,8 +205,8 @@ function generateYearMonthPillarData() {
       const d0 = Math.floor(jd + 0.5) - J2000;
 
       // Year pillar
-      const isAfterLichun = d0 >= Math.floor(lichunD0);
-      const effectiveYear = isAfterLichun ? year : year - 1;
+      const isAfterSpringStart = d0 >= Math.floor(springStartD0);
+      const effectiveYear = isAfterSpringStart ? year : year - 1;
       const yearStemIdx = ((effectiveYear - 4) % 10 + 10) % 10;
       const yearBranchIdx = ((effectiveYear - 4) % 12 + 12) % 12;
       const yearGZ = Gan[yearStemIdx] + Zhi[yearBranchIdx];
@@ -238,15 +238,15 @@ function generateYearMonthPillarData() {
 
       results.push({
         date: `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`,
-        yearGanzhi: yearGZ,
+        yearStemBranch: yearGZ,
         yearStemIdx,
         yearBranchIdx,
         effectiveYear,
-        monthGanzhi: monthGZ,
+        monthStemBranch: monthGZ,
         monthStemIdx,
         monthBranchIdx,
         solarMonthIdx,
-        dayGanzhi: dayGZ,
+        dayStemBranch: dayGZ,
       });
     }
 

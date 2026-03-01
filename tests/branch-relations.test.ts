@@ -1,49 +1,49 @@
 import { describe, it, expect } from 'vitest';
-import { LIUHE_PAIRS, LIUCHONG_PAIRS, isLiuHe, isLiuChong, getDayRelation } from '../src/dizhi-relations';
+import { HARMONY_PAIRS, CLASH_PAIRS, isHarmony, isClash, getDayRelation } from '../src/branch-relations';
 
-describe('LIUHE_PAIRS', () => {
+describe('HARMONY_PAIRS', () => {
   it('has 6 harmony pairs', () => {
-    expect(LIUHE_PAIRS).toHaveLength(6);
+    expect(HARMONY_PAIRS).toHaveLength(6);
   });
 });
 
-describe('LIUCHONG_PAIRS', () => {
+describe('CLASH_PAIRS', () => {
   it('has 6 clash pairs', () => {
-    expect(LIUCHONG_PAIRS).toHaveLength(6);
+    expect(CLASH_PAIRS).toHaveLength(6);
   });
 });
 
-describe('isLiuHe', () => {
+describe('isHarmony', () => {
   it('detects harmony pairs', () => {
-    expect(isLiuHe('子', '丑')).toBe(true);
-    expect(isLiuHe('寅', '亥')).toBe(true);
-    expect(isLiuHe('午', '未')).toBe(true);
+    expect(isHarmony('子', '丑')).toBe(true);
+    expect(isHarmony('寅', '亥')).toBe(true);
+    expect(isHarmony('午', '未')).toBe(true);
   });
 
   it('is bidirectional', () => {
-    expect(isLiuHe('丑', '子')).toBe(true);
-    expect(isLiuHe('亥', '寅')).toBe(true);
+    expect(isHarmony('丑', '子')).toBe(true);
+    expect(isHarmony('亥', '寅')).toBe(true);
   });
 
   it('rejects non-harmony pairs', () => {
-    expect(isLiuHe('子', '午')).toBe(false);
-    expect(isLiuHe('子', '子')).toBe(false);
+    expect(isHarmony('子', '午')).toBe(false);
+    expect(isHarmony('子', '子')).toBe(false);
   });
 });
 
-describe('isLiuChong', () => {
+describe('isClash', () => {
   it('detects clash pairs', () => {
-    expect(isLiuChong('子', '午')).toBe(true);
-    expect(isLiuChong('寅', '申')).toBe(true);
-    expect(isLiuChong('巳', '亥')).toBe(true);
+    expect(isClash('子', '午')).toBe(true);
+    expect(isClash('寅', '申')).toBe(true);
+    expect(isClash('巳', '亥')).toBe(true);
   });
 
   it('is bidirectional', () => {
-    expect(isLiuChong('午', '子')).toBe(true);
+    expect(isClash('午', '子')).toBe(true);
   });
 
   it('rejects non-clash pairs', () => {
-    expect(isLiuChong('子', '丑')).toBe(false);
+    expect(isClash('子', '丑')).toBe(false);
   });
 });
 

@@ -28,7 +28,7 @@ export const SOLAR_TERM_LONGITUDES: readonly number[] = [
  * 小寒(0), 立春(2), 驚蟄(4), 清明(6), 立夏(8), 芒種(10),
  * 小暑(12), 立秋(14), 白露(16), 寒露(18), 立冬(20), 大雪(22)
  */
-export const JIE_INDICES = [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22] as const;
+export const MONTH_BOUNDARY_INDICES = [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22] as const;
 
 function astroTimeToDate(at: AstroTime): Date {
   return at.date;
@@ -74,10 +74,10 @@ export function getSolarTermsForYear(year: number): SolarTerm[] {
 
 /**
  * Find the exact moment of 立春 (Start of Spring) for a given year.
- * This is the year boundary in the 立春派 (Lichun school) system.
+ * This is the year boundary in the 立春派 (Spring Start school) system.
  * Solar longitude = 315°.
  */
-export function findLichun(year: number): Date {
+export function findSpringStart(year: number): Date {
   return findSolarTermMoment(315, year, 1);
 }
 
@@ -85,9 +85,9 @@ export function findLichun(year: number): Date {
  * Get the 12 節 (Jie) terms for a year — these define month boundaries.
  * Returns them in chronological order: 小寒, 立春, 驚蟄, ..., 大雪
  */
-export function getJieTermsForYear(year: number): SolarTerm[] {
+export function getMonthBoundaryTerms(year: number): SolarTerm[] {
   const all = getSolarTermsForYear(year);
-  return JIE_INDICES.map(i => all[i]);
+  return MONTH_BOUNDARY_INDICES.map(i => all[i]);
 }
 
 /**
@@ -100,8 +100,8 @@ export function getSolarMonthExact(date: Date): { monthIndex: number; effectiveY
   const year = date.getFullYear();
 
   // Get 節 terms for current and previous year (needed for 小寒/丑月 boundary)
-  const jieTerms = getJieTermsForYear(year);
-  const prevJieTerms = getJieTermsForYear(year - 1);
+  const jieTerms = getMonthBoundaryTerms(year);
+  const prevJieTerms = getMonthBoundaryTerms(year - 1);
 
   // Check each 節 boundary from latest to earliest
   // j=0 is 小寒 (丑月), j=1 is 立春 (寅月), ..., j=11 is 大雪 (子月)
@@ -109,7 +109,7 @@ export function getSolarMonthExact(date: Date): { monthIndex: number; effectiveY
   for (let j = 11; j >= 0; j--) {
     if (date >= jieTerms[j].date) {
       const monthIndex = (j - 1 + 12) % 12;
-      // 小寒 (j=0) is still in the previous GanZhi year (before 立春)
+      // 小寒 (j=0) is still in the previous Stem-Branch year (before 立春)
       const effectiveYear = j >= 1 ? year : year - 1;
       return { monthIndex, effectiveYear };
     }

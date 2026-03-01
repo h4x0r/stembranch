@@ -1,8 +1,8 @@
 import { describe, it, expect, vi } from 'vitest';
 import {
-  SOLAR_TERM_NAMES, SOLAR_TERM_LONGITUDES, JIE_INDICES,
-  findSolarTermMoment, getSolarTermsForYear, findLichun,
-  getJieTermsForYear, getSolarMonthExact,
+  SOLAR_TERM_NAMES, SOLAR_TERM_LONGITUDES, MONTH_BOUNDARY_INDICES,
+  findSolarTermMoment, getSolarTermsForYear, findSpringStart,
+  getMonthBoundaryTerms, getSolarMonthExact,
 } from '../src/solar-terms';
 
 describe('SOLAR_TERM_NAMES', () => {
@@ -32,9 +32,9 @@ describe('SOLAR_TERM_LONGITUDES', () => {
   });
 });
 
-describe('JIE_INDICES', () => {
+describe('MONTH_BOUNDARY_INDICES', () => {
   it('has 12 節 terms', () => {
-    expect(JIE_INDICES).toHaveLength(12);
+    expect(MONTH_BOUNDARY_INDICES).toHaveLength(12);
   });
 });
 
@@ -65,18 +65,18 @@ describe('findSolarTermMoment', () => {
   });
 });
 
-describe('findLichun', () => {
+describe('findSpringStart', () => {
   it('returns 立春 around Feb 3-5', () => {
-    const lichun2024 = findLichun(2024);
-    expect(lichun2024.getMonth()).toBe(1); // February
-    expect(lichun2024.getDate()).toBeGreaterThanOrEqual(3);
-    expect(lichun2024.getDate()).toBeLessThanOrEqual(5);
+    const springStart2024 = findSpringStart(2024);
+    expect(springStart2024.getMonth()).toBe(1); // February
+    expect(springStart2024.getDate()).toBeGreaterThanOrEqual(3);
+    expect(springStart2024.getDate()).toBeLessThanOrEqual(5);
   });
 
   it('returns date in February for various years', () => {
     for (const year of [2020, 2021, 2022, 2023, 2025]) {
-      const lichun = findLichun(year);
-      expect(lichun.getMonth()).toBe(1);
+      const springStart = findSpringStart(year);
+      expect(springStart.getMonth()).toBe(1);
     }
   });
 });
@@ -97,9 +97,9 @@ describe('getSolarTermsForYear', () => {
   });
 });
 
-describe('getJieTermsForYear', () => {
+describe('getMonthBoundaryTerms', () => {
   it('returns 12 節 terms', () => {
-    const jie = getJieTermsForYear(2024);
+    const jie = getMonthBoundaryTerms(2024);
     expect(jie).toHaveLength(12);
     expect(jie[0].name).toBe('小寒');
     expect(jie[1].name).toBe('立春');

@@ -1,24 +1,24 @@
 // ── 天干 (Heavenly Stems) ──────────────────────────────────
-export type TianGan = '甲' | '乙' | '丙' | '丁' | '戊' | '己' | '庚' | '辛' | '壬' | '癸';
+export type Stem = '甲' | '乙' | '丙' | '丁' | '戊' | '己' | '庚' | '辛' | '壬' | '癸';
 
 // ── 地支 (Earthly Branches) ────────────────────────────────
-export type DiZhi = '子' | '丑' | '寅' | '卯' | '辰' | '巳' | '午' | '未' | '申' | '酉' | '戌' | '亥';
+export type Branch = '子' | '丑' | '寅' | '卯' | '辰' | '巳' | '午' | '未' | '申' | '酉' | '戌' | '亥';
 
 // ── 干支 (Stem-Branch pair) ────────────────────────────────
-export type GanZhi = `${TianGan}${DiZhi}`;
+export type StemBranch = `${Stem}${Branch}`;
 
 // ── 五行 (Five Elements) ───────────────────────────────────
-export type WuXing = '金' | '木' | '水' | '火' | '土';
+export type Element = '金' | '木' | '水' | '火' | '土';
 
-export type WuXingRelationship = '生' | '剋' | '被生' | '被剋' | '比和';
+export type ElementRelation = '生' | '剋' | '被生' | '被剋' | '比和';
 
 // ── 旺相休囚死 (Qi Strength) ───────────────────────────────
-export type QiStrength = '旺' | '相' | '休' | '囚' | '死';
+export type Strength = '旺' | '相' | '休' | '囚' | '死';
 
 // ── 四柱 (Four Pillars) ────────────────────────────────────
 export interface Pillar {
-  stem: TianGan;
-  branch: DiZhi;
+  stem: Stem;
+  branch: Branch;
 }
 
 export interface FourPillars {
@@ -43,11 +43,11 @@ export type ChineseZodiacAnimal =
   | '鼠' | '牛' | '虎' | '兔' | '龍' | '蛇'
   | '馬' | '羊' | '猴' | '雞' | '狗' | '豬';
 
-export type YearBoundary = 'lichun' | 'lunar-new-year';
+export type YearBoundary = 'spring-start' | 'lunar-new-year';
 
 export interface ChineseZodiacResult {
   animal: ChineseZodiacAnimal;
-  branch: DiZhi;
+  branch: Branch;
   yearBoundary: YearBoundary;
   effectiveYear: number;
 }

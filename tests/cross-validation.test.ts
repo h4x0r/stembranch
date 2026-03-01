@@ -31,9 +31,9 @@ import yearMonthFixtures from './fixtures/sxwnl-year-month-pillars.json';
 interface DayPillarRef {
   date: string;
   d0: number;
-  ganzhi: string;
-  ganIdx: number;
-  zhiIdx: number;
+  stemBranch: string;
+  stemIdx: number;
+  branchIdx: number;
 }
 
 interface SolarTermRef {
@@ -48,15 +48,15 @@ interface SolarTermRef {
 
 interface YearMonthRef {
   date: string;
-  yearGanzhi: string;
+  yearStemBranch: string;
   yearStemIdx: number;
   yearBranchIdx: number;
   effectiveYear: number;
-  monthGanzhi: string;
+  monthStemBranch: string;
   monthStemIdx: number;
   monthBranchIdx: number;
   solarMonthIdx: number;
-  dayGanzhi: string;
+  dayStemBranch: string;
 }
 
 // ─── Helpers ────────────────────────────────────────────────────────────
@@ -92,12 +92,12 @@ describe('Cross-validation: Day Pillar (日柱) vs sxwnl', () => {
       const pillars = computeFourPillars(localDate, { exact: false });
       const computed = `${pillars.day.stem}${pillars.day.branch}`;
 
-      if (computed === ref.ganzhi) {
+      if (computed === ref.stemBranch) {
         matches++;
       } else {
         mismatches++;
         if (errors.length < 10)
-          errors.push(`${ref.date}: expected ${ref.ganzhi}, got ${computed}`);
+          errors.push(`${ref.date}: expected ${ref.stemBranch}, got ${computed}`);
       }
     }
 
@@ -227,13 +227,13 @@ describe('Cross-validation: Year Pillar (年柱) vs sxwnl', () => {
         const pillars = computeFourPillars(localDate);
         const computed = `${pillars.year.stem}${pillars.year.branch}`;
 
-        if (computed === ref.yearGanzhi) {
+        if (computed === ref.yearStemBranch) {
           matches++;
         } else {
           mismatches++;
           if (errors.length < 10)
             errors.push(
-              `${ref.date}: expected ${ref.yearGanzhi} (effectiveYear=${ref.effectiveYear}), got ${computed}`,
+              `${ref.date}: expected ${ref.yearStemBranch} (effectiveYear=${ref.effectiveYear}), got ${computed}`,
             );
         }
       }
@@ -274,7 +274,7 @@ describe('Cross-validation: Month Pillar (月柱) vs sxwnl', () => {
         const pillars = computeFourPillars(localDate);
         const computed = `${pillars.month.stem}${pillars.month.branch}`;
 
-        if (computed === ref.monthGanzhi) {
+        if (computed === ref.monthStemBranch) {
           matches++;
         } else {
           mismatches++;
@@ -282,7 +282,7 @@ describe('Cross-validation: Month Pillar (月柱) vs sxwnl', () => {
           mismatchMonths[key] = (mismatchMonths[key] || 0) + 1;
           if (errors.length < 5)
             errors.push(
-              `${ref.date}: expected ${ref.monthGanzhi} (solarMonth=${ref.solarMonthIdx}), got ${computed}`,
+              `${ref.date}: expected ${ref.monthStemBranch} (solarMonth=${ref.solarMonthIdx}), got ${computed}`,
             );
         }
       }
@@ -344,7 +344,7 @@ describe('Cross-validation: Day Pillar (supplementary) vs sxwnl', () => {
       const pillars = computeFourPillars(localDate, { exact: false });
       const computed = `${pillars.day.stem}${pillars.day.branch}`;
 
-      if (computed === ref.dayGanzhi) {
+      if (computed === ref.dayStemBranch) {
         matches++;
       } else {
         mismatches++;

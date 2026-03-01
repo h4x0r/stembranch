@@ -1,7 +1,7 @@
 /* c8 ignore next */
-import type { DiZhi, ChineseZodiacAnimal, ChineseZodiacResult, YearBoundary } from './types';
-import { DIZHI } from './dizhi';
-import { findLichun } from './solar-terms';
+import type { Branch, ChineseZodiacAnimal, ChineseZodiacResult, YearBoundary } from './types';
+import { BRANCHES } from './branches';
+import { findSpringStart } from './solar-terms';
 
 /** 生肖 (Chinese Zodiac Animals) mapped to 地支 in order */
 export const ZODIAC_ANIMALS: readonly ChineseZodiacAnimal[] = [
@@ -17,31 +17,31 @@ export const ZODIAC_ENGLISH: Record<ChineseZodiacAnimal, string> = {
 };
 
 /** Get the zodiac animal for a given branch */
-export function animalFromBranch(branch: DiZhi): ChineseZodiacAnimal {
-  return ZODIAC_ANIMALS[DIZHI.indexOf(branch)];
+export function animalFromBranch(branch: Branch): ChineseZodiacAnimal {
+  return ZODIAC_ANIMALS[BRANCHES.indexOf(branch)];
 }
 
 /** Get the branch for a given zodiac animal */
-export function branchFromAnimal(animal: ChineseZodiacAnimal): DiZhi {
-  return DIZHI[ZODIAC_ANIMALS.indexOf(animal)];
+export function branchFromAnimal(animal: ChineseZodiacAnimal): Branch {
+  return BRANCHES[ZODIAC_ANIMALS.indexOf(animal)];
 }
 
 /**
- * 立春派 (Lichun School): Year changes at 立春 (Start of Spring, solar longitude 315°).
+ * 立春派 (Spring Start School): Year changes at 立春 (Start of Spring, solar longitude 315°).
  * Used in traditional 四柱八字 (Four Pillars of Destiny) and most 術數 systems.
  *
  * @param date - Date to determine zodiac for
  * @returns Chinese zodiac result with the effective year boundary
  */
-export function getChineseZodiacLichun(date: Date): ChineseZodiacResult {
+export function getZodiacBySpringStart(date: Date): ChineseZodiacResult {
   const year = date.getFullYear();
-  const lichun = findLichun(year);
-  const effectiveYear = date >= lichun ? year : year - 1;
+  const springStart = findSpringStart(year);
+  const effectiveYear = date >= springStart ? year : year - 1;
   const branchIndex = ((effectiveYear - 4) % 12 + 12) % 12;
-  const branch = DIZHI[branchIndex];
+  const branch = BRANCHES[branchIndex];
   const animal = ZODIAC_ANIMALS[branchIndex];
 
-  return { animal, branch, yearBoundary: 'lichun', effectiveYear };
+  return { animal, branch, yearBoundary: 'spring-start', effectiveYear };
 }
 
 /**
@@ -59,7 +59,7 @@ export function getChineseZodiacLunarNewYear(date: Date): ChineseZodiacResult {
   const lnyDate = lunarNewYearDate(year);
   const effectiveYear = date >= lnyDate ? year : year - 1;
   const branchIndex = ((effectiveYear - 4) % 12 + 12) % 12;
-  const branch = DIZHI[branchIndex];
+  const branch = BRANCHES[branchIndex];
   const animal = ZODIAC_ANIMALS[branchIndex];
 
   return { animal, branch, yearBoundary: 'lunar-new-year', effectiveYear };
@@ -70,15 +70,15 @@ export function getChineseZodiacLunarNewYear(date: Date): ChineseZodiacResult {
  *
  * @param date - Date to determine zodiac for
  * @param boundary - Which year boundary convention to use:
- *   - 'lichun' (default): 立春派 — year starts at 立春 (astronomy-based, exact)
+ *   - 'spring-start' (default): 立春派 — year starts at 立春 (astronomy-based, exact)
  *   - 'lunar-new-year': 初一派 — year starts at lunar new year (approximation)
  */
 export function getChineseZodiac(
   date: Date,
-  boundary: YearBoundary = 'lichun',
+  boundary: YearBoundary = 'spring-start',
 ): ChineseZodiacResult {
-  return boundary === 'lichun'
-    ? getChineseZodiacLichun(date)
+  return boundary === 'spring-start'
+    ? getZodiacBySpringStart(date)
     : getChineseZodiacLunarNewYear(date);
 }
 

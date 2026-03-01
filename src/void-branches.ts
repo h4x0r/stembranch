@@ -1,7 +1,7 @@
 /* c8 ignore next */
-import type { TianGan, DiZhi } from './types';
-import { TIANGAN } from './tiangan';
-import { DIZHI } from './dizhi';
+import type { Stem, Branch } from './types';
+import { STEMS } from './stems';
+import { BRANCHES } from './branches';
 
 /**
  * 旬空 (Void Branches) from a day pillar.
@@ -13,11 +13,11 @@ import { DIZHI } from './dizhi';
  * @param dayBranch - Day pillar earthly branch
  * @returns Tuple of the two void branches
  */
-export function computeXunKong(dayStem: TianGan, dayBranch: DiZhi): [DiZhi, DiZhi] {
-  const s = TIANGAN.indexOf(dayStem);
-  const b = DIZHI.indexOf(dayBranch);
+export function computeVoidBranches(dayStem: Stem, dayBranch: Branch): [Branch, Branch] {
+  const s = STEMS.indexOf(dayStem);
+  const b = BRANCHES.indexOf(dayBranch);
   const startBranch = ((b - s) % 12 + 12) % 12;
-  const void1 = DIZHI[(startBranch + 10) % 12];
-  const void2 = DIZHI[(startBranch + 11) % 12];
+  const void1 = BRANCHES[(startBranch + 10) % 12];
+  const void2 = BRANCHES[(startBranch + 11) % 12];
   return [void1, void2];
 }

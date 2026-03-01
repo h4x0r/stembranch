@@ -1,8 +1,8 @@
 /* c8 ignore next */
-import type { TianGan, DiZhi, FourPillars } from './types';
-import { TIANGAN, tianganByIndex } from './tiangan';
-import { DIZHI, dizhiByIndex } from './dizhi';
-import { findLichun, getSolarMonthExact } from './solar-terms';
+import type { Stem, Branch, FourPillars } from './types';
+import { STEMS, stemByIndex } from './stems';
+import { BRANCHES, branchByIndex } from './branches';
+import { findSpringStart, getSolarMonthExact } from './solar-terms';
 
 // ── Helpers ─────────────────────────────────────────────────
 
@@ -66,12 +66,12 @@ export function computeFourPillars(date: Date, options: ComputeOptions = {}): Fo
   // ── 年柱 (Year Pillar) — year changes at 立春 ──
   let effectiveYear: number;
   if (exact) {
-    const lichun = findLichun(year);
-    effectiveYear = date >= lichun ? year : year - 1;
+    const springStart = findSpringStart(year);
+    effectiveYear = date >= springStart ? year : year - 1;
   } else {
-    const lichunMd = 204; // ~Feb 4
+    const springStartMd = 204; // ~Feb 4
     const dateMd = month * 100 + day;
-    effectiveYear = dateMd >= lichunMd ? year : year - 1;
+    effectiveYear = dateMd >= springStartMd ? year : year - 1;
   }
 
   const yearStemIdx = ((effectiveYear - 4) % 10 + 10) % 10;
@@ -94,9 +94,9 @@ export function computeFourPillars(date: Date, options: ComputeOptions = {}): Fo
   // ── 日柱 (Day Pillar) — 60-cycle from epoch ──
   // Reference: 2000-01-07 = 甲子日 → offset = 17
   const days = utcDays(year, month, day);
-  const dayGanZhiIdx = ((days % 60) + 17 + 60) % 60;
-  const dayStemIdx = dayGanZhiIdx % 10;
-  const dayBranchIdx = dayGanZhiIdx % 12;
+  const dayStemBranchIdx = ((days % 60) + 17 + 60) % 60;
+  const dayStemIdx = dayStemBranchIdx % 10;
+  const dayBranchIdx = dayStemBranchIdx % 12;
 
   // ── 時柱 (Hour Pillar) ──
   // 子時 = 23:00-00:59 (crosses calendar days)
@@ -115,9 +115,9 @@ export function computeFourPillars(date: Date, options: ComputeOptions = {}): Fo
   const hourStemIdx = (firstHourStem + hourBranchIdx) % 10;
 
   return {
-    year: { stem: tianganByIndex(yearStemIdx), branch: dizhiByIndex(yearBranchIdx) },
-    month: { stem: tianganByIndex(monthStemIdx), branch: dizhiByIndex(monthBranchIdx) },
-    day: { stem: tianganByIndex(dayStemIdx), branch: dizhiByIndex(dayBranchIdx) },
-    hour: { stem: tianganByIndex(hourStemIdx), branch: dizhiByIndex(hourBranchIdx) },
+    year: { stem: stemByIndex(yearStemIdx), branch: branchByIndex(yearBranchIdx) },
+    month: { stem: stemByIndex(monthStemIdx), branch: branchByIndex(monthBranchIdx) },
+    day: { stem: stemByIndex(dayStemIdx), branch: branchByIndex(dayBranchIdx) },
+    hour: { stem: stemByIndex(hourStemIdx), branch: branchByIndex(hourBranchIdx) },
   };
 }

@@ -1,11 +1,11 @@
 // ── Types ──────────────────────────────────────────────────
 export type {
-  TianGan,
-  DiZhi,
-  GanZhi,
-  WuXing,
-  WuXingRelationship,
-  QiStrength,
+  Stem,
+  Branch,
+  StemBranch,
+  Element,
+  ElementRelation,
+  Strength,
   Pillar,
   FourPillars,
   DayRelation,
@@ -19,34 +19,34 @@ export type {
 } from './types';
 
 // ── 天干 (Heavenly Stems) ──────────────────────────────────
-export { TIANGAN, TIANGAN_ELEMENT, tianganYinYang, tianganByIndex } from './tiangan';
+export { STEMS, STEM_ELEMENT, stemPolarity, stemByIndex } from './stems';
 
 // ── 地支 (Earthly Branches) ────────────────────────────────
-export { DIZHI, DIZHI_ELEMENT, dizhiYinYang, dizhiByIndex, dizhiFromHour, dizhiFromMonth } from './dizhi';
+export { BRANCHES, BRANCH_ELEMENT, branchPolarity, branchByIndex, branchFromHour, branchFromMonth } from './branches';
 
 // ── 五行 (Five Elements) ───────────────────────────────────
-export { SHENG_CYCLE, KE_CYCLE, getRelationship, WUXING_ORDER } from './wuxing';
+export { GENERATIVE_CYCLE, CONQUERING_CYCLE, getElementRelation, ELEMENT_ORDER } from './elements';
 
 // ── 干支 (Sexagenary Cycle) ────────────────────────────────
-export { makeGanZhi, ganzhiByCycleIndex, ganzhiCycleIndex, parseGanZhi, allSixtyGanZhi } from './ganzhi';
+export { makeStemBranch, stemBranchByCycleIndex, stemBranchCycleIndex, parseStemBranch, allSixtyStemBranch } from './stem-branch';
 
 // ── 地支關係 (Branch Relations) ─────────────────────────────
 export {
-  LIUHE_PAIRS, LIUCHONG_PAIRS,
-  isLiuHe, isLiuChong, getDayRelation,
-} from './dizhi-relations';
+  HARMONY_PAIRS, CLASH_PAIRS,
+  isHarmony, isClash, getDayRelation,
+} from './branch-relations';
 
-// ── 旺相休囚死 (Qi Strength) ───────────────────────────────
-export { QI_MOON, getQiStrength } from './qi-strength';
+// ── 旺相休囚死 (Element Strength) ───────────────────────────
+export { STRENGTH, getStrength } from './element-strength';
 
 // ── 旬空 (Void Branches) ──────────────────────────────────
-export { computeXunKong } from './xunkong';
+export { computeVoidBranches } from './void-branches';
 
 // ── 節氣 (Solar Terms) ─────────────────────────────────────
 export {
-  SOLAR_TERM_NAMES, SOLAR_TERM_LONGITUDES, JIE_INDICES,
-  findSolarTermMoment, getSolarTermsForYear, findLichun,
-  getJieTermsForYear, getSolarMonthExact,
+  SOLAR_TERM_NAMES, SOLAR_TERM_LONGITUDES, MONTH_BOUNDARY_INDICES,
+  findSolarTermMoment, getSolarTermsForYear, findSpringStart,
+  getMonthBoundaryTerms, getSolarMonthExact,
 } from './solar-terms';
 
 // ── 四柱 (Four Pillars) ────────────────────────────────────
@@ -60,7 +60,7 @@ export { equationOfTime, trueSolarTime } from './true-solar-time';
 export {
   ZODIAC_ANIMALS, ZODIAC_ENGLISH,
   animalFromBranch, branchFromAnimal,
-  getChineseZodiac, getChineseZodiacLichun, getChineseZodiacLunarNewYear,
+  getChineseZodiac, getZodiacBySpringStart, getChineseZodiacLunarNewYear,
 } from './chinese-zodiac';
 
 // ── 星座 (Western Zodiac) ──────────────────────────────────

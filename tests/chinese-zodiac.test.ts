@@ -2,7 +2,7 @@ import { describe, it, expect } from 'vitest';
 import {
   ZODIAC_ANIMALS, ZODIAC_ENGLISH,
   animalFromBranch, branchFromAnimal,
-  getChineseZodiac, getChineseZodiacLichun,
+  getChineseZodiac, getZodiacBySpringStart,
 } from '../src/chinese-zodiac';
 
 describe('ZODIAC_ANIMALS', () => {
@@ -49,38 +49,38 @@ describe('branchFromAnimal', () => {
   });
 });
 
-describe('getChineseZodiacLichun', () => {
+describe('getZodiacBySpringStart', () => {
   it('2024 after 立春 = 龍 (甲辰)', () => {
-    const result = getChineseZodiacLichun(new Date(2024, 2, 1));
+    const result = getZodiacBySpringStart(new Date(2024, 2, 1));
     expect(result.animal).toBe('龍');
     expect(result.branch).toBe('辰');
     expect(result.effectiveYear).toBe(2024);
   });
 
   it('2024 before 立春 = 兔 (癸卯)', () => {
-    const result = getChineseZodiacLichun(new Date(2024, 0, 15));
+    const result = getZodiacBySpringStart(new Date(2024, 0, 15));
     expect(result.animal).toBe('兔');
     expect(result.branch).toBe('卯');
     expect(result.effectiveYear).toBe(2023);
   });
 
   it('2000 = 龍 (庚辰)', () => {
-    const result = getChineseZodiacLichun(new Date(2000, 5, 1));
+    const result = getZodiacBySpringStart(new Date(2000, 5, 1));
     expect(result.animal).toBe('龍');
     expect(result.branch).toBe('辰');
   });
 
   it('2025 after 立春 = 蛇 (乙巳)', () => {
-    const result = getChineseZodiacLichun(new Date(2025, 2, 1));
+    const result = getZodiacBySpringStart(new Date(2025, 2, 1));
     expect(result.animal).toBe('蛇');
     expect(result.branch).toBe('巳');
   });
 });
 
 describe('getChineseZodiac', () => {
-  it('defaults to lichun boundary', () => {
+  it('defaults to spring-start boundary', () => {
     const result = getChineseZodiac(new Date(2024, 5, 1));
-    expect(result.yearBoundary).toBe('lichun');
+    expect(result.yearBoundary).toBe('spring-start');
     expect(result.animal).toBe('龍');
   });
 
