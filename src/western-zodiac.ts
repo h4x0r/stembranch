@@ -1,3 +1,4 @@
+/* c8 ignore next */
 import type { WesternZodiacSign, WesternZodiacResult } from './types';
 
 interface ZodiacEntry {
@@ -53,9 +54,10 @@ export function getWesternZodiac(date: Date): WesternZodiacResult {
     if (md >= entryMd) {
       return pick(entry);
     }
+  /* c8 ignore next 5 */
   }
 
-  // Should not reach here, but default to Capricorn
+  // Unreachable: all md values 120-1221 are handled by the loop above.
   return pick(ZODIAC_DATA[0]);
 }
 

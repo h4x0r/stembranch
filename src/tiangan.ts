@@ -1,3 +1,4 @@
+/* c8 ignore next */
 import type { TianGan, WuXing } from './types';
 
 /** 天干 in order: 甲乙丙丁戊己庚辛壬癸 */

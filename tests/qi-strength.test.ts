@@ -43,3 +43,12 @@ describe('QI_MOON', () => {
     expect(Object.keys(QI_MOON)).toHaveLength(5);
   });
 });
+
+describe('getQiStrength edge cases', () => {
+  it('returns 休 fallback for invalid monthBranch', () => {
+    // Cast an invalid branch value to trigger the !monthElement guard
+    const result = getQiStrength('木', 'X' as any);
+    expect(result.label).toBe('休');
+    expect(result.moon).toBe('🌓');
+  });
+});

@@ -90,3 +90,43 @@ describe('getChineseZodiac', () => {
     expect(result.animal).toBe('龍');
   });
 });
+
+import { getChineseZodiacLunarNewYear } from '../src/chinese-zodiac';
+
+describe('getChineseZodiacLunarNewYear', () => {
+  it('correctly determines zodiac after lunar new year', () => {
+    // 2024 LNY is Jan 10 → date in March is after LNY
+    const result = getChineseZodiacLunarNewYear(new Date(2024, 2, 15));
+    expect(result.animal).toBe('龍');
+    expect(result.branch).toBe('辰');
+    expect(result.effectiveYear).toBe(2024);
+    expect(result.yearBoundary).toBe('lunar-new-year');
+  });
+
+  it('correctly determines zodiac before lunar new year', () => {
+    // 2024 LNY is Feb 10 → date Jan 5 is before LNY → effective year 2023
+    const result = getChineseZodiacLunarNewYear(new Date(2024, 0, 5));
+    expect(result.animal).toBe('兔');
+    expect(result.branch).toBe('卯');
+    expect(result.effectiveYear).toBe(2023);
+    expect(result.yearBoundary).toBe('lunar-new-year');
+  });
+
+  it('falls back to Feb 1 approximation for years not in LNY_DATA', () => {
+    // Year 1800 is not in the lookup table → falls back to Feb 1
+    const beforeFallback = getChineseZodiacLunarNewYear(new Date(1800, 0, 15));
+    expect(beforeFallback.effectiveYear).toBe(1799); // before Feb 1 → previous year
+
+    const afterFallback = getChineseZodiacLunarNewYear(new Date(1800, 1, 15));
+    expect(afterFallback.effectiveYear).toBe(1800); // after Feb 1 → current year
+  });
+});
+
+describe('getChineseZodiac with lunar-new-year before LNY date', () => {
+  it('returns previous year zodiac when date is before LNY', () => {
+    // Ensure the lunar-new-year branch in getChineseZodiac is fully covered
+    const result = getChineseZodiac(new Date(2024, 0, 5), 'lunar-new-year');
+    expect(result.yearBoundary).toBe('lunar-new-year');
+    expect(result.effectiveYear).toBe(2023);
+  });
+});

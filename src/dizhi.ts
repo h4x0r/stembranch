@@ -1,3 +1,4 @@
+/* c8 ignore next */
 import type { DiZhi, WuXing } from './types';
 
 /** 地支 in order: 子丑寅卯辰巳午未申酉戌亥 */

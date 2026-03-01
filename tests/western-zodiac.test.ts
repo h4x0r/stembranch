@@ -15,6 +15,11 @@ describe('getWesternZodiac', () => {
     expect(result.sign).toBe('Taurus');
   });
 
+  it('Gemini (May 21 - Jun 20)', () => {
+    const result = getWesternZodiac(new Date(2024, 4, 25));
+    expect(result.sign).toBe('Gemini');
+  });
+
   it('Cancer (Jun 21 - Jul 22)', () => {
     const result = getWesternZodiac(new Date(2024, 5, 25));
     expect(result.sign).toBe('Cancer');
@@ -23,6 +28,16 @@ describe('getWesternZodiac', () => {
   it('Leo (Jul 23 - Aug 22)', () => {
     const result = getWesternZodiac(new Date(2024, 6, 25));
     expect(result.sign).toBe('Leo');
+  });
+
+  it('Virgo (Aug 23 - Sep 22)', () => {
+    const result = getWesternZodiac(new Date(2024, 7, 25));
+    expect(result.sign).toBe('Virgo');
+  });
+
+  it('Libra (Sep 23 - Oct 22)', () => {
+    const result = getWesternZodiac(new Date(2024, 8, 25));
+    expect(result.sign).toBe('Libra');
   });
 
   it('Capricorn wraps around (Dec 22 - Jan 19)', () => {
@@ -49,6 +64,11 @@ describe('getWesternZodiac', () => {
   it('boundary: Dec 21 → Sagittarius, Dec 22 → Capricorn', () => {
     expect(getWesternZodiac(new Date(2024, 11, 21)).sign).toBe('Sagittarius');
     expect(getWesternZodiac(new Date(2024, 11, 22)).sign).toBe('Capricorn');
+  });
+
+  it('boundary: Jan 19 → Capricorn, Jan 20 → Aquarius', () => {
+    expect(getWesternZodiac(new Date(2024, 0, 19)).sign).toBe('Capricorn');
+    expect(getWesternZodiac(new Date(2024, 0, 20)).sign).toBe('Aquarius');
   });
 
   it('all signs have Chinese names', () => {

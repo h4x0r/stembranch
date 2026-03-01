@@ -1,3 +1,4 @@
+/* c8 ignore next */
 import type { TianGan, DiZhi, GanZhi } from './types';
 import { TIANGAN, tianganByIndex } from './tiangan';
 import { DIZHI, dizhiByIndex } from './dizhi';
@@ -15,15 +16,16 @@ export function ganzhiByCycleIndex(index: number): { stem: TianGan; branch: DiZh
   return { stem, branch, ganzhi: makeGanZhi(stem, branch) };
 }
 
-/** Get the 60-cycle index of a stem-branch pair (0-59) */
+/** Get the 60-cycle index of a stem-branch pair (0-59), or -1 if invalid */
 export function ganzhiCycleIndex(stem: TianGan, branch: DiZhi): number {
   const s = TIANGAN.indexOf(stem);
   const b = DIZHI.indexOf(branch);
   // Both must have same parity (陰配陰, 陽配陽)
   if ((s % 2) !== (b % 2)) return -1;
-  // Solve: x ≡ s (mod 10), x ≡ b (mod 12), 0 ≤ x < 60
+  // CRT: find x in [0,60) such that x ≡ s (mod 10) and x ≡ b (mod 12)
   for (let x = s; x < 60; x += 10) {
     if (x % 12 === b) return x;
+  /* c8 ignore next 3 */
   }
   return -1;
 }

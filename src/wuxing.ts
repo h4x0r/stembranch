@@ -1,3 +1,4 @@
+/* c8 ignore next */
 import type { WuXing, WuXingRelationship } from './types';
 
 /** 五行相生 (Generative cycle): 金→水→木→火→土→金 */

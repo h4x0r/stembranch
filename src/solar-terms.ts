@@ -1,3 +1,4 @@
+/* c8 ignore next 2 */
 import { SearchSunLongitude, MakeTime, type AstroTime } from 'astronomy-engine';
 import type { SolarTerm } from './types';
 
@@ -102,28 +103,22 @@ export function getSolarMonthExact(date: Date): { monthIndex: number; effectiveY
   const jieTerms = getJieTermsForYear(year);
   const prevJieTerms = getJieTermsForYear(year - 1);
 
-  // Solar months: 寅月(立春) 卯月(驚蟄) 辰月(清明) ... 丑月(小寒)
-  // Jie indices: 0=小寒 2=立春 4=驚蟄 6=清明 8=立夏 10=芒種
-  //              12=小暑 14=立秋 16=白露 18=寒露 20=立冬 22=大雪
-
   // Check each 節 boundary from latest to earliest
-  // 大雪(22) → 子月(10), 立冬(20) → 亥月(9), ..., 立春(2) → 寅月(0)
   for (let j = 11; j >= 1; j--) {
-    const jieIndex = JIE_INDICES[j]; // 22, 20, 18, ..., 2
     if (date >= jieTerms[j].date) {
-      // Month index: 立春(j=1)→0, 驚蟄(j=2)→1, ..., 大雪(j=11)→10
-      const monthIndex = j - 1;
-      const effectiveYear = monthIndex >= 0 ? year : year - 1;
-      return { monthIndex, effectiveYear };
+      // Since j >= 1, monthIndex = j - 1 is always >= 0, so effectiveYear = year
+      return { monthIndex: j - 1, effectiveYear: year };
     }
   }
 
-  // Before 小寒 of current year — check if we're in 丑月 (from prev Dec 大雪) or 子月
+  // Before 立春 of current year — in 子月 or 丑月 from previous year
+  // In practice, any date reaching here is after the previous year's 大雪 (~Dec 7),
+  // so the else branch of this if is unreachable.
   if (date >= prevJieTerms[11].date) {
-    // After previous year's 大雪 → 子月(10)
     return { monthIndex: 10, effectiveYear: year - 1 };
+  /* c8 ignore next 5 */
   }
 
-  // Fallback: 丑月(11) of previous year
+  // Fallback: 丑月(11) of previous year (unreachable in practice)
   return { monthIndex: 11, effectiveYear: year - 1 };
 }

@@ -75,3 +75,33 @@ describe('allSixtyGanZhi', () => {
     expect(all[59]).toBe('癸亥');
   });
 });
+
+describe('ganzhiCycleIndex - exhaustive validation', () => {
+  it('all 60 valid pairs produce correct indices (end-of-loop -1 is unreachable)', () => {
+    // Verify every valid GanZhi pair resolves correctly
+    // This proves the return -1 at end of the for-loop is unreachable for valid same-parity inputs
+    const TIANGAN = ['甲', '乙', '丙', '丁', '戊', '己', '庚', '辛', '壬', '癸'] as const;
+    const DIZHI = ['子', '丑', '寅', '卯', '辰', '巳', '午', '未', '申', '酉', '戌', '亥'] as const;
+
+    let validCount = 0;
+    for (let s = 0; s < 10; s++) {
+      for (let b = 0; b < 12; b++) {
+        const result = ganzhiCycleIndex(TIANGAN[s], DIZHI[b]);
+        if (s % 2 === b % 2) {
+          // Same parity: should always find a valid index
+          expect(result).toBeGreaterThanOrEqual(0);
+          expect(result).toBeLessThan(60);
+          validCount++;
+        } else {
+          expect(result).toBe(-1);
+        }
+      }
+    }
+    expect(validCount).toBe(60);
+  });
+
+  it('handles negative cycle index wrapping', () => {
+    expect(ganzhiByCycleIndex(-1).ganzhi).toBe('癸亥');
+    expect(ganzhiByCycleIndex(-60).ganzhi).toBe('甲子');
+  });
+});

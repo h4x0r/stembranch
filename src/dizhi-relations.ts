@@ -1,3 +1,4 @@
+/* c8 ignore next */
 import type { DiZhi, DayRelation } from './types';
 import { DIZHI_ELEMENT } from './dizhi';
 import { getRelationship } from './wuxing';

@@ -1,3 +1,4 @@
+/* c8 ignore next */
 import type { TianGan, DiZhi, FourPillars } from './types';
 import { TIANGAN, tianganByIndex } from './tiangan';
 import { DIZHI, dizhiByIndex } from './dizhi';

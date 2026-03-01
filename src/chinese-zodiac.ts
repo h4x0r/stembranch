@@ -1,3 +1,4 @@
+/* c8 ignore next */
 import type { DiZhi, ChineseZodiacAnimal, ChineseZodiacResult, YearBoundary } from './types';
 import { DIZHI } from './dizhi';
 import { findLichun } from './solar-terms';

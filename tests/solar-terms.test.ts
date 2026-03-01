@@ -1,8 +1,8 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
 import {
   SOLAR_TERM_NAMES, SOLAR_TERM_LONGITUDES, JIE_INDICES,
   findSolarTermMoment, getSolarTermsForYear, findLichun,
-  getJieTermsForYear,
+  getJieTermsForYear, getSolarMonthExact,
 } from '../src/solar-terms';
 
 describe('SOLAR_TERM_NAMES', () => {
@@ -53,6 +53,16 @@ describe('findSolarTermMoment', () => {
     expect(date.getDate()).toBeGreaterThanOrEqual(20);
     expect(date.getDate()).toBeLessThanOrEqual(22);
   });
+
+  it('throws when SearchSunLongitude returns null', async () => {
+    const astro = await import('astronomy-engine');
+    const spy = vi.spyOn(astro, 'SearchSunLongitude').mockReturnValue(null as any);
+    try {
+      expect(() => findSolarTermMoment(0, 2024, 3)).toThrow('Could not find solar longitude');
+    } finally {
+      spy.mockRestore();
+    }
+  });
 });
 
 describe('findLichun', () => {
@@ -93,5 +103,39 @@ describe('getJieTermsForYear', () => {
     expect(jie).toHaveLength(12);
     expect(jie[0].name).toBe('小寒');
     expect(jie[1].name).toBe('立春');
+  });
+});
+
+describe('getSolarMonthExact', () => {
+  it('returns correct month for a mid-year date (after 芒種)', () => {
+    // June 15 should be in 午月 (monthIndex 4)
+    const result = getSolarMonthExact(new Date(2024, 5, 15));
+    expect(result.monthIndex).toBe(4);
+    expect(result.effectiveYear).toBe(2024);
+  });
+
+  it('returns 子月 for early January (after prev year 大雪, before 小寒)', () => {
+    // Jan 3 is after previous year's 大雪 (~Dec 7) but before current year 小寒 (~Jan 6)
+    const result = getSolarMonthExact(new Date(2024, 0, 3));
+    expect(result.monthIndex).toBe(10); // 子月
+    expect(result.effectiveYear).toBe(2023);
+  });
+
+  it('returns correct month for various dates across the year', () => {
+    // Feb 10 → after 立春 → 寅月 (monthIndex 0)
+    expect(getSolarMonthExact(new Date(2024, 1, 10)).monthIndex).toBe(0);
+
+    // March 15 → after 驚蟄 → 卯月 (monthIndex 1)
+    expect(getSolarMonthExact(new Date(2024, 2, 15)).monthIndex).toBe(1);
+
+    // Dec 20 → after 大雪 → 子月 (monthIndex 10)
+    expect(getSolarMonthExact(new Date(2024, 11, 20)).monthIndex).toBe(10);
+  });
+
+  it('handles the effectiveYear branch when monthIndex >= 0', () => {
+    // Any date after 立春 should have monthIndex >= 0 and effectiveYear = year
+    const result = getSolarMonthExact(new Date(2024, 3, 15)); // April
+    expect(result.monthIndex).toBeGreaterThanOrEqual(0);
+    expect(result.effectiveYear).toBe(2024);
   });
 });

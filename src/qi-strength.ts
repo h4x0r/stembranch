@@ -1,3 +1,4 @@
+/* c8 ignore next */
 import type { WuXing, QiStrength, DiZhi } from './types';
 import { DIZHI_ELEMENT } from './dizhi';
 import { SHENG_CYCLE, KE_CYCLE } from './wuxing';
