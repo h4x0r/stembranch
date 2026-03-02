@@ -25,7 +25,7 @@ export type HeavenlyGeneral =
   | '天空' | '白虎' | '太常' | '玄武' | '太陰' | '天后';
 
 export type TransmissionMethod =
-  | '賊克' | '比用' | '涉害' | '遙克' | '昴星'
+  | '賊剋' | '比用' | '涉害' | '遙剋' | '昴星'
   | '別責' | '八專' | '返吟' | '伏吟';
 
 export interface SixRenLesson {
@@ -180,7 +180,7 @@ function findAllConquests(lessons: SixRenLesson[]): KeResult[] {
 }
 
 /**
- * 比用: among multiple 賊克 candidates, prefer the one whose
+ * 比用: among multiple 賊剋 candidates, prefer the one whose
  * upper branch has the same yin/yang polarity as the day stem.
  */
 function matchByPolarity(candidates: KeResult[], dayStem: Stem): KeResult[] {
@@ -238,10 +238,10 @@ function measureHarmDepth(
  * Derive 三傳 (three transmissions) from the four lessons.
  *
  * Priority cascade:
- * 1. 賊克 — single 下賊上 or 上剋下
+ * 1. 賊剋 — single 下賊上 or 上剋下
  * 2. 比用 — yin/yang match with day stem breaks tie
  * 3. 涉害 — depth-of-harm calculation
- * 4-9. 遙克, 昴星, 別責, 八專, 返吟, 伏吟 (special cases)
+ * 4-9. 遙剋, 昴星, 別責, 八專, 返吟, 伏吟 (special cases)
  */
 function deriveTransmissions(
   lessons: [SixRenLesson, SixRenLesson, SixRenLesson, SixRenLesson],
@@ -273,9 +273,9 @@ function deriveTransmissions(
   const candidates = lowerConquers.length > 0 ? lowerConquers : upperConquers;
 
   if (candidates.length === 1) {
-    // 賊克法: single match
+    // 賊剋法: single match
     const initial = candidates[0].upper;
-    return { transmissions: chain(initial, plates), method: '賊克' };
+    return { transmissions: chain(initial, plates), method: '賊剋' };
   }
 
   if (candidates.length > 1) {
@@ -290,7 +290,7 @@ function deriveTransmissions(
     return { transmissions: chain(sheResult.upper, plates), method: '涉害' };
   }
 
-  // No 剋 at all — try 遙克, 昴星, 別責, 八專
+  // No 剋 at all — try 遙剋, 昴星, 別責, 八專
   return handleNoConquest(lessons, dayStem, plates);
 }
 
@@ -392,19 +392,19 @@ function handleClashPlates(
 
 /**
  * Handle cases with no 剋 in the four lessons.
- * 遙克 → 昴星 → 別責 → 八專
+ * 遙剋 → 昴星 → 別責 → 八專
  */
 function handleNoConquest(
   lessons: [SixRenLesson, SixRenLesson, SixRenLesson, SixRenLesson],
   dayStem: Stem,
   plates: Record<Branch, Branch>,
 ): { transmissions: { initial: Branch; middle: Branch; final: Branch }; method: TransmissionMethod } {
-  // ── 遙克: check if any upper's element 剋 the day stem's element
+  // ── 遙剋: check if any upper's element 剋 the day stem's element
   // or the day stem's element 剋 any upper's element
   const stemEl = STEM_ELEMENT[dayStem];
   const uppers = lessons.map(l => l.upper);
 
-  // Check for 遙克: upper branch element 剋 day stem's element,
+  // Check for 遙剋: upper branch element 剋 day stem's element,
   // or day stem's element 剋 upper branch's element
   const keOnStem = uppers.filter(u => conquers(elemOf(u), stemEl));
   const stemKeOn = uppers.filter(u => conquers(stemEl, elemOf(u)));
@@ -414,7 +414,7 @@ function handleNoConquest(
     const initial = keOnStem.length === 1
       ? keOnStem[0]
       : selectByPolarity(keOnStem, dayStem);
-    return { transmissions: chain(initial, plates), method: '遙克' };
+    return { transmissions: chain(initial, plates), method: '遙剋' };
   }
 
   if (stemKeOn.length > 0) {
@@ -422,7 +422,7 @@ function handleNoConquest(
     const initial = stemKeOn.length === 1
       ? stemKeOn[0]
       : selectByPolarity(stemKeOn, dayStem);
-    return { transmissions: chain(initial, plates), method: '遙克' };
+    return { transmissions: chain(initial, plates), method: '遙剋' };
   }
 
   // ── 八專: all four lessons are identical

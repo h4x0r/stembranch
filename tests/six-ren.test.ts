@@ -155,12 +155,12 @@ describe('buildFourLessons', () => {
 });
 
 // ═══════════════════════════════════════════════════════════════
-//  computeSixRen — 賊克法 (single match)
+//  computeSixRen — 賊剋法 (single match)
 // ═══════════════════════════════════════════════════════════════
 
 describe('computeSixRen', () => {
-  describe('賊克法 — single 下賊上', () => {
-    it('壬子日 午時 月將戌: L2 下賊上(木克土) → 初傳=未', () => {
+  describe('賊剋法 — single 下賊上', () => {
+    it('壬子日 午時 月將戌: L2 下賊上(木剋土) → 初傳=未', () => {
       const chart = computeSixRen('壬', '子', '午', '戌');
 
       expect(chart.dayStem).toBe('壬');
@@ -178,31 +178,31 @@ describe('computeSixRen', () => {
       expect(chart.lessons[3]).toEqual({ upper: '申', lower: '辰' });
 
       // L2: 卯(木) conquers 未(土) → 下賊上, single match
-      expect(chart.method).toBe('賊克');
+      expect(chart.method).toBe('賊剋');
       expect(chart.transmissions.initial).toBe('未');
       expect(chart.transmissions.middle).toBe('亥');  // plates[未]=亥
       expect(chart.transmissions.final).toBe('卯');   // plates[亥]=卯
     });
 
-    it('甲子日 卯時 月將亥: L1 下賊上(木克土) → 初傳=戌', () => {
+    it('甲子日 卯時 月將亥: L1 下賊上(木剋土) → 初傳=戌', () => {
       const chart = computeSixRen('甲', '子', '卯', '亥');
 
-      expect(chart.method).toBe('賊克');
+      expect(chart.method).toBe('賊剋');
       expect(chart.transmissions.initial).toBe('戌');
       expect(chart.transmissions.middle).toBe('午');  // plates[戌]=午
       expect(chart.transmissions.final).toBe('寅');   // plates[午]=寅
     });
   });
 
-  describe('賊克法 — single 上克下 (no 下賊上)', () => {
-    it('辛卯日 寅時 月將辰: L2 上克下(土克水) → 初傳=丑', () => {
+  describe('賊剋法 — single 上剋下 (no 下賊上)', () => {
+    it('辛卯日 寅時 月將辰: L2 上剋下(土剋水) → 初傳=丑', () => {
       const chart = computeSixRen('辛', '卯', '寅', '辰');
 
       // L1: 亥(水)/酉(金) → 金生水, no 克
-      // L2: 丑(土)/亥(水) → 土克水, 上克下
+      // L2: 丑(土)/亥(水) → 土剋水, 上剋下
       // L3: 巳(火)/卯(木) → 木生火, no 克
       // L4: 未(土)/巳(火) → 火生土, no 克
-      expect(chart.method).toBe('賊克');
+      expect(chart.method).toBe('賊剋');
       expect(chart.transmissions.initial).toBe('丑');
       expect(chart.transmissions.middle).toBe('卯');  // plates[丑]=卯
       expect(chart.transmissions.final).toBe('巳');   // plates[卯]=巳

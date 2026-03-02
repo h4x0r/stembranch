@@ -209,10 +209,10 @@ Actually, standard 四課:
 - 第四課: 支上神's 天盤上神 / 支上神
 
 **三傳 (Three Transmissions) — derivation priority:**
-1. **賊克** — if only one 上克下 or 下賊上 among 四課, that's 初傳
-2. **比用** — if multiple 賊克, compare with day stem (同類 wins)
+1. **賊剋** — if only one 上剋下 or 下賊上 among 四課, that's 初傳
+2. **比用** — if multiple 賊剋, compare with day stem (同類 wins)
 3. **涉害** — if still tied, 涉害深淺: trace 克 depth through branches
-4. **遙克** — if no 賊克 in 四課, look for 遙克 (上下相克 but not adjacent)
+4. **遙剋** — if no 賊剋 in 四課, look for 遙剋 (上下相剋 but not adjacent)
 5. **昴星** — if no 克 at all, use specific rules
 6. **別責** — fallback rule
 7. **八專** — special case when all 四課 are identical
@@ -230,7 +230,7 @@ Placement: 貴人 sits on 天乙貴人 position (based on day stem), others foll
 ```typescript
 type TianJiang = '貴人' | '螣蛇' | '朱雀' | '六合' | '勾陳' | '青龍' | '天空' | '白虎' | '太常' | '玄武' | '太陰' | '天后';
 
-type SanChuanMethod = '賊克' | '比用' | '涉害' | '遙克' | '昴星' | '別責' | '八專' | '返吟' | '伏吟';
+type SanChuanMethod = '賊剋' | '比用' | '涉害' | '遙剋' | '昴星' | '別責' | '八專' | '返吟' | '伏吟';
 
 interface LiuRenKe {
   upper: Branch;  // 上 (天盤)
