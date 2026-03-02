@@ -1,22 +1,22 @@
 import { describe, it, expect } from 'vitest';
 import {
   getYearStar, getMonthStar, getDayStar, getHourStar,
-  getZiBai, ZI_BAI_STARS,
-} from '../src/zi-bai';
+  getFlyingStars, FLYING_STARS,
+} from '../src/flying-stars';
 
-describe('ZI_BAI_STARS', () => {
+describe('FLYING_STARS', () => {
   it('has exactly 9 stars', () => {
-    expect(ZI_BAI_STARS).toHaveLength(9);
+    expect(FLYING_STARS).toHaveLength(9);
   });
 
   it('star 1 is 一白水', () => {
-    expect(ZI_BAI_STARS[0].name).toBe('一白');
-    expect(ZI_BAI_STARS[0].element).toBe('水');
+    expect(FLYING_STARS[0].name).toBe('一白');
+    expect(FLYING_STARS[0].element).toBe('水');
   });
 
   it('star 9 is 九紫火', () => {
-    expect(ZI_BAI_STARS[8].name).toBe('九紫');
-    expect(ZI_BAI_STARS[8].element).toBe('火');
+    expect(FLYING_STARS[8].name).toBe('九紫');
+    expect(FLYING_STARS[8].element).toBe('火');
   });
 });
 
@@ -109,9 +109,9 @@ describe('getHourStar', () => {
   });
 });
 
-describe('getZiBai', () => {
+describe('getFlyingStars', () => {
   it('returns all four stars', { timeout: 30_000 }, () => {
-    const result = getZiBai(new Date(2024, 5, 15, 14, 0));
+    const result = getFlyingStars(new Date(2024, 5, 15, 14, 0));
     expect(result.year).toBeGreaterThanOrEqual(1);
     expect(result.year).toBeLessThanOrEqual(9);
     expect(result.month).toBeGreaterThanOrEqual(1);

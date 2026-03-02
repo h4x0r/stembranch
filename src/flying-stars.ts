@@ -15,10 +15,10 @@ import { findSpringStart, getSolarMonthExact } from './solar-terms';
 
 // ── Types ────────────────────────────────────────────────────
 
-export type ZiBaiStar = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
+export type FlyingStar = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
 
-export interface ZiBaiStarInfo {
-  number: ZiBaiStar;
+export interface FlyingStarInfo {
+  number: FlyingStar;
   name: string;
   element: Element;
   color: string;
@@ -27,7 +27,7 @@ export interface ZiBaiStarInfo {
 // ── Constants ────────────────────────────────────────────────
 
 /** The nine stars in Lo Shu order (一白 through 九紫) */
-export const ZI_BAI_STARS: readonly ZiBaiStarInfo[] = [
+export const FLYING_STARS: readonly FlyingStarInfo[] = [
   { number: 1, name: '一白', element: '水', color: '白' },
   { number: 2, name: '二黑', element: '土', color: '黑' },
   { number: 3, name: '三碧', element: '木', color: '碧' },
@@ -49,8 +49,8 @@ const MONTH_START: Record<number, number> = {
 // ── Helpers ──────────────────────────────────────────────────
 
 /** Map 0 → 9, leave 1–8 unchanged */
-function wrap9(n: number): ZiBaiStar {
-  return (n === 0 ? 9 : n) as ZiBaiStar;
+function wrap9(n: number): FlyingStar {
+  return (n === 0 ? 9 : n) as FlyingStar;
 }
 
 // ── Year Star ────────────────────────────────────────────────
@@ -61,7 +61,7 @@ function wrap9(n: number): ZiBaiStar {
  * Year changes at 立春, not Jan 1.
  * Stars descend: 1864 = 一白(1), 1865 = 九紫(9), 1866 = 八白(8), …
  */
-export function getYearStar(date: Date): ZiBaiStar {
+export function getYearStar(date: Date): FlyingStar {
   const year = date.getFullYear();
   const springStart = findSpringStart(year);
   const effectiveYear = date >= springStart ? year : year - 1;
@@ -80,7 +80,7 @@ export function getYearStar(date: Date): ZiBaiStar {
  * - Group 2/5/8: 寅月 = 五黃(5), descending
  * - Group 3/6/9: 寅月 = 二黑(2), descending
  */
-export function getMonthStar(date: Date): ZiBaiStar {
+export function getMonthStar(date: Date): FlyingStar {
   const yearStar = getYearStar(date);
   const startStar = MONTH_START[yearStar % 3];
   const { monthIndex } = getSolarMonthExact(date); // 0 = 寅月
@@ -98,12 +98,12 @@ export function getMonthStar(date: Date): ZiBaiStar {
  * The 180-day subcycle is naturally encoded:
  * - 上元 甲子 = 一白(1), 中元 甲子 = 七赤(7), 下元 甲子 = 四綠(4)
  */
-export function getDayStar(date: Date): ZiBaiStar {
+export function getDayStar(date: Date): FlyingStar {
   const ms = Date.UTC(date.getFullYear(), date.getMonth(), date.getDate());
   const days = Math.floor(ms / 86400000);
   // Offset +8 so that 2000-01-07 (day 10963) maps to star 1
   const raw = ((days + 8) % 9 + 9) % 9;
-  return (raw + 1) as ZiBaiStar;
+  return (raw + 1) as FlyingStar;
 }
 
 // ── Hour Star ────────────────────────────────────────────────
@@ -116,11 +116,11 @@ export function getDayStar(date: Date): ZiBaiStar {
  * - Day stars 2/5/8: 子時 = 四綠(4), ascending
  * - Day stars 3/6/9: 子時 = 七赤(7), ascending
  */
-export function getHourStar(date: Date): ZiBaiStar {
+export function getHourStar(date: Date): FlyingStar {
   const hour = date.getHours();
 
   // 早子時 (23:00–23:59) belongs to the next calendar day
-  let dayStar: ZiBaiStar;
+  let dayStar: FlyingStar;
   if (hour >= 23) {
     const next = new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1);
     dayStar = getDayStar(next);
@@ -133,7 +133,7 @@ export function getHourStar(date: Date): ZiBaiStar {
 
   const hourBranchIdx = hour >= 23 ? 0 : Math.floor((hour + 1) / 2);
   const raw = ((ziStar - 1 + hourBranchIdx) % 9 + 9) % 9;
-  return (raw + 1) as ZiBaiStar;
+  return (raw + 1) as FlyingStar;
 }
 
 // ── Aggregate ────────────────────────────────────────────────
@@ -141,11 +141,11 @@ export function getHourStar(date: Date): ZiBaiStar {
 /**
  * Get all four 紫白 stars (year, month, day, hour) for a date/time.
  */
-export function getZiBai(date: Date): {
-  year: ZiBaiStar;
-  month: ZiBaiStar;
-  day: ZiBaiStar;
-  hour: ZiBaiStar;
+export function getFlyingStars(date: Date): {
+  year: FlyingStar;
+  month: FlyingStar;
+  day: FlyingStar;
+  hour: FlyingStar;
 } {
   return {
     year: getYearStar(date),

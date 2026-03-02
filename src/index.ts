@@ -132,14 +132,14 @@ export type { LunarMonth, LunarDate } from './lunar-calendar';
 
 // ── 建除十二神 (Twelve Day Officers) ─────────────────────────
 export {
-  JIANCHU_OFFICERS, JIANCHU_AUSPICIOUS,
-  getJianChuOfficer, getJianChuForDate,
-} from './jianchu';
-export type { JianChuOfficer } from './jianchu';
+  DAY_OFFICERS, DAY_OFFICER_AUSPICIOUS,
+  getDayOfficer, getDayOfficerForDate,
+} from './day-officers';
+export type { DayOfficer } from './day-officers';
 
 // ── 紫白九星 (Purple-White Nine Stars) ───────────────────────
 export {
-  ZI_BAI_STARS,
-  getYearStar, getMonthStar, getDayStar, getHourStar, getZiBai,
-} from './zi-bai';
-export type { ZiBaiStar, ZiBaiStarInfo } from './zi-bai';
+  FLYING_STARS,
+  getYearStar, getMonthStar, getDayStar, getHourStar, getFlyingStars,
+} from './flying-stars';
+export type { FlyingStar, FlyingStarInfo } from './flying-stars';

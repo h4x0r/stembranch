@@ -1,5 +1,5 @@
 /**
- * 建除十二神 (Twelve Day Officers / Jianchu System)
+ * 建除十二神 (Twelve Day Officers)
  *
  * The 12-day officer cycle used in Chinese almanacs (通書/黃曆).
  * The day whose branch matches the month branch is 建日.
@@ -11,19 +11,18 @@
 
 import type { Branch } from './types';
 import { BRANCHES } from './branches';
-import { getSolarMonthExact } from './solar-terms';
 import { computeFourPillars } from './four-pillars';
 
 // ── Types ────────────────────────────────────────────────────
 
-export type JianChuOfficer =
+export type DayOfficer =
   | '建' | '除' | '滿' | '平' | '定' | '執'
   | '破' | '危' | '成' | '收' | '開' | '閉';
 
 // ── Constants ────────────────────────────────────────────────
 
 /** The twelve officers in cycle order */
-export const JIANCHU_OFFICERS: readonly JianChuOfficer[] = [
+export const DAY_OFFICERS: readonly DayOfficer[] = [
   '建', '除', '滿', '平', '定', '執',
   '破', '危', '成', '收', '開', '閉',
 ];
@@ -34,7 +33,7 @@ export const JIANCHU_OFFICERS: readonly JianChuOfficer[] = [
  * - 吉 (auspicious): 建, 除, 滿, 定, 成, 開
  * - 凶 (inauspicious): 平, 執, 破, 危, 收, 閉
  */
-export const JIANCHU_AUSPICIOUS: Record<JianChuOfficer, boolean> = {
+export const DAY_OFFICER_AUSPICIOUS: Record<DayOfficer, boolean> = {
   '建': true,  // 建 — establishing
   '除': true,  // 除 — removing
   '滿': true,  // 滿 — fullness
@@ -60,11 +59,11 @@ export const JIANCHU_AUSPICIOUS: Record<JianChuOfficer, boolean> = {
  * @param dayBranch - The day's earthly branch
  * @param monthBranch - The month's earthly branch (from solar month)
  */
-export function getJianChuOfficer(dayBranch: Branch, monthBranch: Branch): JianChuOfficer {
+export function getDayOfficer(dayBranch: Branch, monthBranch: Branch): DayOfficer {
   const dayIdx = BRANCHES.indexOf(dayBranch);
   const monthIdx = BRANCHES.indexOf(monthBranch);
   const offset = ((dayIdx - monthIdx) % 12 + 12) % 12;
-  return JIANCHU_OFFICERS[offset];
+  return DAY_OFFICERS[offset];
 }
 
 /**
@@ -76,10 +75,10 @@ export function getJianChuOfficer(dayBranch: Branch, monthBranch: Branch): JianC
  * @param date - The date to compute for
  * @returns Officer name and auspicious flag
  */
-export function getJianChuForDate(date: Date): { officer: JianChuOfficer; auspicious: boolean } {
+export function getDayOfficerForDate(date: Date): { officer: DayOfficer; auspicious: boolean } {
   const pillars = computeFourPillars(date);
   const dayBranch = pillars.day.branch;
   const monthBranch = pillars.month.branch;
-  const officer = getJianChuOfficer(dayBranch, monthBranch);
-  return { officer, auspicious: JIANCHU_AUSPICIOUS[officer] };
+  const officer = getDayOfficer(dayBranch, monthBranch);
+  return { officer, auspicious: DAY_OFFICER_AUSPICIOUS[officer] };
 }
