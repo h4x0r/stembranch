@@ -4,7 +4,6 @@ import { useState, useMemo } from 'react';
 import {
   dailyAlmanac, computeQiMenForDate, computeZiWei, gregorianToLunar,
 } from 'stembranch';
-import type { ZiWeiChart } from 'stembranch';
 import { AlmanacView } from '@/components/almanac-view';
 import { DateNav } from '@/components/date-nav';
 import { ExportButton } from '@/components/export-button';
@@ -22,38 +21,35 @@ function fromLocalDateString(s: string): Date {
   return new Date(Date.UTC(y, m - 1, d, 6, 0)); // noon CST ~ 06:00 UTC
 }
 
-const HOUR_LABELS = '子丑寅卯辰巳午未申酉戌亥'.split('');
+/** Current hour branch index (0=子 23-01, 1=丑 01-03, ... 11=亥 21-23) */
+function currentHourIndex(): number {
+  const h = new Date().getHours();
+  // 子時 = 23:00-01:00, 丑時 = 01:00-03:00, ...
+  return Math.floor(((h + 1) % 24) / 2);
+}
 
 export default function Home() {
   const [dateStr, setDateStr] = useState(() => toLocalDateString(new Date()));
-
-  // Birth data state for 紫微斗數
-  const [showBirth, setShowBirth] = useState(false);
-  const [birthStr, setBirthStr] = useState('');
-  const [birthHour, setBirthHour] = useState(0);
-  const [gender, setGender] = useState<'male' | 'female'>('male');
 
   const date = useMemo(() => fromLocalDateString(dateStr), [dateStr]);
   const almanac = useMemo(() => dailyAlmanac(date), [date]);
   const qimen = useMemo(() => computeQiMenForDate(date), [date]);
 
-  const polaris = useMemo((): ZiWeiChart | null => {
-    if (!showBirth || !birthStr) return null;
+  // 紫微斗數: 排 from the selected date's lunar data + current hour
+  const polaris = useMemo(() => {
     try {
-      const [y, m, d] = birthStr.split('-').map(Number);
-      const bd = new Date(Date.UTC(y, m - 1, d, 6));
-      const lunar = gregorianToLunar(bd);
+      const lunar = gregorianToLunar(date);
       return computeZiWei({
         year: lunar.year,
         month: lunar.month,
         day: lunar.day,
-        hour: birthHour,
-        gender,
+        hour: currentHourIndex(),
+        gender: 'male',
       });
     } catch {
       return null;
     }
-  }, [showBirth, birthStr, birthHour, gender]);
+  }, [date]);
 
   const handlePrev = () => {
     const d = fromLocalDateString(dateStr);
@@ -87,51 +83,6 @@ export default function Home() {
         {/* ── 三式合盤 ──────────────────────────────────── */}
         <section className="my-6">
           <h2 className="text-center text-lg font-semibold mb-3">三式合盤</h2>
-
-          {/* Birth input toggle for 紫微 outer ring */}
-          <div className="mb-3 text-sm">
-            <label className="flex items-center gap-2 cursor-pointer">
-              <input
-                type="checkbox"
-                checked={showBirth}
-                onChange={() => setShowBirth(!showBirth)}
-              />
-              紫微斗數排盤（輸入出生資料）
-            </label>
-            {showBirth && (
-              <div className="flex flex-wrap gap-3 mt-2 items-center pl-6">
-                <input
-                  type="date"
-                  value={birthStr}
-                  onChange={(e) => setBirthStr(e.target.value)}
-                  className="border rounded px-2 py-1 text-sm bg-background"
-                />
-                <select
-                  value={birthHour}
-                  onChange={(e) => setBirthHour(Number(e.target.value))}
-                  className="border rounded px-2 py-1 text-sm bg-background"
-                >
-                  {HOUR_LABELS.map((h, i) => (
-                    <option key={i} value={i}>{h}時</option>
-                  ))}
-                </select>
-                <div className="flex gap-3">
-                  {(['male', 'female'] as const).map((g) => (
-                    <label key={g} className="flex items-center gap-1 cursor-pointer">
-                      <input
-                        type="radio"
-                        name="gender"
-                        checked={gender === g}
-                        onChange={() => setGender(g)}
-                      />
-                      {g === 'male' ? '男' : '女'}
-                    </label>
-                  ))}
-                </div>
-              </div>
-            )}
-          </div>
-
           <UnifiedChart
             polaris={polaris}
             sixRen={almanac.sixRen}

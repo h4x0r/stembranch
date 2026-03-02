@@ -30,8 +30,8 @@ function sectorPath(r1: number, r2: number, deg1: number, deg2: number) {
 
 // ── Layout ───────────────────────────────────────────────────
 
-/** 12-branch angle: index 0 (子) at top (-90deg), clockwise 30deg each */
-const ba = (i: number) => -90 + i * 30;
+/** 12-branch angle: 子(0) at bottom (90deg), clockwise 30deg each (上南下北) */
+const ba = (i: number) => 90 + i * 30;
 
 /** Ring radii [inner, outer] */
 const OR = { i: 295, o: 383 }; // outer  — 紫微斗數
@@ -39,16 +39,16 @@ const MR = { i: 218, o: 290 }; // middle — 大六壬
 const IR = { i: 138, o: 213 }; // inner  — 奇門遁甲
 const CR = 133;                 // center circle
 
-/** 奇門 8-direction layout */
+/** 奇門 8-direction layout (上南下北: 坎=bottom, 離=top) */
 const QI_DIRS: { p: number; n: string; a: number }[] = [
-  { p: 1, n: '坎', a: -90 },
-  { p: 8, n: '艮', a: -45 },
-  { p: 3, n: '震', a: 0 },
-  { p: 4, n: '巽', a: 45 },
-  { p: 9, n: '離', a: 90 },
-  { p: 2, n: '坤', a: 135 },
-  { p: 7, n: '兌', a: 180 },
-  { p: 6, n: '乾', a: -135 },
+  { p: 1, n: '坎', a: 90 },    // 北 bottom
+  { p: 8, n: '艮', a: 135 },   // 東北 bottom-left
+  { p: 3, n: '震', a: 180 },   // 東 left
+  { p: 4, n: '巽', a: 225 },   // 東南 top-left
+  { p: 9, n: '離', a: 270 },   // 南 top
+  { p: 2, n: '坤', a: 315 },   // 西南 top-right
+  { p: 7, n: '兌', a: 0 },     // 西 right
+  { p: 6, n: '乾', a: 45 },    // 西北 bottom-right
 ];
 
 // ── Colors ───────────────────────────────────────────────────
