@@ -104,7 +104,9 @@ export function UnifiedChart({ polaris, sixRen, qimen }: UnifiedChartProps) {
         const palace = polaris?.palaces[i];
         const isFate = polaris != null && i === polaris.fatePalaceIndex;
         const isBody = polaris != null && i === polaris.bodyPalaceIndex;
-        const fill = isFate ? PAL.outerFate : isBody ? PAL.outerBody : PAL.outerBg;
+        const isTaiSui = polaris != null && i === polaris.taiSuiIndex;
+        const fill = isTaiSui ? '#fef3c7'
+          : isFate ? PAL.outerFate : isBody ? PAL.outerBody : PAL.outerBg;
         const [mx, my] = xy((OR.i + OR.o) / 2, a);
         const [bx, by] = xy(OR.o - 13, a);
 
@@ -119,7 +121,7 @@ export function UnifiedChart({ polaris, sixRen, qimen }: UnifiedChartProps) {
             {/* Branch label near outer edge */}
             <text x={bx} y={by} textAnchor="middle" dominantBaseline="central"
               fontSize="13" fontWeight="bold" fill="#333">
-              {br}
+              {br}{isTaiSui ? ' 太歲' : ''}
             </text>
             {palace && (
               <>

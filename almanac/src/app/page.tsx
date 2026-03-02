@@ -2,7 +2,8 @@
 
 import { useState, useMemo } from 'react';
 import {
-  dailyAlmanac, computeQiMenForDate, computeZiWei, gregorianToLunar,
+  dailyAlmanac, computeQiMenForDate, computeZiWei,
+  gregorianToLunar,
 } from 'stembranch';
 import { AlmanacView } from '@/components/almanac-view';
 import { DateNav } from '@/components/date-nav';
@@ -50,6 +51,7 @@ export default function Home() {
       return null;
     }
   }, [date]);
+
 
   const handlePrev = () => {
     const d = fromLocalDateString(dateStr);

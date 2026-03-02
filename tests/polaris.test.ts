@@ -154,3 +154,24 @@ describe('computeZiWei', () => {
     expect(aStars).not.toBe(bStars);
   });
 });
+
+// ── 流太歲 (Tai Sui in natal chart) ──────────────────────────
+
+describe('taiSuiIndex', () => {
+  it('should place 太歲 at birth year branch: 1990 庚午 → 午(6)', () => {
+    const chart = computeZiWei({ year: 1990, month: 8, day: 15, hour: 6, gender: 'male' });
+    // 1990: (1990 - 4) % 12 = 6 → 午
+    expect(chart.taiSuiIndex).toBe(6);
+  });
+
+  it('should place 太歲 at birth year branch: 2024 甲辰 → 辰(4)', () => {
+    const chart = computeZiWei({ year: 2024, month: 1, day: 1, hour: 0, gender: 'male' });
+    expect(chart.taiSuiIndex).toBe(4);
+  });
+
+  it('should differ for different birth years', () => {
+    const a = computeZiWei({ year: 1990, month: 1, day: 1, hour: 0, gender: 'male' });
+    const b = computeZiWei({ year: 1991, month: 1, day: 1, hour: 0, gender: 'male' });
+    expect(a.taiSuiIndex).not.toBe(b.taiSuiIndex);
+  });
+});

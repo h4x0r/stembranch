@@ -70,6 +70,8 @@ export interface ZiWeiChart {
   fatePalaceIndex: number;
   /** Body palace branch index */
   bodyPalaceIndex: number;
+  /** 流太歲: branch index of birth year — represents the subject */
+  taiSuiIndex: number;
 }
 
 // ── Element pattern names ────────────────────────────────────
@@ -267,6 +269,7 @@ export function computeZiWei(birth: ZiWeiBirthData): ZiWeiChart {
 
   const fatePalaceIndex = getFatepalace(birth.month, birth.hour);
   const bodyPalaceIndex = getBodyPalace(birth.month, birth.hour);
+  const taiSuiIndex = ((birth.year - 4) % 12 + 12) % 12;
   const elementPattern = getElementPattern(fatePalaceIndex, yearStem);
 
   const ziWeiIdx = getZiWeiPosition(birth.day, elementPattern);
@@ -309,5 +312,6 @@ export function computeZiWei(birth: ZiWeiBirthData): ZiWeiChart {
     birthData: birth,
     fatePalaceIndex,
     bodyPalaceIndex,
+    taiSuiIndex,
   };
 }
