@@ -121,7 +121,7 @@ export function UnifiedChart({ polaris, sixRen, qimen }: UnifiedChartProps) {
             {/* Branch label near outer edge */}
             <text x={bx} y={by} textAnchor="middle" dominantBaseline="central"
               fontSize="13" fontWeight="bold" fill="#333">
-              {br}{isTaiSui ? ' 太歲' : ''}
+              {br}{isTaiSui ? ' 流太歲' : ''}
             </text>
             {palace && (
               <>
