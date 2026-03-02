@@ -138,7 +138,7 @@ export function getGoldenCarriage(stem: Stem): Branch {
 //  Branch Derivations — 三合 based
 // ═══════════════════════════════════════════════════════════════
 
-/** 驛馬 — 三合局沖 (position 0) */
+/** 驛馬 — 三合局衝 (position 0) */
 export function getTravelingHorse(branch: Branch): Branch {
   return harmonyTarget(branch, 0);
 }

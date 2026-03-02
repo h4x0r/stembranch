@@ -147,7 +147,7 @@ describe('getGoldenCarriage (金輿)', () => {
 // ═══════════════════════════════════════════════════════════════
 
 describe('getTravelingHorse (驛馬)', () => {
-  // 三合局沖: 寅午戌→申, 申子辰→寅, 巳酉丑→亥, 亥卯未→巳
+  // 三合局衝: 寅午戌→申, 申子辰→寅, 巳酉丑→亥, 亥卯未→巳
   const map: Record<string, Branch> = {
     '寅': '申', '午': '申', '戌': '申',
     '申': '寅', '子': '寅', '辰': '寅',
@@ -263,7 +263,7 @@ describe('getRedPhoenix (紅鸞)', () => {
 });
 
 describe('getHeavenlyJoy (天喜)', () => {
-  // 紅鸞 + 6 (沖位)
+  // 紅鸞 + 6 (衝位)
   it('子年 → 酉 (紅鸞卯 + 6)', () => {
     expect(getHeavenlyJoy('子')).toBe('酉');
   });

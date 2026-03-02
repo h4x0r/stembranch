@@ -60,8 +60,8 @@ describe('getDayRelation', () => {
     expect(getDayRelation('子', '丑')).toBe('合');
   });
 
-  it('returns 沖 for clash pairs', () => {
-    expect(getDayRelation('子', '午')).toBe('沖');
+  it('returns 衝 for clash pairs', () => {
+    expect(getDayRelation('子', '午')).toBe('衝');
   });
 
   it('returns 生 for generative relationship', () => {
@@ -75,7 +75,7 @@ describe('getDayRelation', () => {
   });
 
   it('returns 比和 for same-element pairs', () => {
-    // 子=水 → 亥=水, but 子亥 is NOT a 六合 or 六沖 pair → 比和
+    // 子=水 → 亥=水, but 子亥 is NOT a 六合 or 六衝 pair → 比和
     expect(getDayRelation('子', '亥')).toBe('比和');
   });
 });

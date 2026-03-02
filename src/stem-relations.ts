@@ -9,7 +9,7 @@ export const STEM_COMBINATIONS: readonly { pair: [Stem, Stem]; element: Element 
   { pair: ['戊', '癸'], element: '火' },
 ];
 
-/** 天干相沖 — Stem clashes (same element, opposing polarity, 7 positions apart) */
+/** 天干相衝 — Stem clashes (same element, opposing polarity, 7 positions apart) */
 export const STEM_CLASHES: readonly [Stem, Stem][] = [
   ['甲', '庚'], ['乙', '辛'], ['丙', '壬'], ['丁', '癸'],
 ];
@@ -19,7 +19,7 @@ export function isStemCombination(a: Stem, b: Stem): boolean {
   return STEM_COMBINATIONS.some(({ pair: [x, y] }) => (a === x && b === y) || (a === y && b === x));
 }
 
-/** Check if two stems clash (相沖) */
+/** Check if two stems clash (相衝) */
 export function isStemClash(a: Stem, b: Stem): boolean {
   return STEM_CLASHES.some(([x, y]) => (a === x && b === y) || (a === y && b === x));
 }

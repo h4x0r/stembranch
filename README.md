@@ -224,7 +224,7 @@ Full analysis with statistical charts: [docs/accuracy.md](docs/accuracy.md)
 | `HIDDEN_STEMS` | `Record<Branch, HiddenStem[]>` — main, middle, residual stems |
 | `getHiddenStems(branch)` | Hidden stems for a branch (main stem first) |
 
-### Stem Relations (天干五合/相沖)
+### Stem Relations (天干五合/相衝)
 
 | Export | Description |
 |---|---|
@@ -239,7 +239,7 @@ Full analysis with statistical charts: [docs/accuracy.md](docs/accuracy.md)
 | Export | Description |
 |---|---|
 | `HARMONY_PAIRS` | 六合: 子丑, 寅亥, 卯戌, 辰酉, 巳申, 午未 |
-| `CLASH_PAIRS` | 六沖: 子午, 丑未, 寅申, 卯酉, 辰戌, 巳亥 |
+| `CLASH_PAIRS` | 六衝: 子午, 丑未, 寅申, 卯酉, 辰戌, 巳亥 |
 | `THREE_HARMONIES` | 三合: 申子辰水, 寅午戌火, 巳酉丑金, 亥卯未木 |
 | `SEASONAL_UNIONS` | 三會: 寅卯辰木, 巳午未火, 申酉戌金, 亥子丑水 |
 | `HALF_HARMONIES` | 半合: pairs from three-harmony groups |
@@ -388,7 +388,7 @@ type StemBranch = `${Stem}${Branch}`;
 type Element = '金' | '木' | '水' | '火' | '土';
 type ElementRelation = '生' | '剋' | '被生' | '被剋' | '比和';
 type Strength = '旺' | '相' | '休' | '囚' | '死';
-type DayRelation = '生' | '剋' | '合' | '沖' | '比和';
+type DayRelation = '生' | '剋' | '合' | '衝' | '比和';
 type PunishmentType = '無恩' | '恃勢' | '無禮';
 type EarthType = '濕' | '燥';
 type TenRelation = '比肩' | '劫財' | '食神' | '傷官' | '偏財' | '正財' | '七殺' | '正官' | '偏印' | '正印';

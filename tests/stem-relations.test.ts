@@ -41,25 +41,25 @@ describe('STEM_COMBINATIONS (天干五合)', () => {
   });
 });
 
-describe('STEM_CLASHES (天干相沖)', () => {
+describe('STEM_CLASHES (天干相衝)', () => {
   it('has 4 clash pairs', () => {
     expect(STEM_CLASHES).toHaveLength(4);
   });
 
-  it('甲庚相沖', () => {
+  it('甲庚相衝', () => {
     expect(isStemClash('甲', '庚')).toBe(true);
     expect(isStemClash('庚', '甲')).toBe(true);
   });
 
-  it('乙辛相沖', () => {
+  it('乙辛相衝', () => {
     expect(isStemClash('乙', '辛')).toBe(true);
   });
 
-  it('丙壬相沖', () => {
+  it('丙壬相衝', () => {
     expect(isStemClash('丙', '壬')).toBe(true);
   });
 
-  it('丁癸相沖', () => {
+  it('丁癸相衝', () => {
     expect(isStemClash('丁', '癸')).toBe(true);
   });
 
@@ -67,7 +67,7 @@ describe('STEM_CLASHES (天干相沖)', () => {
     expect(isStemClash('甲', '乙')).toBe(false);
   });
 
-  it('戊己 are not clashes (no 沖 for earth stems)', () => {
+  it('戊己 are not clashes (no 衝 for earth stems)', () => {
     expect(isStemClash('戊', '己')).toBe(false);
   });
 });

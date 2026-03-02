@@ -164,3 +164,14 @@ export {
   ALMANAC_FLAG_REGISTRY,
 } from './almanac-flags';
 export type { AlmanacCategory, AlmanacFlagInfo, AlmanacFlagResult } from './almanac-flags';
+
+// ── 大六壬 (Grand Six Ren) ──────────────────────────────────
+export {
+  STEM_LODGING, HEAVENLY_GENERALS,
+  getMonthlyGeneral, buildPlates, buildFourLessons,
+  computeSixRen, computeSixRenForDate,
+} from './six-ren';
+export type {
+  HeavenlyGeneral, TransmissionMethod,
+  SixRenLesson, SixRenChart,
+} from './six-ren';

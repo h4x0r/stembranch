@@ -35,7 +35,7 @@ export interface HiddenStem {
 }
 
 // ── 地支關係 ────────────────────────────────────────────────
-export type DayRelation = '生' | '剋' | '合' | '沖' | '比和';
+export type DayRelation = '生' | '剋' | '合' | '衝' | '比和';
 export type PunishmentType = '無恩' | '恃勢' | '無禮';
 
 // ── 濕土燥土 (Earth Types) ──────────────────────────────────

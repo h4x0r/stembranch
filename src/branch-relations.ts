@@ -16,15 +16,15 @@ export function isHarmony(a: Branch, b: Branch): boolean {
   return HARMONY_PAIRS.some(([x, y]) => (a === x && b === y) || (a === y && b === x));
 }
 
-// ── 六沖 (Six Clashes) ─────────────────────────────────────
+// ── 六衝 (Six Clashes) ─────────────────────────────────────
 
-/** 六沖 (Clash) pairs — branches 6 apart on the cycle */
+/** 六衝 (Clash) pairs — branches 6 apart on the cycle */
 export const CLASH_PAIRS: readonly [Branch, Branch][] = [
   ['子', '午'], ['丑', '未'], ['寅', '申'],
   ['卯', '酉'], ['辰', '戌'], ['巳', '亥'],
 ];
 
-/** Check if two branches form a 六沖 (Clash) pair */
+/** Check if two branches form a 六衝 (Clash) pair */
 export function isClash(a: Branch, b: Branch): boolean {
   return CLASH_PAIRS.some(([x, y]) => (a === x && b === y) || (a === y && b === x));
 }
@@ -145,11 +145,11 @@ export function isDestruction(a: Branch, b: Branch): boolean {
 
 /**
  * Day branch → line branch relationship.
- * Priority: 合 > 沖 > 五行 (生/剋/比和)
+ * Priority: 合 > 衝 > 五行 (生/剋/比和)
  */
 export function getDayRelation(dayBranch: Branch, lineBranch: Branch): DayRelation {
   if (isHarmony(dayBranch, lineBranch)) return '合';
-  if (isClash(dayBranch, lineBranch)) return '沖';
+  if (isClash(dayBranch, lineBranch)) return '衝';
   const dayEl = BRANCH_ELEMENT[dayBranch];
   const lineEl = BRANCH_ELEMENT[lineBranch];
   const rel = getElementRelation(dayEl, lineEl);
