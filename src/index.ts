@@ -202,3 +202,22 @@ export type {
   HeavenlyGeneral, TransmissionMethod,
   SixRenLesson, SixRenChart,
 } from './six-ren';
+
+// ── 奇門遁甲 (Qi Men Dun Jia) ───────────────────────────────
+export {
+  NINE_STARS, EIGHT_DOORS, EIGHT_DEITIES, SAN_QI_LIU_YI,
+  getEscapeMode, getJuShu,
+  buildEarthPlate, buildHeavenPlate,
+  computeQiMen, computeQiMenForDate,
+} from './qimen';
+export type { QiMenChart } from './qimen';
+
+// ── 紫微斗數 (Zi Wei Dou Shu / Polaris Astrology) ───────────
+export {
+  MAJOR_STARS, PALACE_NAMES,
+  getFatepalace, getElementPattern, getZiWeiPosition,
+  computeZiWei,
+} from './polaris';
+export type {
+  ZiWeiPalace, ZiWeiBirthData, SiHua, ZiWeiChart,
+} from './polaris';
