@@ -1,6 +1,6 @@
 # stembranch
 
-Astronomical Chinese calendar and 四柱八字 computation for TypeScript. Solar terms, lunar calendar, stem-branch cycles, and divination metadata — all from first principles.
+Astronomical Chinese calendar, 四柱八字, and divination computation for TypeScript. Solar terms, lunar calendar, stem-branch cycles, BaZi analysis, and three classical divination systems — all from first principles.
 
 [![npm](https://img.shields.io/npm/v/stembranch)](https://www.npmjs.com/package/stembranch)
 [![license](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
@@ -8,13 +8,14 @@ Astronomical Chinese calendar and 四柱八字 computation for TypeScript. Solar
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.7+-blue)](https://www.typescriptlang.org/)
 
 ```typescript
-import { computeFourPillars } from 'stembranch';
+import { computeFourPillars, computeMajorLuck, dailyAlmanac } from 'stembranch';
 
 const pillars = computeFourPillars(new Date(2024, 1, 10, 14, 30));
-// → { year: {stem: '甲', branch: '辰'},
-//     month: {stem: '丙', branch: '寅'},
-//     day:   {stem: '壬', branch: '午'},
-//     hour:  {stem: '丁', branch: '未'} }
+// → { year: {stem: '甲', branch: '辰'}, month: {stem: '丙', branch: '寅'},
+//     day:   {stem: '壬', branch: '午'}, hour:  {stem: '丁', branch: '未'} }
+
+const luck = computeMajorLuck(new Date(1990, 6, 15), 'male');
+// → { direction: 'forward', startAge: 8, periods: [{pillar: {stem:'甲', ...}, startAge: 8, endAge: 17}, ...] }
 ```
 
 ## Install
@@ -33,81 +34,22 @@ Zero production dependencies. Self-contained VSOP87D (2,425 terms) and Meeus Ch.
 import { computeFourPillars } from 'stembranch';
 
 const pillars = computeFourPillars(new Date(2024, 1, 10, 14, 30));
+// → year: 甲辰, month: 丙寅, day: 壬午, hour: 丁未
 ```
 
-### Solar Terms (節氣)
+### Luck Periods (大運)
 
 ```typescript
-import { getSolarTermsForYear, findSpringStart } from 'stembranch';
+import { computeMajorLuck, computeMinorLuck, getLuckDirection } from 'stembranch';
 
-const terms = getSolarTermsForYear(2024);
-// → 24 SolarTerm objects with exact UTC moments
+// 大運: 10-year periods from month pillar
+const luck = computeMajorLuck(new Date(1990, 6, 15), 'male', 8);
+// → direction: 'forward', startAge: 8
+// → periods: [{pillar: 甲申, startAge: 8}, {pillar: 乙酉, startAge: 18}, ...]
 
-const springStart = findSpringStart(2024);
-// → 2024-02-04T00:27:... UTC (立春, solar longitude 315°)
-```
-
-### Lunar Calendar (農曆)
-
-```typescript
-import { getLunarNewYear, gregorianToLunar, getLunarMonthsForYear } from 'stembranch';
-
-// Compute Lunar New Year from first principles (no lookup table)
-const lny = getLunarNewYear(2024);
-// → 2024-02-10 (Beijing midnight, expressed as UTC)
-
-// Convert a Gregorian date to a lunar date
-const lunar = gregorianToLunar(new Date(2024, 1, 10));
-// → { year: 2024, month: 1, day: 1, isLeapMonth: false }
-
-// Get all lunar months for a year (12 or 13 months)
-const months = getLunarMonthsForYear(2023);
-// → 13 months (contains 閏二月)
-```
-
-### Chinese Zodiac (生肖)
-
-```typescript
-import { getChineseZodiac } from 'stembranch';
-
-// 立春派 (default): year changes at 立春, used in 四柱八字
-const a = getChineseZodiac(new Date(2024, 1, 10));
-// → { animal: '龍', branch: '辰', yearBoundary: 'spring-start', effectiveYear: 2024 }
-
-// 初一派: year changes at Lunar New Year, used in popular culture
-const b = getChineseZodiac(new Date(2024, 1, 10), 'lunar-new-year');
-```
-
-### Ten Relations (十神)
-
-```typescript
-import { getTenRelation, getTenRelationForBranch } from 'stembranch';
-
-getTenRelation('甲', '庚');      // → '七殺'
-getTenRelationForBranch('甲', '子'); // → '正印'
-```
-
-### Almanac Flags (神煞)
-
-```typescript
-import { getAlmanacFlags, getHeavenlyNoble, getTravelingHorse } from 'stembranch';
-
-// All active flags for a date
-const flags = getAlmanacFlags(new Date(2024, 5, 15));
-// → [{ name: '天乙貴人', english: 'Heavenly Noble', auspicious: true, ... }, ...]
-
-// Individual derivations
-getHeavenlyNoble('甲');    // → ['丑', '未']
-getTravelingHorse('寅');   // → '申'
-```
-
-### Six Ren Divination (大六壬)
-
-```typescript
-import { computeSixRenForDate } from 'stembranch';
-
-const chart = computeSixRenForDate(new Date(2024, 5, 15, 14));
-// → { plates, lessons, transmissions, method: '賊剋', generals, ... }
+// 小運: year-by-year from hour pillar
+const minor = computeMinorLuck({stem: '甲', branch: '子'}, 'forward', 1, 10);
+// → [{age: 1, pillar: 乙丑}, {age: 2, pillar: 丙寅}, ...]
 ```
 
 ### Daily Almanac (日曆總覽)
@@ -117,15 +59,31 @@ One call, everything at once — four pillars, lunar date, solar terms, zodiac, 
 ```typescript
 import { dailyAlmanac } from 'stembranch';
 
-const almanac = dailyAlmanac(new Date(2024, 5, 15, 14, 30));
-// almanac.pillars     → { year: {stem:'甲', branch:'辰'}, month: ..., day: ..., hour: ... }
-// almanac.lunar       → { year: 2024, month: 5, day: 10, isLeapMonth: false }
-// almanac.dayFitness  → { fitness: '成', auspicious: true }
-// almanac.flyingStars → { year: {...}, month: {...}, day: {...}, hour: {...} }
-// almanac.almanacFlags → [{ name: '天乙貴人', english: 'Heavenly Noble', ... }, ...]
-// almanac.sixRen      → { method: '賊剋', lessons: [...], transmissions: {...}, ... }
-// almanac.dayElement   → '水'
-// almanac.dayStrength  → '死'
+const a = dailyAlmanac(new Date(2024, 5, 15));
+// a.pillars      → year/month/day/hour stem-branch pairs
+// a.lunar        → { year: 2024, month: 5, day: 10, isLeapMonth: false }
+// a.dayFitness   → { fitness: '成', auspicious: true }
+// a.almanacFlags → [{ name: '天乙貴人', english: 'Heavenly Noble', ... }, ...]
+// a.sixRen       → { method: '賊剋', lessons: [...], ... }
+// a.flyingStars  → { year: {...}, month: {...}, day: {...}, hour: {...} }
+```
+
+### Divination Systems (三式)
+
+```typescript
+import { computeSixRenForDate, computeQiMenForDate, computeZiWei } from 'stembranch';
+
+// 大六壬
+const sixRen = computeSixRenForDate(new Date(2024, 5, 15, 14));
+// → { plates, lessons, transmissions, method: '賊剋', generals, ... }
+
+// 奇門遁甲
+const qimen = computeQiMenForDate(new Date(2024, 5, 15));
+// → { earthPlate, heavenPlate, stars, doors, deities, escapeMode: '陰遁', juShu: 6, ... }
+
+// 紫微斗數
+const chart = computeZiWei({ year: 1990, month: 8, day: 15, hour: 6, gender: 'male' });
+// → { palaces: [...14 major stars placed...], siHua, elementPattern, taiSuiIndex, ... }
 ```
 
 ## Design Decisions
@@ -190,19 +148,24 @@ Full analysis with statistical charts: [docs/accuracy.md](docs/accuracy.md)
 
 ## API Reference
 
-### Daily Almanac (日曆總覽)
+### 1. Astronomical Foundations
+
+#### DeltaT (ΔT)
 
 | Export | Description |
 |---|---|
-| `dailyAlmanac(date)` | Complete almanac: pillars, lunar date, solar terms, zodiac, day fitness, flying stars, almanac flags, Six Ren, eclipses, element analysis |
+| `deltaT(date)` | ΔT in seconds for a Date (TT = UT + ΔT) |
+| `deltaTForYear(y)` | ΔT in seconds for a decimal year |
 
-### Four Pillars (四柱)
+#### Julian Day Number (儒略日)
 
 | Export | Description |
 |---|---|
-| `computeFourPillars(date)` | Compute year, month, day, and hour pillars |
+| `julianDayNumber(year, month, day, calendar?)` | JD for a calendar date (Julian, Gregorian, or auto) |
+| `jdToCalendarDate(jd, calendar?)` | Convert JD back to calendar date |
+| `julianCalendarToDate(year, month, day)` | Convert a Julian calendar date to a JS Date |
 
-### Solar Terms (節氣)
+#### Solar Terms (節氣)
 
 | Export | Description |
 |---|---|
@@ -213,7 +176,14 @@ Full analysis with statistical charts: [docs/accuracy.md](docs/accuracy.md)
 | `findSpringStart(year)` | Exact moment of 立春 |
 | `getSolarMonthExact(date)` | Which solar month a date falls in |
 
-### Lunar Calendar (農曆)
+#### New Moon (朔日)
+
+| Export | Description |
+|---|---|
+| `newMoonJDE(k)` | JDE of new moon for lunation number k (Meeus Ch. 49) |
+| `findNewMoonsInRange(startJD, endJD)` | All new moon JDEs in a Julian Day range |
+
+#### Lunar Calendar (農曆)
 
 | Export | Description |
 |---|---|
@@ -221,28 +191,21 @@ Full analysis with statistical charts: [docs/accuracy.md](docs/accuracy.md)
 | `getLunarNewYear(gregorianYear)` | Lunar New Year date (正月初一) |
 | `gregorianToLunar(date)` | Convert Gregorian date to lunar date |
 
-### Chinese Zodiac (生肖)
+#### Eclipses (日月食)
 
 | Export | Description |
 |---|---|
-| `ZODIAC_ANIMALS` | `['鼠','牛','虎','兔','龍','蛇','馬','羊','猴','雞','狗','豬']` |
-| `ZODIAC_ENGLISH` | `Record<ChineseZodiacAnimal, string>` (鼠→Rat, etc.) |
-| `getChineseZodiac(date, boundary?)` | Zodiac with configurable year boundary (立春 or 初一) |
+| `getAllSolarEclipses()` | All solar eclipses (-1999 to 3000 CE), sorted by date |
+| `getAllLunarEclipses()` | All lunar eclipses (-1999 to 3000 CE), sorted by date |
+| `getEclipsesForYear(year)` | All eclipses for a given year |
+| `getEclipsesInRange(start, end, kind?)` | Eclipses in a date range, optionally filtered |
+| `findNearestEclipse(date, kind?)` | Nearest eclipse to a given date |
+| `isEclipseDate(date)` | Check if a UTC date has an eclipse |
+| `ECLIPSE_DATA_RANGE` | `{ min: -1999, max: 3000 }` |
 
-### True Solar Time (真太陽時)
+### 2. Stem-Branch System (干支)
 
-| Export | Description |
-|---|---|
-| `equationOfTime(date)` | EoT in minutes (Spencer 1971) |
-| `trueSolarTime(clockTime, longitude, standardMeridian?)` | Corrected solar time with breakdown |
-
-### Western Zodiac (星座)
-
-| Export | Description |
-|---|---|
-| `getWesternZodiac(date)` | Sign, symbol, Chinese name, Western element |
-
-### Stems and Branches (干支)
+#### Stems and Branches (天干地支)
 
 | Export | Description |
 |---|---|
@@ -255,7 +218,7 @@ Full analysis with statistical charts: [docs/accuracy.md](docs/accuracy.md)
 | `stemPolarity(stem)` | `'陽'` or `'陰'` |
 | `branchPolarity(branch)` | `'陽'` or `'陰'` |
 
-### Sexagenary Cycle (六十甲子)
+#### Sexagenary Cycle (六十甲子)
 
 | Export | Description |
 |---|---|
@@ -265,7 +228,7 @@ Full analysis with statistical charts: [docs/accuracy.md](docs/accuracy.md)
 | `parseStemBranch(str)` | Parse two-character string into stem + branch |
 | `allSixtyStemBranch()` | All 60 valid pairs in cycle order |
 
-### Five Elements (五行)
+#### Five Elements (五行)
 
 | Export | Description |
 |---|---|
@@ -274,14 +237,30 @@ Full analysis with statistical charts: [docs/accuracy.md](docs/accuracy.md)
 | `ELEMENT_ORDER` | `['金','木','水','火','土']` |
 | `getElementRelation(from, to)` | Returns `'生'`, `'剋'`, `'被生'`, `'被剋'`, or `'比和'` |
 
-### Hidden Stems (地支藏干)
+#### Cycle Elements (納音)
+
+| Export | Description |
+|---|---|
+| `CYCLE_ELEMENTS` | Full 60-pair lookup table with element and poetic name |
+| `getCycleElement(sb)` | 納音 element for a stem-branch pair |
+| `getCycleElementName(sb)` | 納音 poetic name (e.g. 海中金, 爐中火) |
+
+### 3. Pillar Relations (四柱八字)
+
+#### Four Pillars (四柱)
+
+| Export | Description |
+|---|---|
+| `computeFourPillars(date)` | Compute year, month, day, and hour pillars |
+
+#### Hidden Stems (地支藏干)
 
 | Export | Description |
 |---|---|
 | `HIDDEN_STEMS` | `Record<Branch, HiddenStem[]>` — main, middle, residual stems |
 | `getHiddenStems(branch)` | Hidden stems for a branch (main stem first) |
 
-### Stem Relations (天干五合/相衝)
+#### Stem Relations (天干五合/相衝)
 
 | Export | Description |
 |---|---|
@@ -291,7 +270,7 @@ Full analysis with statistical charts: [docs/accuracy.md](docs/accuracy.md)
 | `isStemClash(a, b)` | Check if two stems clash |
 | `getCombinedElement(a, b)` | Transformed element of a combination, or null |
 
-### Branch Relations (地支六合/六衝/三合/刑/害/破)
+#### Branch Relations (地支六合/六衝/三合/刑/害/破)
 
 | Export | Description |
 |---|---|
@@ -310,14 +289,36 @@ Full analysis with statistical charts: [docs/accuracy.md](docs/accuracy.md)
 | `isHarm(a, b)` | Check harm pair |
 | `isDestruction(a, b)` | Check destruction pair |
 
-### Hidden Harmony (暗合)
+#### Hidden Harmony (暗合)
 
 | Export | Description |
 |---|---|
 | `HIDDEN_HARMONY_PAIRS` | Pre-computed pairs where main hidden stems form 五合 |
 | `isHiddenHarmony(a, b)` | Check if two branches have 暗合 |
 
-### Earth Types (濕土/燥土)
+#### Ten Relations (十神)
+
+| Export | Description |
+|---|---|
+| `TEN_RELATION_NAMES` | All 10 relation names |
+| `getTenRelation(dayStem, otherStem)` | Derive the ten-relation |
+| `getTenRelationForBranch(dayStem, branch)` | Ten-relation using main hidden stem |
+
+#### Twelve Life Stages (長生十二神)
+
+| Export | Description |
+|---|---|
+| `TWELVE_STAGES` | `['長生','沐浴','冠帶','臨官','帝旺','衰','病','死','墓','絕','胎','養']` |
+| `getLifeStage(stem, branch)` | Life stage of a stem at a branch |
+
+#### Element Strength (旺相休囚死)
+
+| Export | Description |
+|---|---|
+| `STRENGTH` | `Record<Strength, string>` with descriptive labels |
+| `getStrength(element, monthBranch)` | Seasonal strength: 旺, 相, 休, 囚, or 死 |
+
+#### Earth Types (濕土/燥土)
 
 | Export | Description |
 |---|---|
@@ -326,43 +327,111 @@ Full analysis with statistical charts: [docs/accuracy.md](docs/accuracy.md)
 | `isDryEarth(branch)` | 戌未 are dry earth |
 | `getStorageElement(branch)` | 庫/墓: 辰→水, 戌→火, 丑→金, 未→木 |
 
-### Ten Relations (十神)
-
-| Export | Description |
-|---|---|
-| `TEN_RELATION_NAMES` | All 10 relation names |
-| `getTenRelation(dayStem, otherStem)` | Derive the ten-relation |
-| `getTenRelationForBranch(dayStem, branch)` | Ten-relation using main hidden stem |
-
-### Twelve Life Stages (長生十二神)
-
-| Export | Description |
-|---|---|
-| `TWELVE_STAGES` | `['長生','沐浴','冠帶','臨官','帝旺','衰','病','死','墓','絕','胎','養']` |
-| `getLifeStage(stem, branch)` | Life stage of a stem at a branch |
-
-### Element Strength (旺相休囚死)
-
-| Export | Description |
-|---|---|
-| `STRENGTH` | `Record<Strength, string>` mapping to moon phase emojis |
-| `getStrength(element, monthBranch)` | Seasonal strength: 旺, 相, 休, 囚, or 死 |
-
-### Cycle Elements (納音)
-
-| Export | Description |
-|---|---|
-| `CYCLE_ELEMENTS` | Full 60-pair lookup table with element and poetic name |
-| `getCycleElement(sb)` | 納音 element for a stem-branch pair |
-| `getCycleElementName(sb)` | 納音 poetic name (e.g. 海中金, 爐中火) |
-
-### Void Branches (旬空)
+#### Void Branches (旬空)
 
 | Export | Description |
 |---|---|
 | `computeVoidBranches(dayStem, dayBranch)` | Two void branches for the current decade |
 
-### Day Fitness (建除十二神)
+### 4. BaZi Analysis (命理推演)
+
+#### Salary Star (祿神)
+
+| Export | Description |
+|---|---|
+| `SALARY_STAR` | `Record<Stem, Branch>` — stem → 臨官 branch |
+| `getSalaryStar(stem)` | Get the 祿 branch for a stem |
+
+#### Virtue Stars (天德/月德)
+
+| Export | Description |
+|---|---|
+| `getMonthlyVirtue(monthBranch)` | 月德: yang stem of the three-harmony element |
+| `getHeavenlyVirtue(monthBranch)` | 天德: traditional 12-entry lookup (stem or branch) |
+| `getMonthlyVirtueCombo(monthBranch)` | 月德合: 五合 partner of 月德 |
+| `getHeavenlyVirtueCombo(monthBranch)` | 天德合: combination partner of 天德 |
+
+#### Luck Periods (大運/小運)
+
+| Export | Description |
+|---|---|
+| `getLuckDirection(yearStem, gender)` | Yang+male or yin+female → forward; opposite → backward |
+| `computeMajorLuck(birthDate, gender, count?)` | 大運: 10-year periods from month pillar (default 8 periods) |
+| `computeMinorLuck(hourPillar, direction, fromAge, toAge)` | 小運: year-by-year pillars from hour pillar |
+
+#### Almanac Flags (神煞)
+
+30 symbolic markers derived from stem-branch combinatorics:
+
+| Export | Description |
+|---|---|
+| `ALMANAC_FLAG_REGISTRY` | Full registry of all 30 flags with metadata |
+| `getAlmanacFlags(date)` | All active flags for a date |
+| `getAlmanacFlagsForPillars(pillars, season)` | All active flags from pre-computed pillars |
+
+Day stem derivations:
+
+| Export | Description |
+|---|---|
+| `getHeavenlyNoble(stem)` | 天乙貴人: two noble branches |
+| `getSupremeNoble(stem)` | 太極貴人: supreme noble branches |
+| `getLiteraryStar(stem)` | 文昌貴人: literary star branch |
+| `getProsperityStar(stem)` | 祿神: prosperity branch |
+| `getRamBlade(stem)` | 羊刃: ram blade branch |
+| `getGoldenCarriage(stem)` | 金輿: golden carriage branch |
+| `getStudyHall(stem)` | 學堂: study hall (長生 position) |
+
+Branch derivations (三合 based):
+
+| Export | Description |
+|---|---|
+| `getTravelingHorse(branch)` | 驛馬: from 三合 group |
+| `getPeachBlossom(branch)` | 桃花: from 三合 group |
+| `getCanopy(branch)` | 華蓋: from 三合 group |
+| `getGeneralStar(branch)` | 將星: from 三合 group |
+| `getRobberyStar(branch)` | 劫煞: from 三合 group |
+| `getDeathSpirit(branch)` | 亡神: from 三合 group |
+
+Branch derivations (other):
+
+| Export | Description |
+|---|---|
+| `getRedPhoenix(branch)` | 紅鸞: red phoenix |
+| `getHeavenlyJoy(branch)` | 天喜: heavenly joy (紅鸞 + 6) |
+| `getLonelyStar(branch)` | 孤辰: lonely star |
+| `getWidowStar(branch)` | 寡宿: widow star |
+| `getHeavenlyDoctor(branch)` | 天醫: heavenly doctor (year branch + 1) |
+
+Day pillar predicates:
+
+| Export | Description |
+|---|---|
+| `isCommandingStar(stem, branch)` | 魁罡: 庚辰/壬辰/庚戌/戊戌 |
+| `isTenEvils(stem, branch)` | 十惡大敗: 10 specific day pillars |
+| `isYinYangError(stem, branch)` | 陰差陽錯: 12 specific day pillars |
+| `isGoldSpirit(stem, branch)` | 金神: 己巳/癸酉/乙丑 |
+| `isTenSpirits(stem, branch)` | 十靈日: 10 specific day pillars |
+| `isHeavenNet(branch)` | 天羅: 戌/亥 |
+| `isEarthTrap(branch)` | 地網: 辰/巳 |
+
+Calendar predicates:
+
+| Export | Description |
+|---|---|
+| `isHeavensPardon(stem, branch, season)` | 天赦日: seasonal pardon day |
+| `isMonthBreak(dayBranch, monthBranch)` | 月破: day clashes month |
+| `isYearBreak(dayBranch, yearBranch)` | 歲破: day clashes year |
+| `isFourWaste(stem, branch, season)` | 四廢: element dead in season |
+
+Multi-pillar patterns:
+
+| Export | Description |
+|---|---|
+| `getThreeWonders(pillars)` | 三奇貴人: 乙丙丁 (天) / 甲戊庚 (地) / 壬癸辛 (人) |
+
+### 5. Almanac Features (曆書)
+
+#### Day Fitness (建除十二神)
 
 | Export | Description |
 |---|---|
@@ -371,7 +440,7 @@ Full analysis with statistical charts: [docs/accuracy.md](docs/accuracy.md)
 | `getDayFitness(dayBranch, monthBranch)` | Fitness value from day and month branches |
 | `getDayFitnessForDate(date)` | Fitness and auspicious flag for a date |
 
-### Flying Stars (紫白九星)
+#### Flying Stars (紫白九星)
 
 | Export | Description |
 |---|---|
@@ -382,83 +451,120 @@ Full analysis with statistical charts: [docs/accuracy.md](docs/accuracy.md)
 | `getHourStar(date)` | Hour star (from day star group + hour branch) |
 | `getFlyingStars(date)` | All four stars (year, month, day, hour) |
 
-### Almanac Flags (神煞)
+#### Peng Zu Taboos (彭祖百忌)
 
 | Export | Description |
 |---|---|
-| `ALMANAC_FLAG_REGISTRY` | Full registry of all recognized flags with metadata |
-| `getAlmanacFlags(date)` | All active flags for a date |
-| `getAlmanacFlagsForPillars(pillars)` | All active flags from pre-computed pillars |
-| `getHeavenlyNoble(stem)` | 天乙貴人: two noble branches per day stem |
-| `getSupremeNoble(stem)` | 太極貴人: supreme noble branches per stem |
-| `getLiteraryStar(stem)` | 文昌貴人: literary star branch per stem |
-| `getProsperityStar(stem)` | 祿神: prosperity branch per stem |
-| `getRamBlade(stem)` | 羊刃: ram blade branch per stem |
-| `getGoldenCarriage(stem)` | 金輿: golden carriage branch per stem |
-| `getTravelingHorse(branch)` | 驛馬: traveling horse from 三合 group |
-| `getPeachBlossom(branch)` | 桃花: peach blossom from 三合 group |
-| `getCanopy(branch)` | 華蓋: canopy from 三合 group |
-| `getGeneralStar(branch)` | 將星: general star from 三合 group |
-| `getRobberyStar(branch)` | 劫煞: robbery star from 三合 group |
-| `getDeathSpirit(branch)` | 亡神: death spirit from 三合 group |
-| `getRedPhoenix(branch)` | 紅鸞: red phoenix (year branch) |
-| `getHeavenlyJoy(branch)` | 天喜: heavenly joy (紅鸞 + 6) |
-| `getLonelyStar(branch)` | 孤辰: lonely star |
-| `getWidowStar(branch)` | 寡宿: widow star |
-| `isCommandingStar(stem, branch)` | 魁罡: check commanding star day pillar |
-| `isTenEvils(stem, branch)` | 十惡大敗: check ten evils day pillar |
-| `isYinYangError(stem, branch)` | 陰差陽錯: check yin-yang error day pillar |
-| `isHeavensPardon(stem, branch, season)` | 天赦日: check heaven's pardon |
-| `isMonthBreak(dayBranch, monthBranch)` | 月破: day branch clashes month branch |
-| `isYearBreak(dayBranch, yearBranch)` | 歲破: day branch clashes year branch |
+| `getPengZuTaboo(stem, branch)` | Stem taboo + branch taboo strings |
+| `getPengZuTabooForDate(date)` | Taboos for a date |
 
-### Six Ren Divination (大六壬)
+#### Day Clash (沖煞)
 
 | Export | Description |
 |---|---|
-| `STEM_LODGING` | 日干寄宮: stem lodging branches (same as 祿) |
+| `getDayClash(dayBranch)` | Clash branch + direction |
+| `getDayClashForDate(date)` | Clash info for a date |
+
+#### Deity Directions (神煞方位)
+
+| Export | Description |
+|---|---|
+| `getDeityDirections(dayStem)` | 喜神/福神/財神 directions from day stem |
+| `getDeityDirectionsForDate(date)` | Directions for a date |
+
+#### Fetal Deity (胎神)
+
+| Export | Description |
+|---|---|
+| `getFetalDeity(stem, branch)` | 胎神 location from day pillar |
+| `getFetalDeityForDate(date)` | Fetal deity location for a date |
+
+#### Duty Deity (值神)
+
+| Export | Description |
+|---|---|
+| `DUTY_DEITIES` | The 12 duty deities in cycle order |
+| `getDutyDeity(dayFitness, ...)` | Which deity is on duty |
+| `getDutyDeityForDate(date)` | Duty deity for a date |
+
+#### Lunar Mansions (二十八星宿)
+
+| Export | Description |
+|---|---|
+| `LUNAR_MANSIONS` | 28 mansions with luminary and element |
+| `getLunarMansion(jd)` | Mansion from Julian Day (JD mod 28) |
+| `getLunarMansionForDate(date)` | Mansion for a date |
+
+#### Chinese Zodiac (生肖)
+
+| Export | Description |
+|---|---|
+| `ZODIAC_ANIMALS` | `['鼠','牛','虎','兔','龍','蛇','馬','羊','猴','雞','狗','豬']` |
+| `ZODIAC_ENGLISH` | `Record<ChineseZodiacAnimal, string>` (鼠→Rat, etc.) |
+| `getChineseZodiac(date, boundary?)` | Zodiac with configurable year boundary (立春 or 初一) |
+
+#### Western Zodiac (星座)
+
+| Export | Description |
+|---|---|
+| `getWesternZodiac(date)` | Sign, symbol, Chinese name, Western element |
+
+#### True Solar Time (真太陽時)
+
+| Export | Description |
+|---|---|
+| `equationOfTime(date)` | EoT in minutes (Spencer 1971) |
+| `trueSolarTime(clockTime, longitude, standardMeridian?)` | Corrected solar time with breakdown |
+
+### 6. Divination Systems (三式)
+
+#### Six Ren (大六壬)
+
+| Export | Description |
+|---|---|
+| `STEM_LODGING` | 日干寄宮: stem lodging branches |
 | `HEAVENLY_GENERALS` | 十二天將 in traditional order |
 | `getMonthlyGeneral(date)` | 月將: shifts at each 中氣 boundary |
 | `buildPlates(monthlyGeneral, hourBranch)` | Build 天地盤 (heaven/earth plate rotation) |
 | `buildFourLessons(dayStem, dayBranch, plates)` | Derive 四課 (four lessons) |
-| `computeSixRen(dayStem, dayBranch, hourBranch, monthlyGeneral)` | Full chart from the four parameters |
-| `computeSixRenForDate(date, hour?)` | Full chart for a date (auto-derives all inputs) |
+| `computeSixRen(dayStem, dayBranch, hourBranch, monthlyGeneral)` | Full chart from parameters |
+| `computeSixRenForDate(date, hour?)` | Full chart for a date |
 
-### Eclipses (日月食)
-
-| Export | Description |
-|---|---|
-| `getAllSolarEclipses()` | All solar eclipses (-1999 to 3000 CE), sorted by date |
-| `getAllLunarEclipses()` | All lunar eclipses (-1999 to 3000 CE), sorted by date |
-| `getEclipsesForYear(year)` | All eclipses for a given year |
-| `getEclipsesInRange(start, end, kind?)` | Eclipses in a date range, optionally filtered |
-| `findNearestEclipse(date, kind?)` | Nearest eclipse to a given date |
-| `isEclipseDate(date)` | Check if a UTC date has an eclipse |
-| `ECLIPSE_DATA_RANGE` | `{ min: -1999, max: 3000 }` |
-
-### New Moon (朔日)
+#### Mystery Gates (奇門遁甲)
 
 | Export | Description |
 |---|---|
-| `newMoonJDE(k)` | JDE of new moon for lunation number k (Meeus Ch. 49) |
-| `findNewMoonsInRange(startJD, endJD)` | All new moon JDEs in a Julian Day range |
+| `NINE_STARS` | 九星: 天蓬 through 天英 |
+| `EIGHT_DOORS` | 八門: 休 through 開 |
+| `EIGHT_DEITIES` | 八神: 值符 through 天禽 |
+| `SAN_QI_LIU_YI` | 三奇六儀: 戊己庚辛壬癸丁丙乙 |
+| `getEscapeMode(date)` | 陰遁 or 陽遁 for a date |
+| `getJuShu(date)` | 局數 (1-9) for a date |
+| `buildEarthPlate(juShu)` | 地盤: Lo Shu base layout |
+| `buildHeavenPlate(earthPlate, ...)` | 天盤: rotated overlay |
+| `computeQiMen(...)` | Full chart from parameters |
+| `computeQiMenForDate(date)` | Full chart for a date |
 
-### Julian Day Number (儒略日)
+#### Polaris Astrology (紫微斗數)
 
 | Export | Description |
 |---|---|
-| `julianDayNumber(year, month, day, calendar?)` | JD for a calendar date (Julian, Gregorian, or auto) |
-| `jdToCalendarDate(jd, calendar?)` | Convert JD back to calendar date |
-| `julianCalendarToDate(year, month, day)` | Convert a Julian calendar date to a JS Date |
+| `MAJOR_STARS` | 14 major stars (紫微 through 破軍) |
+| `PALACE_NAMES` | 12 palace names (命宮 through 父母宮) |
+| `getFatepalace(lunarMonth, hourIndex)` | Fate palace branch index |
+| `getElementPattern(fatePalaceIndex, yearStem)` | 五行局 from 納音 (2-6) |
+| `getZiWeiPosition(birthDay, elementPattern)` | 紫微 star palace index |
+| `computeZiWei(birthData)` | Full chart: 12 palaces, 14 stars, 四化, 流太歲 |
 
-### DeltaT (ΔT)
+### 7. Composite
+
+#### Daily Almanac (日曆總覽)
 
 | Export | Description |
 |---|---|
-| `deltaT(date)` | ΔT in seconds for a Date (TT = UT + ΔT) |
-| `deltaTForYear(y)` | ΔT in seconds for a decimal year |
+| `dailyAlmanac(date)` | Complete almanac: pillars, lunar date, solar terms, zodiac, day fitness, flying stars, almanac flags, Six Ren, eclipses, element analysis |
 
-### Types
+## Types
 
 ```typescript
 type Stem = '甲' | '乙' | '丙' | '丁' | '戊' | '己' | '庚' | '辛' | '壬' | '癸';
@@ -474,34 +580,45 @@ type TenRelation = '比肩' | '劫財' | '食神' | '傷官' | '偏財' | '正�
 type LifeStage = '長生' | '沐浴' | '冠帶' | '臨官' | '帝旺' | '衰' | '病' | '死' | '墓' | '絕' | '胎' | '養';
 type DayFitness = '建' | '除' | '滿' | '平' | '定' | '執' | '破' | '危' | '成' | '收' | '開' | '閉';
 type FlyingStar = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
-type AlmanacCategory = 'noble' | 'academic' | 'romance' | 'travel' | 'wealth' | 'protection' | 'inauspicious';
+type AlmanacCategory = 'noble' | 'academic' | 'romance' | 'travel' | 'wealth' | 'protection' | 'health' | 'inauspicious';
+type LuckDirection = 'forward' | 'backward';
 type TransmissionMethod = '賊剋' | '比用' | '涉害' | '遙剋' | '昴星' | '別責' | '八專' | '返吟' | '伏吟';
 type HeavenlyGeneral = '貴人' | '螣蛇' | '朱雀' | '六合' | '勾陳' | '青龍' | '天空' | '白虎' | '太常' | '玄武' | '太陰' | '天后';
 
-interface HiddenStem { stem: Stem; proportion: number; }
 interface Pillar { stem: Stem; branch: Branch; }
 interface FourPillars { year: Pillar; month: Pillar; day: Pillar; hour: Pillar; }
+interface HiddenStem { stem: Stem; proportion: number; }
 interface SolarTerm { name: string; longitude: number; date: Date; }
+interface LunarMonth { monthNumber: number; isLeapMonth: boolean; startDate: Date; days: number; }
+interface LunarDate { year: number; month: number; day: number; isLeapMonth: boolean; }
+
+interface MajorLuckPeriod { pillar: { stem: Stem; branch: Branch; stemBranch: StemBranch }; startAge: number; endAge: number; }
+interface MajorLuckResult { direction: LuckDirection; startAge: number; periods: MajorLuckPeriod[]; }
+interface MinorLuckYear { age: number; pillar: { stem: Stem; branch: Branch; stemBranch: StemBranch }; }
+
 interface FlyingStarInfo { number: FlyingStar; name: string; element: Element; color: string; }
 interface AlmanacFlagInfo { name: string; english: string; auspicious: boolean; category: AlmanacCategory; }
 interface AlmanacFlagResult extends AlmanacFlagInfo { positions: ('year' | 'month' | 'day' | 'hour')[]; }
+
 interface SixRenLesson { upper: Branch; lower: Branch; }
 interface SixRenChart { dayStem: Stem; dayBranch: Branch; hourBranch: Branch; monthlyGeneral: Branch; plates: Record<Branch, Branch>; lessons: SixRenLesson[]; transmissions: { initial: Branch; middle: Branch; final: Branch }; method: TransmissionMethod; generals: Record<Branch, HeavenlyGeneral>; }
+
+interface QiMenChart { earthPlate: Record<number, string>; heavenPlate: Record<number, string>; stars: Record<number, string>; doors: Record<number, string>; deities: Record<number, string>; escapeMode: string; juShu: number; zhiFu: { star: string; palace: number }; zhiShi: { door: string; palace: number }; }
+
+interface ZiWeiBirthData { year: number; month: number; day: number; hour: number; gender: 'male' | 'female'; }
+interface ZiWeiPalace { name: string; branch: Branch; stem: Stem; majorStars: string[]; }
+interface SiHua { lu: string; quan: string; ke: string; ji: string; }
+interface ZiWeiChart { palaces: ZiWeiPalace[]; elementPattern: number; siHua: SiHua; birthData: ZiWeiBirthData; fatePalaceIndex: number; bodyPalaceIndex: number; taiSuiIndex: number; }
 
 type EclipseKind = 'solar' | 'lunar';
 type SolarEclipseType = 'T' | 'A' | 'P' | 'H';
 type LunarEclipseType = 'T' | 'P' | 'N';
 interface Eclipse { date: Date; kind: EclipseKind; type: SolarEclipseType | LunarEclipseType; magnitude: number; }
-
-type CalendarType = 'julian' | 'gregorian' | 'auto';
-interface LunarMonth { monthNumber: number; isLeapMonth: boolean; startDate: Date; days: number; }
-interface LunarDate { year: number; month: number; day: number; isLeapMonth: boolean; }
-interface DailyAlmanac { date: Date; julianDay: number; lunar: LunarDate; pillars: FourPillars; solarTerm: { current: { name: string; date: Date } | null; next: { name: string; date: Date } }; chineseZodiac: ChineseZodiacResult; westernZodiac: WesternZodiacResult; dayFitness: { fitness: DayFitness; auspicious: boolean }; flyingStars: { year: FlyingStarInfo; month: FlyingStarInfo; day: FlyingStarInfo; hour: FlyingStarInfo }; almanacFlags: AlmanacFlagResult[]; sixRen: SixRenChart; nearestEclipse: Eclipse; isEclipseDay: boolean; dayElement: Element; dayStrength: Strength; }
 ```
 
 ## Used By
 
-- [stembranch-almanac](https://stembranch-almanac.vercel.app) — daily Chinese almanac showcasing `dailyAlmanac()` with all modules
+- [stembranch-almanac](https://stembranch-almanac.vercel.app) — daily Chinese almanac with 三式合盤 (unified chart) showcasing all modules
 - [iching4d](https://iching4d.vercel.app) — interactive I Ching explorer with 3D hexagram visualization
 
 ## License
