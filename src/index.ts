@@ -84,6 +84,7 @@ export { CYCLE_ELEMENTS, getCycleElement, getCycleElementName } from './cycle-el
 
 // ── 旬空 (Void Branches) ──────────────────────────────────
 export { computeVoidBranches } from './void-branches';
+export type { VoidBranches } from './void-branches';
 
 // ── ΔT (DeltaT) ─────────────────────────────────────────────
 export { deltaT, deltaTForYear } from './delta-t';
@@ -158,7 +159,7 @@ export {
   isCommandingStar, isTenEvils, isYinYangError,
   // Calendar predicates
   isHeavensPardon, isMonthBreak, isYearBreak,
-  // Additional BaZi stars
+  // Additional Eight-Character stars
   getHeavenlyDoctor, getStudyHall,
   isGoldSpirit, isTenSpirits,
   isHeavenNet, isEarthTrap,

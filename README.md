@@ -1,6 +1,6 @@
 # stembranch
 
-Astronomical Chinese calendar, 四柱八字, and divination computation for TypeScript. Solar terms, lunar calendar, stem-branch cycles, BaZi analysis, and three classical divination systems — all from first principles.
+Astronomical Chinese calendar, 四柱八字, and divination computation for TypeScript. Solar terms, lunar calendar, stem-branch cycles, Eight-Character analysis, and three classical divination systems — all from first principles.
 
 [![npm](https://img.shields.io/npm/v/stembranch)](https://www.npmjs.com/package/stembranch)
 [![license](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
@@ -331,9 +331,7 @@ Full analysis with statistical charts: [docs/accuracy.md](docs/accuracy.md)
 
 | Export | Description |
 |---|---|
-| `computeVoidBranches(dayStem, dayBranch)` | Two void branches for the current decade |
-
-### 4. BaZi Analysis (命理推演)
+| `computeVoidBranches(dayStem, dayBranch)` | `{ true: Branch, partial: Branch }` — 正空 (polarity match) and 偏空 |
 
 #### Salary Star (祿神)
 
@@ -350,14 +348,6 @@ Full analysis with statistical charts: [docs/accuracy.md](docs/accuracy.md)
 | `getHeavenlyVirtue(monthBranch)` | 天德: traditional 12-entry lookup (stem or branch) |
 | `getMonthlyVirtueCombo(monthBranch)` | 月德合: 五合 partner of 月德 |
 | `getHeavenlyVirtueCombo(monthBranch)` | 天德合: combination partner of 天德 |
-
-#### Luck Periods (大運/小運)
-
-| Export | Description |
-|---|---|
-| `getLuckDirection(yearStem, gender)` | Yang+male or yin+female → forward; opposite → backward |
-| `computeMajorLuck(birthDate, gender, count?)` | 大運: 10-year periods from month pillar (default 8 periods) |
-| `computeMinorLuck(hourPillar, direction, fromAge, toAge)` | 小運: year-by-year pillars from hour pillar |
 
 #### Almanac Flags (神煞)
 
@@ -428,6 +418,16 @@ Multi-pillar patterns:
 | Export | Description |
 |---|---|
 | `getThreeWonders(pillars)` | 三奇貴人: 乙丙丁 (天) / 甲戊庚 (地) / 壬癸辛 (人) |
+
+### 4. Eight-Character Derivations (八字推算)
+
+#### Luck Periods (大運/小運)
+
+| Export | Description |
+|---|---|
+| `getLuckDirection(yearStem, gender)` | Yang+male or yin+female → forward; opposite → backward |
+| `computeMajorLuck(birthDate, gender, count?)` | 大運: 10-year periods from month pillar (default 8 periods) |
+| `computeMinorLuck(hourPillar, direction, fromAge, toAge)` | 小運: year-by-year pillars from hour pillar |
 
 ### 5. Almanac Features (曆書)
 

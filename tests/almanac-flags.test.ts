@@ -33,7 +33,7 @@ import {
   isMonthBreak,
   isYearBreak,
 
-  // Additional BaZi stars
+  // Additional Eight-Character stars
   getHeavenlyDoctor,
   getStudyHall,
   isGoldSpirit,
@@ -399,7 +399,7 @@ describe('isHeavensPardon (天赦日)', () => {
 });
 
 // ═══════════════════════════════════════════════════════════════
-//  Additional BaZi Stars
+//  Additional Eight-Character Stars
 // ═══════════════════════════════════════════════════════════════
 
 describe('getHeavenlyDoctor (天醫)', () => {

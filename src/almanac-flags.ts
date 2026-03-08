@@ -253,7 +253,7 @@ export function isYearBreak(dayBranch: Branch, yearBranch: Branch): boolean {
 }
 
 // ═══════════════════════════════════════════════════════════════
-//  Additional BaZi Stars
+//  Additional Eight-Character Stars
 // ═══════════════════════════════════════════════════════════════
 
 /** 天醫 — year branch + 1 (the "healer" position) */
@@ -460,7 +460,7 @@ export const ALMANAC_FLAG_REGISTRY: readonly FlagRule[] = [
     check: (p, season) => isHeavensPardon(p.day.stem, p.day.branch, season) ? ['day'] : [],
   },
 
-  // ── Additional BaZi Stars ──
+  // ── Additional Eight-Character Stars ──
   {
     name: '天醫', english: 'Heavenly Doctor', auspicious: true, category: 'health',
     check: (p) => yearBranchCheck(p, getHeavenlyDoctor(p.year.branch)),
