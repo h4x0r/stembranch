@@ -1,5 +1,5 @@
 /**
- * 沖煞 (Day Clash & Evil Direction)
+ * 衝煞 (Day Clash & Evil Direction)
  *
  * Derives which animal the day clashes with (六衝) and the
  * associated "sha" (煞) compass direction to avoid.
@@ -42,7 +42,7 @@ export interface DayClash {
   clashAnimal: string;
   /** The compass direction to avoid (煞方) */
   direction: string;
-  /** Traditional display format: 沖X煞X */
+  /** Traditional display format: 衝X煞X */
   display: string;
 }
 
@@ -55,7 +55,7 @@ export function getDayClash(dayBranch: Branch): DayClash {
     clashBranch,
     clashAnimal,
     direction,
-    display: `沖${clashAnimal}煞${direction}`,
+    display: `衝${clashAnimal}煞${direction}`,
   };
 }
 

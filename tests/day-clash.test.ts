@@ -25,7 +25,7 @@ describe('getDayClash', () => {
 
   it('should format as traditional string', () => {
     const result = getDayClash('子');
-    expect(result.display).toBe('沖馬煞南');
+    expect(result.display).toBe('衝馬煞南');
   });
 
   it('should work for all 12 branches', () => {
@@ -36,7 +36,7 @@ describe('getDayClash', () => {
       expect(result.clashBranch).toBeTruthy();
       expect(result.clashAnimal).toBeTruthy();
       expect(result.direction).toBeTruthy();
-      expect(result.display).toContain('沖');
+      expect(result.display).toContain('衝');
       expect(result.display).toContain('煞');
       seen.add(result.clashBranch);
     }
@@ -48,6 +48,6 @@ describe('getDayClashForDate', () => {
   it('should return clash info for a date', () => {
     const result = getDayClashForDate(new Date(Date.UTC(2024, 5, 15, 6)));
     expect(result.clashBranch).toBeTruthy();
-    expect(result.display).toContain('沖');
+    expect(result.display).toContain('衝');
   });
 });

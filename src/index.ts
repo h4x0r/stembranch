@@ -175,7 +175,7 @@ export type { AlmanacCategory, AlmanacFlagInfo, AlmanacFlagResult } from './alma
 export { getPengZuTaboo, getPengZuTabooForDate } from './peng-zu';
 export type { PengZuTaboo } from './peng-zu';
 
-// ── 沖煞 (Day Clash Direction) ──────────────────────────────
+// ── 衝煞 (Day Clash Direction) ──────────────────────────────
 export { getDayClash, getDayClashForDate } from './day-clash';
 export type { DayClash } from './day-clash';
 
