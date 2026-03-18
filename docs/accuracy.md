@@ -281,18 +281,26 @@ fastest near equinoxes (~1.02°/day), amplifying timing differences.
 
 ### 2.9 Three-way summary
 
-```
-              1900–2100 (modern epoch)
+```mermaid
+graph LR
+    subgraph modern["1900–2100 · modern epoch"]
+        SX["sxwnl<br/><small>VSOP87D + DE405</small>"]
+        SB1["stembranch<br/><small>VSOP87D + DE441</small>"]
+        JPL1["JPL DE441<br/><small>ground truth</small>"]
+        SX -- "mean 2.38s · max 7.18s" --> JPL1
+        SB1 -- "mean 1.56s · max 2.79s ✓" --> JPL1
+    end
+    subgraph full["209–2493 CE · full range"]
+        SB2["stembranch"]
+        JPL2["JPL DE441"]
+        SB2 -- "mean 1.05s · max 3.05s" --> JPL2
+    end
 
-  sxwnl ──── 2.38s avg ─────────────────────────→ JPL DE441
-  (VSOP87D + DE405)                                (DE441 numerical)
-
-  stembranch ── 1.56s avg ──────────────────────→ JPL DE441
-  (VSOP87D + DE441)
-
-              209–2493 CE (full range)
-
-  stembranch ── 1.05s avg, 3.05s max ───────────→ JPL DE441
+    style SB1 fill:#d4edda,stroke:#28a745
+    style SB2 fill:#d4edda,stroke:#28a745
+    style JPL1 fill:#cce5ff,stroke:#004085
+    style JPL2 fill:#cce5ff,stroke:#004085
+    style SX fill:#fff3cd,stroke:#856404
 ```
 
 stembranch outperforms sxwnl against JPL on all metrics, even within sxwnl's
