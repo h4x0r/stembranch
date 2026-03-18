@@ -41,7 +41,7 @@ The month branch is determined by solar month boundaries (節氣), the same as t
 ## API
 
 ```typescript
-import { getDayFitness, getDayFitnessForDate } from 'stembranch';
+import { getDayFitness, getDayFitnessForDate } from 'stem-branch';
 
 // From branches directly
 getDayFitness('辰', '寅'); // → '滿'

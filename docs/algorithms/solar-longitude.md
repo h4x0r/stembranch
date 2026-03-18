@@ -92,7 +92,7 @@ The derivative dλ/dt is approximated numerically. Convergence typically occurs 
 ## API
 
 ```typescript
-import { getSunLongitude, findSolarTermMoment } from 'stembranch';
+import { getSunLongitude, findSolarTermMoment } from 'stem-branch';
 
 // Get Sun's apparent longitude at a specific moment
 getSunLongitude(new Date(2024, 2, 20, 3, 6)); // → ~0.0 (vernal equinox)

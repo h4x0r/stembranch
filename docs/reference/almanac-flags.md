@@ -43,7 +43,7 @@ The most important noble star. Each stem maps to two branches (daytime/nighttime
 **Mnemonic:** 甲戊庚牛羊(丑未), 乙己鼠猴鄉(子申), 丙丁豬雞位(亥酉), 壬癸蛇兔藏(巳卯), 六辛馬虎方(午寅).
 
 ```typescript
-import { getHeavenlyNoble } from 'stembranch';
+import { getHeavenlyNoble } from 'stem-branch';
 getHeavenlyNoble('甲'); // → ['丑', '未']
 ```
 
@@ -60,7 +60,7 @@ getHeavenlyNoble('甲'); // → ['丑', '未']
 **Rule:** Stems are paired by 五合 (stem combination). 甲己 share targets, 乙庚 share targets, etc.
 
 ```typescript
-import { getSupremeNoble } from 'stembranch';
+import { getSupremeNoble } from 'stem-branch';
 getSupremeNoble('戊'); // → ['辰', '戌', '丑', '未']
 ```
 
@@ -73,7 +73,7 @@ getSupremeNoble('戊'); // → ['辰', '戌', '丑', '未']
 **Rule:** The branch of the stem's 食神 (eating god) position.
 
 ```typescript
-import { getLiteraryStar } from 'stembranch';
+import { getLiteraryStar } from 'stem-branch';
 getLiteraryStar('甲'); // → '巳'
 ```
 
@@ -86,7 +86,7 @@ getLiteraryStar('甲'); // → '巳'
 **Rule:** The branch where the stem is in the 臨官 (official) phase of its 12-stage life cycle.
 
 ```typescript
-import { getProsperityStar } from 'stembranch';
+import { getProsperityStar } from 'stem-branch';
 getProsperityStar('甲'); // → '寅'
 ```
 
@@ -99,7 +99,7 @@ getProsperityStar('甲'); // → '寅'
 **Rule:** 陽干 = 祿 + 1 (next branch), 陰干 = 祿 - 1 (previous branch). The Ram Blade is the overextension past the prosperity peak — powerful but dangerous.
 
 ```typescript
-import { getRamBlade } from 'stembranch';
+import { getRamBlade } from 'stem-branch';
 getRamBlade('甲'); // → '卯'
 ```
 
@@ -112,7 +112,7 @@ getRamBlade('甲'); // → '卯'
 **Rule:** 祿 + 2 (two branches past prosperity).
 
 ```typescript
-import { getGoldenCarriage } from 'stembranch';
+import { getGoldenCarriage } from 'stem-branch';
 getGoldenCarriage('甲'); // → '辰'
 ```
 
@@ -125,7 +125,7 @@ getGoldenCarriage('甲'); // → '辰'
 **Rule:** The branch of the stem's 長生 (birth) position in its life cycle.
 
 ```typescript
-import { getStudyHall } from 'stembranch';
+import { getStudyHall } from 'stem-branch';
 getStudyHall('甲'); // → '亥'
 ```
 
@@ -160,7 +160,7 @@ Each position in the 三合 group corresponds to a stage in the 十二長生 (tw
 Activated when any pillar branch matches the travel horse of the year branch's 三合 group.
 
 ```typescript
-import { getTravelingHorse } from 'stembranch';
+import { getTravelingHorse } from 'stem-branch';
 getTravelingHorse('寅'); // → '申' (fire group)
 getTravelingHorse('子'); // → '寅' (water group)
 ```
@@ -170,7 +170,7 @@ getTravelingHorse('子'); // → '寅' (water group)
 Also called 咸池. The "bathing" position — associated with attraction and romance.
 
 ```typescript
-import { getPeachBlossom } from 'stembranch';
+import { getPeachBlossom } from 'stem-branch';
 getPeachBlossom('午'); // → '卯' (fire group)
 ```
 
@@ -179,7 +179,7 @@ getPeachBlossom('午'); // → '卯' (fire group)
 The "tomb" position of the 三合 group. Associated with artistic temperament, solitude, and spiritual inclination.
 
 ```typescript
-import { getCanopy } from 'stembranch';
+import { getCanopy } from 'stem-branch';
 getCanopy('子'); // → '辰' (water group)
 ```
 
@@ -188,7 +188,7 @@ getCanopy('子'); // → '辰' (water group)
 The "emperor" position — peak power of the 三合 element. Leadership and authority.
 
 ```typescript
-import { getGeneralStar } from 'stembranch';
+import { getGeneralStar } from 'stem-branch';
 getGeneralStar('寅'); // → '午' (fire group)
 ```
 
@@ -197,7 +197,7 @@ getGeneralStar('寅'); // → '午' (fire group)
 The "extinction" position. Sudden, unexpected loss or danger.
 
 ```typescript
-import { getRobberyStar } from 'stembranch';
+import { getRobberyStar } from 'stem-branch';
 getRobberyStar('酉'); // → '寅' (metal group)
 ```
 
@@ -206,7 +206,7 @@ getRobberyStar('酉'); // → '寅' (metal group)
 Hidden harm position. Subtle, hard-to-detect negative influence.
 
 ```typescript
-import { getDeathSpirit } from 'stembranch';
+import { getDeathSpirit } from 'stem-branch';
 getDeathSpirit('卯'); // → '寅' (wood group)
 ```
 
@@ -406,5 +406,5 @@ import {
   isYearBreak,              // (Branch, Branch) → boolean
   isFourWaste,              // (Stem, Branch, season) → boolean
   getThreeWonders,          // FourPillars → 'heaven'|'earth'|'human'|null
-} from 'stembranch';
+} from 'stem-branch';
 ```

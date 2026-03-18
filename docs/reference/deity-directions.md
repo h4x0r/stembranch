@@ -46,7 +46,7 @@ Based on the primary 天乙貴人 (Heavenly Noble) position.
 ## API
 
 ```typescript
-import { getDeityDirections, getDeityDirectionsForDate } from 'stembranch';
+import { getDeityDirections, getDeityDirectionsForDate } from 'stem-branch';
 
 // From day stem
 getDeityDirections('甲');

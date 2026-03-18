@@ -1,5 +1,5 @@
 {
-  "name": "stembranch",
+  "name": "stem-branch",
   "version": "0.2.0",
   "description": "Chinese calendar, astronomy, and 干支 (Heavenly Stems & Earthly Branches) computation library",
   "type": "module",

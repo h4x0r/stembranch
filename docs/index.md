@@ -1,7 +1,7 @@
 ---
 layout: home
 hero:
-  name: stembranch
+  name: stem-branch
   text: Chinese Calendar & Stem-Branch Algorithms
   tagline: The most accurate open-source Chinese calendar engine — solar terms verified to 1.05 seconds against JPL DE441 across 2,300 years.
   actions:
@@ -13,7 +13,7 @@ hero:
       link: /algorithms/overview
     - theme: alt
       text: GitHub
-      link: https://github.com/h4x0r/stembranch
+      link: https://github.com/h4x0r/stem-branch
 
 features:
   - title: 29 Almanac Flags (神煞)

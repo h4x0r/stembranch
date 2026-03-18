@@ -73,7 +73,7 @@ import {
   getMonthlyVirtueCombo,  // Branch → Stem
   getHeavenlyVirtue,      // Branch → Stem | Branch
   getHeavenlyVirtueCombo, // Branch → Stem | Branch
-} from 'stembranch';
+} from 'stem-branch';
 
 getMonthlyVirtue('寅');      // → '丙'
 getMonthlyVirtueCombo('寅'); // → '辛'

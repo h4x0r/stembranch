@@ -76,7 +76,7 @@ The hour **stem** is determined by the day stem using the 五鼠遁 (Five Rats) 
 ## API
 
 ```typescript
-import { computeFourPillars } from 'stembranch';
+import { computeFourPillars } from 'stem-branch';
 
 const pillars = computeFourPillars(new Date(2024, 1, 10, 14, 30));
 // → {

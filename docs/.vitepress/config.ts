@@ -1,9 +1,9 @@
 import { defineConfig } from 'vitepress';
 
 export default defineConfig({
-  title: 'stembranch',
+  title: 'stem-branch',
   description: 'Chinese calendar and stem-branch algorithms — reference documentation',
-  base: '/stembranch/',
+  base: '/stem-branch/',
   lang: 'zh-Hant',
   head: [
     ['meta', { name: 'theme-color', content: '#b91c1c' }],
@@ -14,7 +14,7 @@ export default defineConfig({
       { text: 'Algorithms', link: '/algorithms/overview' },
       { text: 'Accuracy', link: '/accuracy' },
       { text: 'npm', link: 'https://www.npmjs.com/package/stembranch' },
-      { text: 'GitHub', link: 'https://github.com/h4x0r/stembranch' },
+      { text: 'GitHub', link: 'https://github.com/h4x0r/stem-branch' },
     ],
     sidebar: [
       {
