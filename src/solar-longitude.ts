@@ -130,6 +130,31 @@ const NUT_COEFFS: readonly number[][] = [
   [ 1, 1, 2,-2, 2,      1290,      0],
 ];
 
+// IAU2000B nutation in obliquity (Δε) coefficients.
+// Same 77 terms, same argument order as NUT_COEFFS.
+// Each row: [Δε_cos (0.1μas), Δε_cos·T (0.1μas)]
+// Formula: Δε = Σ (ec + ect·T) × cos(arg)
+// Source: ERFA nut00b.c (liberfa/erfa), columns ec and ect
+// prettier-ignore
+const NUT_OBLIQ_COEFFS: readonly number[][] = [
+  [92052331,9086],[5730336,-3015],[978459,-485],[-897492,470],[73871,-184],
+  [224386,-677],[-6750,0],[200728,18],[129025,-63],[-95929,299],
+  [-68982,-9],[-53311,32],[-1235,0],[-33228,0],[31429,0],
+  [25543,-11],[26366,0],[-24236,-10],[-1220,0],[16452,-11],
+  [-13870,0],[477,0],[13238,-11],[-12338,10],[-10758,0],
+  [-609,0],[-550,0],[8551,-2],[-8001,0],[6850,-42],
+  [-167,0],[6953,0],[6415,0],[5222,0],[168,-1],
+  [3268,0],[104,0],[-3250,0],[3353,0],[3070,0],
+  [3272,0],[-3045,0],[-2768,0],[3041,0],[2695,0],
+  [2719,0],[2720,0],[-51,0],[-2206,0],[-199,0],
+  [-1900,0],[-41,0],[1313,0],[1233,0],[-81,0],
+  [1232,0],[-20,0],[1207,0],[40,0],[1129,0],
+  [1266,0],[-1062,0],[-1129,0],[-9,0],[35,0],
+  [-107,0],[1073,0],[854,0],[-553,0],[-710,0],
+  [647,0],[-700,0],[672,0],[663,0],[-594,0],
+  [-610,0],[-556,0],
+];
+
 /**
  * Compute nutation in longitude (Δψ) in arcseconds using IAU2000B (77 terms).
  *
@@ -146,6 +171,25 @@ function nutationDpsi(
   }
   // Convert from 0.1 microarcseconds to arcseconds: ÷ 10,000,000
   return dpsi / 1e7;
+}
+
+/**
+ * Compute nutation in obliquity (Δε) in arcseconds using IAU2000B (77 terms).
+ *
+ * Uses the same Delaunay fundamental arguments as nutationDpsi,
+ * with cosine coefficients from NUT_OBLIQ_COEFFS.
+ */
+function nutationDeps(
+  l: number, lp: number, F: number, D: number, Om: number, T: number,
+): number {
+  let deps = 0;
+  for (let i = 0; i < NUT_COEFFS.length; i++) {
+    const row = NUT_COEFFS[i];
+    const arg = row[0] * l + row[1] * lp + row[2] * F + row[3] * D + row[4] * Om;
+    const obliq = NUT_OBLIQ_COEFFS[i];
+    deps += (obliq[0] + obliq[1] * T) * Math.cos(arg);
+  }
+  return deps / 1e7;
 }
 
 /**
@@ -306,4 +350,79 @@ export function findSunLongitudeMoment(
 
   // Return the midpoint of the final bracket
   return new Date(lo + Math.floor((hi - lo) / 2));
+}
+
+// ── Equation of Time (VSOP87D-based, Meeus Ch. 28) ──────────────────────
+
+/**
+ * Compute the Equation of Time using full VSOP87D planetary theory.
+ *
+ * Formula (Meeus, Astronomical Algorithms, Ch. 28):
+ *   EoT = L₀ - 0.0057183° - α
+ *
+ * Where:
+ *   L₀ = Sun's geometric mean longitude (polynomial in T)
+ *   α  = Sun's apparent right ascension (from apparent ecliptic longitude
+ *         via VSOP87D + IAU2000B nutation + DE405 correction + aberration)
+ *   0.0057183° = aberration constant, compensating for aberration already
+ *                included in the apparent α
+ *
+ * Sign convention: positive = sundial ahead of clock
+ *   (apparent solar time > mean solar time)
+ *   February: ~+14 min, November: ~-16 min
+ *
+ * Accuracy: sub-second (limited by VSOP87D truncation, ~0.5" in longitude).
+ * This replaces the Spencer 1971 Fourier approximation (~30s accuracy).
+ *
+ * @param date - The moment to compute EoT for (UT)
+ * @returns EoT in minutes
+ */
+export function equationOfTimeVSOP(date: Date): number {
+  const T = dateToJulianCenturies(date);
+  const T2 = T * T;
+  const T3 = T2 * T;
+
+  // 1. Sun's apparent ecliptic longitude (degrees) — full VSOP87D pipeline
+  const lambdaDeg = getSunLongitude(date);
+  const lambda = lambdaDeg * DEG_TO_RAD;
+
+  // 2. Mean obliquity of the ecliptic (Laskar 1986, arcseconds)
+  const eps0 = (84381.448 - 46.8150 * T - 0.00059 * T2 + 0.001813 * T3)
+    * ARCSEC_TO_RAD;
+
+  // 3. Nutation in obliquity (IAU2000B, 77 terms)
+  //    Recompute Delaunay fundamental arguments (same as in getSunLongitude)
+  const T4 = T3 * T;
+  const l  = ((485868.249036 + 1717915923.2178 * T + 31.8792 * T2
+    + 0.051635 * T3 - 0.00024470 * T4) % 1296000) * ARCSEC_TO_RAD;
+  const lp = ((1287104.79305 + 129596581.0481 * T - 0.5532 * T2
+    + 0.000136 * T3 - 0.00001149 * T4) % 1296000) * ARCSEC_TO_RAD;
+  const F  = ((335779.526232 + 1739527262.8478 * T - 12.7512 * T2
+    - 0.001037 * T3 + 0.00000417 * T4) % 1296000) * ARCSEC_TO_RAD;
+  const D  = ((1072260.70369 + 1602961601.2090 * T - 6.3706 * T2
+    + 0.006593 * T3 - 0.00003169 * T4) % 1296000) * ARCSEC_TO_RAD;
+  const Om = ((450160.398036 - 6962890.5431 * T + 7.4722 * T2
+    + 0.007702 * T3 - 0.00005939 * T4) % 1296000) * ARCSEC_TO_RAD;
+
+  const depsAs = nutationDeps(l, lp, F, D, Om, T);
+  const eps = eps0 + depsAs * ARCSEC_TO_RAD;
+
+  // 4. Apparent right ascension from ecliptic longitude and true obliquity
+  const alpha = Math.atan2(Math.cos(eps) * Math.sin(lambda), Math.cos(lambda));
+  const alphaDeg = normalizeDegrees(alpha * RAD_TO_DEG);
+
+  // 5. Sun's geometric mean longitude (Meeus, degrees)
+  const L0 = normalizeDegrees(280.46646 + 36000.76983 * T + 0.0003032 * T2);
+
+  // 6. EoT = L₀ - 0.0057183° - α (Meeus Ch. 28)
+  //    Meeus convention: positive = mean sun ahead of apparent sun.
+  //    Our convention: positive = sundial ahead of clock (apparent > mean).
+  //    So we negate: EoT = -(L₀ - 0.0057183° - α) = α - L₀ + 0.0057183°
+  let E = alphaDeg - L0 + 0.0057183;
+
+  // Normalize to [-180, 180]
+  E = ((E + 180) % 360 + 360) % 360 - 180;
+
+  // Convert degrees to minutes of time: 1° = 4 minutes
+  return E * 4;
 }

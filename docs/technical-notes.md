@@ -69,7 +69,7 @@ The lunar calendar uses a 冬至-anchor approach:
 | Julian Day | Meeus Ch. 7 | Julian/Gregorian calendar conversion |
 | DeltaT (ΔT) | Espenak & Meeus + sxwnl | Polynomial (pre-2016), sxwnl cubic table (2016-2050), parabolic extrapolation (2050+) |
 | Nutation | IAU2000B | 77-term lunisolar nutation series |
-| Equation of Time | Spencer 1971 Fourier | Accurate to ~30 seconds |
+| Equation of Time | VSOP87D + Meeus Ch. 28 | Full planetary theory with IAU2000B nutation; sub-second accuracy |
 | Timezone / DST | IANA Time Zone Database | Embedded transition table (78 timezones, 11,742 transitions, 1900-2026); `Intl` fallback for unknown timezones. See [Timezone & DST](#timezone--dst) below |
 | City database | 143 cities, 11 regions | IANA timezone IDs + coordinates for solar time |
 | Eclipse dates | NASA Five Millennium Canon | 23,962 eclipses (-1999 to 3000 CE) |

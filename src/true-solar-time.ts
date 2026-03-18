@@ -1,5 +1,6 @@
 /* c8 ignore next */
 import type { TrueSolarTimeResult } from './types';
+import { equationOfTimeVSOP } from './solar-longitude';
 
 /**
  * Compute the Equation of Time (EoT) for a given date.
@@ -7,19 +8,14 @@ import type { TrueSolarTimeResult } from './types';
  * The EoT accounts for Earth's orbital eccentricity and axial tilt,
  * causing solar noon to drift ±16 minutes from clock noon throughout the year.
  *
- * Uses the Fourier approximation — accurate to ~30 seconds.
+ * Uses full VSOP87D planetary theory with IAU2000B nutation and DE405
+ * correction (Meeus Ch. 28). Sub-second accuracy.
  *
  * @param date - The date to compute EoT for
  * @returns EoT in minutes (positive = sundial ahead of clock)
  */
 export function equationOfTime(date: Date): number {
-  const start = new Date(date.getFullYear(), 0, 1);
-  const dayOfYear = (date.getTime() - start.getTime()) / 86400000;
-  const B = (2 * Math.PI * (dayOfYear - 81)) / 365;
-
-  // Fourier approximation (Spencer, 1971), negated to use the
-  // "apparent minus mean" convention (positive = sundial ahead of clock)
-  return -(9.87 * Math.sin(2 * B) - 7.53 * Math.cos(B) - 1.5 * Math.sin(B));
+  return equationOfTimeVSOP(date);
 }
 
 /**

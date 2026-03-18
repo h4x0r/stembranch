@@ -90,20 +90,22 @@ const chart = computeZiWei({ year: 1990, month: 8, day: 15, hour: 6, gender: 'ma
 
 ## Accuracy
 
-Cross-validated against [sxwnl](https://github.com/sxwnl/sxwnl) (寿星万年历), the gold standard Chinese calendar library by 許劍偉:
+Three-way validated against [JPL Horizons](https://ssd.jpl.nasa.gov/horizons/) (DE441 numerical integration) and [sxwnl](https://github.com/sxwnl/sxwnl) (寿星万年历):
 
 | Test | Samples | Range | Result |
 |---|---|---|---|
+| Equation of Time vs JPL | 366 daily | 2024 | max **0.03s** deviation |
+| Solar Terms vs JPL | 4 cardinal | 2024 | max **1.3s** deviation |
+| Solar Terms vs sxwnl | 4,824 terms | 1900-2100 | avg **0.6s** deviation |
 | Day Pillar (日柱) | 5,683 dates | 1583-2500 | **100%** match |
 | Year Pillar (年柱) | 2,412 dates | 1900-2100 | **100%** match |
 | Month Pillar (月柱) | 2,412 dates | 1900-2100 | **100%** match |
-| Solar Terms (節氣) | 4,824 terms | 1900-2100 | avg **0.6s** deviation |
 | Lunar New Year (農曆) | 61 dates | 1990-2050 | **100%** match |
 | Intercalary Months (閏月) | 10 years | 2001-2025 | **100%** match |
 
 Lunar calendar validated against Hong Kong Observatory / USNO data, including correct handling of the [2033 problem](docs/technical-notes.md#the-2033-problem-二〇三三年問題).
 
-Detailed percentile analysis, design decisions, data sources, and timezone reference analysis: [docs/technical-notes.md](docs/technical-notes.md)
+Full 3-way comparison methodology with residual statistics: [docs/accuracy.md](docs/accuracy.md). Design decisions, data sources, and timezone reference analysis: [docs/technical-notes.md](docs/technical-notes.md)
 
 ## API Reference
 
