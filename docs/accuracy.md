@@ -140,19 +140,27 @@ Within 1900–2100, both agree with JPL to a few seconds.
 
 ### 2.2 Overall statistics
 
+**Modern epoch (1900–2100):**
+
+| Comparison | N | Mean \|Δ\| | Max \|Δ\| | P50 | P95 | P99 |
+|------------|---|-----------|----------|-----|-----|-----|
+| stembranch vs JPL | 336 | 1.56s | 2.79s | 1.68s | 2.29s | 2.50s |
+| sxwnl vs JPL | 335 | 2.38s | 7.18s | 1.85s | 5.71s | 6.78s |
+
+stembranch outperforms sxwnl against JPL on every metric: 1.5× better mean,
+2.6× better max, even within sxwnl's own 1900–2100 range. The P95 improvement
+is 2.5× (2.29s vs 5.71s).
+
 **Full validated range (1,008 terms, 42 years, 209–2493 CE):**
 
 | Comparison | N | Mean \|Δ\| | Max \|Δ\| | P50 | P95 | P99 |
 |------------|---|-----------|----------|-----|-----|-----|
 | stembranch vs JPL | 1,008 | 1.05s | 3.05s | 0.97s | 2.22s | 2.60s |
-| sxwnl vs JPL | 335 | 2.38s | 7.18s | 1.85s | 5.71s | 6.78s |
-| stembranch vs sxwnl | 335 | 3.59s | 9.26s | 3.30s | 7.31s | — |
 
-stembranch agrees with JPL DE441 to mean **1.05s** / max **3.05s** across the
-entire 209–2493 CE range. The accuracy is nearly uniform — no era is
-significantly worse than any other. The stembranch-vs-sxwnl divergence
-(3.6s mean) reflects sxwnl's older DE405 correction, not stembranch error;
-stembranch is 2× more accurate than sxwnl against JPL ground truth.
+Accuracy is nearly uniform across the entire range — no era is significantly
+worse than any other. The full-range mean (1.05s) is actually *lower* than
+the modern-epoch mean (1.56s), because the correction's sweet spot falls
+near ~1400 CE and ~2400 CE where deviations drop below 0.3s.
 
 ### 2.3 Error profile and the DE441 correction
 
@@ -274,17 +282,26 @@ fastest near equinoxes (~1.02°/day), amplifying timing differences.
 ### 2.9 Three-way summary
 
 ```
-  sxwnl ←── 3.6s avg ──→ stembranch ←── 1.05s avg ──→ JPL DE441
-  (VSOP87D + DE405)       (VSOP87D + DE441)              (DE441 numerical)
-                     └──── 2.38s avg ────────────────────→
+              1900–2100 (modern epoch)
+
+  sxwnl ──── 2.38s avg ─────────────────────────→ JPL DE441
+  (VSOP87D + DE405)                                (DE441 numerical)
+
+  stembranch ── 1.56s avg ──────────────────────→ JPL DE441
+  (VSOP87D + DE441)
+
+              209–2493 CE (full range)
+
+  stembranch ── 1.05s avg, 3.05s max ───────────→ JPL DE441
 ```
 
-Within 1900–2100, stembranch outperforms sxwnl against JPL (1.6s vs 2.4s
-mean). Over the full validated range (209–2493 CE), stembranch agrees with
-JPL DE441 to within **3.05 seconds** — a 20× improvement over the previous
-DE405 correction (which had 62s max). For Chinese calendar applications
-requiring minute-level precision, this provides a safety margin of at least
-2,000× for modern dates and 1,200× even for the 3rd century.
+stembranch outperforms sxwnl against JPL on all metrics, even within sxwnl's
+own 1900–2100 range (1.56s vs 2.38s mean, 2.79s vs 7.18s max). Over the full
+validated range (209–2493 CE), stembranch agrees with JPL DE441 to within
+**3.05 seconds** — a 20× improvement over the previous DE405 correction. For
+Chinese calendar applications requiring minute-level precision, this provides
+a safety margin of at least 2,000× for modern dates and 1,200× even for the
+3rd century.
 
 ---
 
