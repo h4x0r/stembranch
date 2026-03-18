@@ -3,6 +3,7 @@ import { defineConfig } from 'vitepress';
 export default defineConfig({
   title: 'stembranch',
   description: 'Chinese calendar and stem-branch algorithms — reference documentation',
+  base: '/stembranch/',
   lang: 'zh-Hant',
   head: [
     ['meta', { name: 'theme-color', content: '#b91c1c' }],
