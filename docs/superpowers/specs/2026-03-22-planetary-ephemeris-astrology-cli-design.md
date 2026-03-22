@@ -47,8 +47,8 @@ src/
 ### Public API
 
 ```typescript
-getPlanetPosition(planet: Planet, jde: number): GeocentricPosition
-getMoonPosition(jde: number): GeocentricPosition
+getPlanetPosition(planet: Planet, date: Date): GeocentricPosition
+getMoonPosition(date: Date): GeocentricPosition
 
 type Planet = 'mercury' | 'venus' | 'mars' | 'jupiter' | 'saturn'
             | 'uranus' | 'neptune' | 'pluto'
@@ -80,7 +80,7 @@ Same as existing Earth/Sun computation, generalized:
 One-time scripts:
 
 - `scripts/generate-vsop87d-planets.mjs` -- downloads CDS VSOP87D coefficient files, generates TypeScript arrays
-- `scripts/fit-de441-corrections.mjs` -- queries JPL Horizons for each planet, fits even polynomial corrections via least-squares
+- `scripts/fit-de441-planet-corrections.mjs` -- queries JPL Horizons for each planet, fits even polynomial corrections via least-squares
 - `scripts/generate-elp-mpp02.mjs` -- generates ELP/MPP02 coefficient arrays (based on ytliu0's JavaScript implementation)
 
 ---
@@ -373,7 +373,7 @@ Seven Governors uses Chinese mansion names; Sidereal uses Sanskrit nakshatra nam
 
 ```
 scripts/
-  fit-de441-corrections.mjs     # Fits correction polynomials per planet
+  fit-de441-planet-corrections.mjs     # Fits correction polynomials per planet
   4way-planet-comparison.mjs    # Runs the full comparison matrix
   sweph-reference.mjs           # Generates Swiss Ephemeris reference via WASM
 ```
