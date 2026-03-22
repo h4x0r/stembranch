@@ -100,6 +100,18 @@ export interface Eclipse {
   magnitude: number;
 }
 
+// ── 行星 (Planets) ────────────────────────────────────────
+export type Planet = 'mercury' | 'venus' | 'mars' | 'jupiter' | 'saturn'
+  | 'uranus' | 'neptune' | 'pluto';
+
+export interface GeocentricPosition {
+  longitude: number;   // apparent ecliptic longitude (degrees)
+  latitude: number;    // apparent ecliptic latitude (degrees)
+  distance: number;    // distance (AU, km for Moon)
+  ra: number;          // apparent right ascension (degrees)
+  dec: number;         // apparent declination (degrees)
+}
+
 // ── True Solar Time ────────────────────────────────────────
 export interface TrueSolarTimeResult {
   trueSolarTime: Date;
