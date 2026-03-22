@@ -2156,6 +2156,120 @@ maximum difference between these references
 the \zh{時辰} boundary for approximately 4.2\% of births
 (those within 28~minutes of a double-hour boundary).
 
+\subsection{The Celestial Reference Frame: Tropical vs.\ Sidereal}
+\label{subsec:tropical_sidereal}
+
+The preceding sections examined reference-frame problems in spatial
+coordinates (which meridian?) and temporal coordinates (apparent vs.\
+mean vs.\ zone time).  A third reference-frame problem, equally
+consequential for Chinese metaphysics, operates in celestial
+coordinates: the choice between a \emph{tropical} zodiac (anchored to
+the vernal equinox) and a \emph{sidereal} zodiac (anchored to fixed
+stars).
+
+The two frames coincided approximately in the early centuries~CE.
+Because Earth's rotational axis precesses with a period of
+$\sim$25,772~years, the vernal equinox drifts westward along the
+ecliptic at $\sim 50.3''$/year ($\approx 1.4\degree$/century) relative
+to the fixed stars~\cite{needham1959}.  By 2026, the cumulative offset
+(the \emph{ayanamsa}) is $\approx 24\degree\,10'$ in the standard
+Lahiri system---nearly one full zodiacal division of
+$30\degree$~\cite{chandra_hari_1998}.
+
+\textbf{Chinese independent discovery of precession.}
+The Chinese discovery of precession was independent of Hipparchus
+(c.~190--120~BCE).  Yu~Xi (\zh{虞喜}, c.~281--356~CE, Eastern Jin
+dynasty) observed in his \zh{安天論} (\textit{An Tian Lun},
+``Disquisition on the Conformation of the Heavens,'' 336~CE) that the
+winter solstice position had drifted $\sim 1\degree$ per 50~years
+relative to the stars---overestimating the true rate
+($1\degree/71.6$~yr) by $\sim$44\%, but correctly identifying the
+phenomenon~\cite{needham1959, hockey_bea_2014}.  Zu~Chongzhi
+(\zh{祖沖之}, 429--501~CE) was the first to incorporate precession into
+calendar calculations in his \zh{大明曆} (Daming Calendar).
+
+\textbf{Which systems use which frame?}
+The five systems discussed in this paper split across both frames:
+\begin{itemize}[nosep]
+  \item \textbf{Tropical}: \zh{八字} and \zh{奇門遁甲} (via solar
+    terms, defined by the Sun's tropical longitude); \zh{大六壬}'s
+    modern \zh{中氣換將法} method.
+  \item \textbf{Sidereal}: \zh{七政四餘} (28~\zh{宿} tied to
+    determinative stars~\cite{sun_kistemaker_1997}); \zh{大六壬}'s
+    historical \zh{日躔法} (Sun's position in 12 sidereal
+    \zh{星次}).
+  \item \textbf{Hybrid}: \zh{紫微斗數} avoids the question entirely
+    by using the lunar calendar date---a discrete quantity that
+    inherits its tropical dependence from the intercalation
+    algorithm without ever querying a zodiacal position.
+\end{itemize}
+
+\textbf{The ayanamsa controversy.}
+For sidereal systems, the choice of zero point is not
+physically determined.  Different traditions anchor the sidereal
+zodiac to different reference stars, yielding different ayanamsas:
+\begin{center}
+\footnotesize
+\begin{tabular}{lll}
+\toprule
+\textbf{System} & \textbf{Zero epoch} & \textbf{Notes} \\
+\midrule
+Lahiri (Citrapaksha) & 285~CE & Official Indian standard since 1955 \\
+Fagan-Bradley & 221~CE & Western siderealist school \\
+Raman & varies & $\sim 2\degree$ from Lahiri \\
+Chinese 28~\zh{宿} & varies & Unequal widths, multiple epochs \\
+\bottomrule
+\end{tabular}
+\end{center}
+\noindent
+The controversy is fundamentally irresolvable: no physically privileged
+zero point exists for the sidereal
+zodiac~\cite{chandra_hari_1998}.  The practical consequence is that
+two practitioners using the same birth data, the same ephemeris, and the
+same sidereal framework can still disagree on mansion placements if
+they adopt different ayanamsas.
+
+\textbf{The parallel with Indian Jyotish.}
+The structural parallel between Chinese \zh{七政四餘} and Indian
+Jyotish (\textit{Jyoti\d{h}\'{s}\={a}stra}) is instructive: both are
+sidereal systems that require real planetary positions, both face the
+ayanamsa problem, and both have adopted the Swiss Ephemeris for modern
+computation~\cite{pingree_jyotihsastra}.  The key difference is that
+Jyotish has a single dominant ayanamsa (Lahiri, mandated by the Indian
+government since 1955), while the Chinese 28~\zh{宿} system never
+achieved similar standardization---each historical star catalogue
+(Shi~Shen \zh{石申}, Gan~De \zh{甘德}, Wu~Xian \zh{巫咸}) defines
+slightly different mansion boundaries~\cite{sun_kistemaker_1997}.
+
+\textbf{Ptolemy and the Western tropical choice.}
+Western astrology adopted the tropical zodiac following Ptolemy's
+\textit{Tetrabiblos} (c.~150~CE), which explicitly anchored the zodiac
+to the vernal equinox: ``they assume that the sign which begins with
+the vernal equinox, that of Aries, is the starting-point of them
+all''~\cite{ptolemy_tetrabiblos}.  This was a deliberate choice---Ptolemy
+was fully aware of precession from Hipparchus's work, discussed in his
+\textit{Almagest}~\cite{toomer_almagest}.  The tropical choice made
+Western astrology immune to precession drift but severed it from the
+stellar constellations whose names it retained.  By 2026, the Sun
+enters the tropical sign of Aries at the vernal equinox while
+physically located in the constellation
+Pisces---a $\sim 24\degree$ discrepancy that sidereal practitioners
+consider a fundamental error and tropical practitioners consider
+irrelevant.
+
+\textbf{Computational implications.}
+For Chinese metaphysical software, the tropical-sidereal distinction
+creates the same category of error as the meridian problem: a
+systematic offset that grows linearly with time.  The spatial
+reference-frame error (meridian choice) is bounded at
+$\sim$30~minutes of time ($7\degree$ longitude within China); the
+celestial reference-frame error (ayanamsa) is bounded only by the
+epoch range under consideration, reaching $\sim 28\degree$ over two
+millennia.  For \zh{七政四餘} mansion placements, where mansion widths
+range from $<1\degree$ to $\sim 33\degree$, an uncorrected
+$24\degree$~ayanamsa can shift a planet across multiple mansion
+boundaries---an error far larger than any ephemeris imprecision.
+
 \subsection{Computational Implications: Three Time Regimes}
 \label{subsec:timeregimes}
 
@@ -3165,6 +3279,43 @@ Masana Hashimoto, ``Units of Time in Ancient China and Japan,''
 vol.~56, no.~5, p.~887, 2004. Documents the evolution of the
 \zh{刻} system from 100~\zh{刻}/day (Han) through 96~\zh{刻}/day
 (Qing).
+
+% ── Tropical vs sidereal references ─────────────────────────
+
+\bibitem{toomer_almagest}
+Ptolemy, \textit{Ptolemy's Almagest}, trans.\ G.~J. Toomer,
+Princeton University Press, 1998. Standard scholarly translation;
+discusses Hipparchus's precession discovery and the ecliptic
+coordinate system.
+
+\bibitem{ptolemy_tetrabiblos}
+Ptolemy, \textit{Tetrabiblos}, trans.\ F.~E. Robbins,
+Loeb Classical Library, Harvard University Press, 1940.
+Book~I.10 establishes the vernal equinox as the zodiacal origin.
+
+\bibitem{pingree_jyotihsastra}
+David Pingree, \textit{Jyoti\d{h}\'{s}\={a}stra: Astral and
+Mathematical Literature}, vol.~6, fasc.~4 of \textit{A History of
+Indian Literature}, ed.\ J.~Gonda, Wiesbaden: Otto Harrassowitz,
+1981. Foundational scholarly reference for Indian mathematical
+astrology.
+
+\bibitem{sun_kistemaker_1997}
+Sun Xiaochun and Jacob Kistemaker, \textit{The Chinese Sky during
+the Han: Constellating Stars and Society}, Sinica Leidensia~38,
+Leiden: Brill, 1997. Documents the 28~\zh{宿} sidereal mansion
+system and Chinese star catalogues.
+
+\bibitem{hockey_bea_2014}
+Thomas Hockey, Virginia Trimble, and Thomas~R. Williams, eds.,
+\textit{The Biographical Encyclopedia of Astronomers}, 2nd~ed.,
+Springer, 2014. Contains entry on \zh{虞喜} (Yu~Xi) and his
+independent discovery of precession.
+
+\bibitem{chandra_hari_1998}
+K.~Chandra Hari, ``On the Origin of Siderial Zodiac and Astronomy,''
+\textit{Indian Journal of History of Science}, vol.~33, no.~4, 1998.
+Analyzes the ayanamsa controversy and sidereal zodiac origins.
 
 \end{thebibliography}
 \end{sloppypar}
