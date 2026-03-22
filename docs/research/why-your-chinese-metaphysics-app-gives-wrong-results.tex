@@ -1438,6 +1438,119 @@ sub-arcsecond accuracy---but \zh{八字} never needed rescuing because it
 had shifted its algorithmic basis to the one celestial quantity that
 even pre-Keplerian astronomy could compute tolerably.
 
+\textbf{The numerological refuge: \zh{紫微斗數}.}
+If \zh{八字} achieved robustness by reducing its astronomical input to
+solar terms, \zh{紫微斗數} took this logic one step further: it
+abandoned real-time ephemeris computation entirely.  Its input is the
+\emph{lunar calendar date}---a discrete integer triple (year, month,
+day) plus a two-hour \zh{時辰}---and its output is produced by purely
+algorithmic formulas that distribute 14~major stars across 12~palaces.
+No planetary position, no ecliptic longitude, no equation of time
+enters the calculation at runtime.  The ``stars'' (\zh{紫微},
+\zh{天府}, \zh{天機}, etc.)\ are virtual: their names evoke celestial
+bodies, but their palace placements are determined by table lookup from
+the lunar date, not by observation~\cite{zwds_quanshu, zwds_quanji}.
+
+This makes \zh{紫微斗數} the most computationally robust of the five
+systems.  Its only astronomical dependency is \emph{upstream}: the
+lunar calendar itself requires accurate solar term computation (for
+\zh{中氣}-based intercalation) and new moon determination (for month
+boundaries).  Once the calendar date is fixed, the chart construction
+is a closed combinatorial procedure immune to any astronomical
+uncertainty.  The trade-off is maximal information loss: where
+\zh{七政四餘} preserves the full continuous geometry of seven bodies,
+and \zh{八字} preserves at least the Sun's ecliptic longitude (via
+solar term thresholds), \zh{紫微斗數} compresses the entire celestial
+state into a single calendar date.
+
+The five systems thus form a \emph{computational robustness spectrum}:
+\begin{center}
+\footnotesize
+\begin{tabular}{lll}
+\toprule
+\textbf{System} & \textbf{Runtime input} & \textbf{Robustness} \\
+\midrule
+\zh{七政四餘} & 7 real planetary positions (sidereal) & Fragile \\
+\zh{大六壬} & Solar + lunar conjunction (\zh{合朔}) & Moderate \\
+\zh{八字} / \zh{奇門遁甲} & Solar terms (tropical, single body) & Robust \\
+\zh{紫微斗數} & Lunar calendar date (discrete integer) & Maximal \\
+\bottomrule
+\end{tabular}
+\end{center}
+\noindent
+Moving down the table, each system trades astronomical resolution for
+computational permanence.  \zh{八字} occupies a structurally
+interesting middle position: it is \emph{not} a pure numerological
+system because it remains anchored to a real astronomical event (the
+Sun reaching a specific ecliptic longitude), but its stem-branch
+mapping after that anchor point is purely combinatorial.  It is, in
+effect, a \emph{numerological system with a real astronomical
+trigger}---solar terms are the thinnest possible thread connecting the
+combinatorial machinery to actual celestial geometry.
+\zh{紫微斗數}, by contrast, has severed even that thread: its
+astronomical dependency is entirely inherited from the calendar system,
+not from any direct ephemeris query.
+
+As Joseph Yu observed, both \zh{子平術} (the Xu Ziping method
+underlying modern \zh{八字}) and \zh{紫微斗數} ``were inventions to
+replace \zh{七政四餘}.  They both gave up using real astronomy to do
+the charting''~\cite{ho_peng_yoke_2003}.  The replacement was not a
+degradation but an \emph{architectural decision}: by sacrificing
+astronomical fidelity, these systems gained immunity to the table-error
+accumulation that nearly destroyed \zh{七政四餘}.
+
+\textbf{The shared chart problem (\zh{共盤問題}).}
+\zh{八字}'s algorithmic simplification has a well-known information-theoretic
+consequence: the system produces only 518,400 calendrically valid unique
+charts ($60 \times 12 \times 60 \times 12$, since the month stem is
+determined by the year stem via \zh{五虎遁月}, and the hour stem by the
+day stem via \zh{五鼠遁時})~\cite{ho_peng_yoke_2003}.  With a world
+population of $\sim$8~billion, approximately 15,432 living people share
+each chart---a pigeonhole problem the tradition has recognized since at
+least the Song dynasty~\cite{chao_weipang_1946}.  The expansion from three
+pillars (\zh{三柱}) to four (\zh{四柱}) by Xu Ziping (\zh{徐子平}) was
+itself partly a response, reducing the number sharing a chart by a factor
+of~12~\cite{smith_fortune_2019}.
+
+The classical resolution is not denial but \emph{stratification}.
+The ``Cosmic Trinity'' model (\zh{天地人}---Heaven, Earth, Human) holds
+that the birth chart constitutes only one-third of destiny; the remaining
+two-thirds come from geography (\zh{風水}, \zh{地利}) and individual
+cultivation (\zh{修行}, \zh{人和}).
+The well-known \zh{同命不同運} (``same chart, different fortune'')
+principle is illustrated by the Emperor-and-Beekeeper fable: both
+share identical \zh{八字}, but one commands an empire and the other
+commands a hive.  The chart describes the \emph{pattern}, not the
+\emph{scale}---a framework that Geng~Li's ethnography of modern
+practitioners confirms remains central to professional
+practice~\cite{geng_li_2019}.
+Lisa Raphals has argued that this allowance for human agency
+distinguishes Chinese fate calculation from Greek deterministic
+fate~\cite{raphals_2003}.
+
+The contrast with \zh{七政四餘} and Western horoscopic astrology is
+structurally revealing.  Both \zh{七政四餘} (via 7~bodies in 28~mansions)
+and Western astrology (via exact birth minute and location-dependent
+Ascendant) produce effectively continuous unique charts---the shared
+chart problem is nearly absent.  Their resolution comes from
+\emph{internal} astronomical data rather than \emph{external}
+interpretive calibration.  \zh{八字}'s lossy compression of the celestial
+state means it \emph{structurally requires} the practitioner to use the
+client's life history, environment, and choices to tune the reading.
+This is not a deficiency to be apologized for but a deliberate
+architectural trade-off: what was lost in astronomical resolution was
+gained in computational permanence and interpretive
+flexibility~\cite{smith_fortune_2019, ho_peng_yoke_2003}.
+
+For further study of the classical Chinese fate-calculation tradition,
+the principal primary sources are: \zh{三命通會}~\cite{sanming_tonghui}
+(Ming, the most comprehensive compilation), \zh{滴天髓}~\cite{ditian_sui}
+(Song/Qing, Five Element dynamics), \zh{子平真詮}~\cite{ziping_zhenquan}
+(Qing, the orthodox method), and
+\zh{窮通寶鑑}~\cite{qiongtong_baojian} (Qing, seasonal adjustment).
+The earliest English-language academic analysis remains
+Chao~Wei-pang~\cite{chao_weipang_1946}.
+
 \begin{table}[H]
 \centering
 \caption{Astronomical dependencies by system}
@@ -1972,8 +2085,9 @@ during summer months.  Because DST is invisible in the timestamp itself (a
 clock reading ``23:30'' gives no indication whether DST is active), it is
 perhaps the most insidious source of \zh{時辰} misassignment.
 
-East Asian DST history is complex and poorly documented.  Seven regions
-observed DST at various times during the 20th century
+East Asian DST history is complex and poorly documented outside
+specialist sources.  Seven regions observed DST at various times during
+the 20th century~\cite{iana_tzdata_asia, dst_east_asia_research}
 (Table~\ref{tab:dst_history}).
 
 \begin{table}[H]
@@ -1997,9 +2111,8 @@ Mongolia        & 1983--1998, 2001--2006, 2015--2016       & 27 \\
 \end{table}
 
 \noindent
-The PRC's six years of DST (1986--1991)\footnote{Transition dates and
-times are documented in the IANA Time Zone Database (\texttt{tzdata}),
-file \texttt{asia}, zone \texttt{Asia/Shanghai}.} alone affect millions
+The PRC's six years of DST (1986--1991)~\cite{prc_dst_regulation,
+iana_tzdata_asia} alone affect millions
 of birth charts.  A birth recorded at 23:30 during DST is actually 22:30 standard
 time, changing the \zh{時辰} from \zh{子} (23:00--01:00) to \zh{亥}
 (21:00--23:00) and potentially altering the day pillar if the practitioner's
@@ -2031,17 +2144,23 @@ other time-regime shifts that most practitioners are unaware of:
 
 \textbf{(1)~Japanese occupation timezone shifts.}
 During World War~II, Japan imposed JST (UTC$+$9) on all occupied
-territories.  Taiwan was shifted from UTC$+$8 to UTC$+$9 on 1~October~1937
-and reverted on 21~September~1945.  Hong Kong fell to Japanese time on
-25~December~1941 and reverted on 18~November~1945.  Macau was similarly
-shifted from 21~December~1941 to 30~September~1945.  Korea, already under
-colonial rule, was moved from its native UTC$+$8:30 to JST in 1912
-and did not revert until 1945~\cite{china_timezone}.  Any birth chart
-computed for these territories during occupation must account for the
-forced timezone shift---a correction that most apps silently omit.
+territories~\cite{iana_tzdata_asia, china_timezone}.  Taiwan was shifted
+from UTC$+$8 to UTC$+$9 on 1~October~1937 and reverted on
+21~September~1945.  Hong Kong fell to Japanese time on
+25~December~1941 and reverted on 18~November~1945---as documented by
+WeToastHK's analysis of contemporary South China Morning Post
+reports~\cite{wetoasthk_dst}, which clarifies that this was a
+\emph{zone change} to JST, not legislated summer
+time~\cite{hko_summertime}.  Macau was similarly shifted from
+21~December~1941 to 30~September~1945.  Korea, already under colonial
+rule, was moved from its native UTC$+$8:30 to JST in
+1912~\cite{korea_tz_history} and did not revert until 1945.  Any birth
+chart computed for these territories during occupation must account for
+the forced timezone shift---a correction that most apps silently omit.
 
 \textbf{(2)~Base timezone changes.}
-South Korea's base timezone changed \emph{three times} in the 20th century:
+South Korea's base timezone changed \emph{three times} in the 20th
+century~\cite{korea_tz_history, iana_tzdata_asia}:
 UTC$+$8:30 (pre-1912), UTC$+$9 (1912--1954 under Japan), UTC$+$8:30
 (1954--1961 under Syngman Rhee's symbolic de-Japanification), and
 UTC$+$9 (1961 onward under Park Chung-hee).  During the UTC$+$8:30
@@ -2054,16 +2173,18 @@ the wrong base timezone alone.
 
 \textbf{(3)~Energy crisis winter DST.}
 The 1973 oil crisis prompted Hong Kong and Macau to extend summer time
-\emph{through the winter} of 1973--1974: DST began 30~December~1973 and
-did not end until 20~October~1974---nearly 10 continuous months of
-UTC$+$9.  Taiwan reinstated DST in 1974--1975 after a 12-year gap for
-the same reason.  These anomalous periods are poorly documented outside
-the IANA~\texttt{tzdata} database and are missed by virtually all
-Chinese metaphysics software.
+\emph{through the winter} of 1973--1974~\cite{hko_summertime,
+wetoasthk_dst}: DST began 30~December~1973 and did not end until
+20~October~1974---nearly 10 continuous months of UTC$+$9.  Taiwan
+reinstated DST in 1974--1975 after a 12-year gap for the same
+reason~\cite{iana_tzdata_asia}.  These anomalous periods are poorly
+documented outside the IANA~\texttt{tzdata} database and are missed by
+virtually all Chinese metaphysics software.
 
 \paragraph{Japan's imposed DST (1948--1951).}
 Japan's own DST was imposed by US occupation authorities, shifting JST
-(UTC$+$9) to JDT (UTC$+$10) during summer months.  It was deeply
+(UTC$+$9) to JDT (UTC$+$10) during summer
+months~\cite{japan_dst_abolition, iana_tzdata_asia}.  It was deeply
 unpopular: a 1951 government poll showed 53\% wanted abolition versus
 30\% retention.  The Diet passed repeal legislation in October~1951,
 shortly after the San Francisco Peace Treaty was signed.  Despite
@@ -2093,7 +2214,8 @@ DST research file,%
 which provides complete IANA rule definitions for all seven East Asian
 regions (PRC, Taiwan, Hong Kong, Macau, Japan, South Korea, and
 Mongolia), including the Japanese occupation shifts and energy crisis
-extensions.  The timezone conversion module%
+extensions~\cite{iana_tzdata_asia, hko_summertime, wetoasthk_dst,
+korea_tz_history, japan_dst_abolition}.  The timezone conversion module%
 \footnote{\texttt{src/timezone.ts} in the \texttt{stem-branch}
 repository.}
 ships the complete transition table rather than relying on the host
@@ -2764,6 +2886,95 @@ and the \zh{歲星紀年} system, National Tsing Hua University.
 \bibitem{xing_yunlu}
 \zh{邢雲路} (1573--1620), ``\zh{古今律曆考},'' Ming dynasty. Advocated
 midnight (\zh{夜半}) as the start of \zh{子時}.
+
+% ── 共盤問題 references ──────────────────────────────────────
+
+\bibitem{smith_fortune_2019}
+R.~J. Smith, \textit{Fortune-tellers and Philosophers: Divination in
+Traditional Chinese Society}, Routledge, 2019 (orig.\ 1991).
+ISBN 978-0-367-15980-1.
+
+\bibitem{raphals_2003}
+L.~Raphals, ``Fate, Fortune, Chance, and Luck in Chinese and Greek:
+A Comparative Study,'' \textit{Philosophy East and West}, vol.~53, no.~4,
+pp.~537--574, 2003.
+\url{https://www.jstor.org/stable/1400052}
+
+\bibitem{geng_li_2019}
+Geng Li, \textit{Fate Calculation Experts: The Practice and Authority of
+Chinese Fortune-telling}, Berghahn Books, 2019.
+ISBN 978-1-78533-994-3.
+
+\bibitem{chao_weipang_1946}
+Chao Wei-pang, ``The Chinese Science of Fate-Calculation,''
+\textit{Folklore Studies}, vol.~5, pp.~1--40, 1946.
+\url{https://www.jstor.org/stable/1177422}
+
+\bibitem{sanming_tonghui}
+\zh{萬民英} (Wan Minying), ``\zh{三命通會},'' Ming dynasty, c.~1550.
+12~juan; the most comprehensive classical compilation of fate-calculation
+methods. Available at Chinese Text Project:
+\url{https://ctext.org/wiki.pl?if=en&res=758991}
+
+\bibitem{ditian_sui}
+\zh{京圖} (Jing Tu), attrib., ``\zh{滴天髓},'' Song dynasty (attrib.);
+Qing dynasty commentary by \zh{任鐵樵} (Ren Tieqiao), c.~1820--1850.
+
+\bibitem{ziping_zhenquan}
+\zh{沈孝瞻} (Shen Xiaozhan), ``\zh{子平真詮},'' Qing dynasty.
+First published 1779; modern standard ed.\ by
+\zh{方重審} and \zh{徐樂吾}, 1936.
+
+\bibitem{qiongtong_baojian}
+\zh{余春台} (Yu Chuntai), ``\zh{窮通寶鑑},'' Qing dynasty.
+Seasonal adjustment (\zh{調候}) school of fate calculation.
+
+% ── DST references ───────────────────────────────────────────
+
+\bibitem{iana_tzdata_asia}
+IANA Time Zone Database (\texttt{tzdata}), file \texttt{asia}.
+Primary source for all East Asian DST transition dates and rules.
+Commentary by Paul Eggert, Arthur~D. Olson, et~al.
+\url{https://data.iana.org/time-zones/tz-link.html}
+
+\bibitem{hko_summertime}
+Hong Kong Observatory, ``Summer-time Arrangements in Hong Kong.''
+\url{https://www.hko.gov.hk/en/gts/time/stehistory.htm}
+
+\bibitem{prc_dst_regulation}
+State Council of the PRC, ``\zh{國務院關於在全國範圍內實行夏時制的通知}''
+(``Notice on Implementing Summer Time Nationwide''),
+4~April~1986. Effective 1986--1991.
+
+\bibitem{japan_dst_abolition}
+``Daylight saving time in Japan,'' in \textit{Summer Time}, Wikipedia.
+53\% opposed vs.\ 30\% in favor per 1951 government survey;
+Diet abolished DST in October 1951 after San Francisco Peace Treaty.
+\url{https://en.wikipedia.org/wiki/Daylight_saving_time_in_Japan}
+
+\bibitem{korea_tz_history}
+``Time in South Korea,'' Wikipedia.
+Documents the UTC$+$8:30 $\leftrightarrow$ UTC$+$9 oscillations
+(1908--1912--1954--1961) and 1987--1988 Seoul Olympics DST.
+\url{https://en.wikipedia.org/wiki/Time_in_South_Korea}
+See also: IANA \texttt{tzdata} file \texttt{asia}, Rule ROK.
+
+\bibitem{wetoasthk_dst}
+WeToastHK, ``\zh{香港夏令時間的歷史}'' (``History of Hong Kong
+Summer Time''), 2017.
+Detailed legislative narrative citing original Legislative Council
+documents, South China Morning Post reports, and Governor's proclamations.
+Provides transition times (e.g.\ 1946: 17:00) not available from HKO,
+clarifies that 1942--1945 was JST imposition (not DST), and documents
+the 1945 November~18 standard-time restoration.
+\url{https://www.wetoasthk.com/1010-2/}
+
+\bibitem{dst_east_asia_research}
+\texttt{stem-branch} project, ``East Asian DST History ---
+Comprehensive Research,'' \texttt{docs/research/east-asia-dst-history.md}.
+Complete IANA rule definitions for 7~regions: PRC, Taiwan, Hong Kong,
+Macau, Japan, South Korea, Mongolia.
+\url{https://github.com/h4x0r/stem-branch}
 
 \end{thebibliography}
 \end{sloppypar}
