@@ -277,6 +277,26 @@ export function normalizeRadians(rad: number): number {
   return ((rad % TWO_PI) + TWO_PI) % TWO_PI;
 }
 
+// ── Ecliptic precession ─────────────────────────────────────────────────
+
+/**
+ * General precession in longitude from J2000.0 to ecliptic of date.
+ *
+ * Returns the accumulated precession p_A in arcseconds.
+ * Use to convert J2000.0 ecliptic longitude to mean ecliptic-of-date:
+ *   λ_date = λ_J2000 + p_A × ARCSEC_TO_RAD
+ *
+ * IAU 2006 precession model (Capitaine et al. 2003, Hilton et al. 2006).
+ *
+ * @param T - Julian centuries from J2000.0 (TT)
+ * @returns Accumulated precession in arcseconds
+ */
+export function precessionInLongitude(T: number): number {
+  const T2 = T * T;
+  const T3 = T2 * T;
+  return 5028.796195 * T + 1.1054348 * T2 + (-0.00007964) * T3;
+}
+
 // ── Coordinate transforms ────────────────────────────────────────────────
 
 /**
