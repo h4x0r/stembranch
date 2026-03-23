@@ -1,6 +1,6 @@
 # stem-branch
 
-Deterministic Chinese calendar and stem-branch algorithms for TypeScript. Solar terms, lunar calendar, sexagenary cycles, eight-character derivations, and three classical divination chart layouts — all from first principles.
+Deterministic Chinese calendar, stem-branch algorithms, and sidereal astrology for TypeScript. Solar terms, lunar calendar, sexagenary cycles, eight-character derivations, three classical divination chart layouts, and 七政四餘 (Seven Governors Four Remainders) sidereal astrology — all from first principles.
 
 **Scope:** This library computes factual, deterministic results from astronomical and combinatoric algorithms. It does not provide interpretation, analysis, or advice (e.g. chart reading, 用神 prescription, fortune assessment). Consumers can build interpretive layers on top of the computed data.
 
@@ -10,14 +10,20 @@ Deterministic Chinese calendar and stem-branch algorithms for TypeScript. Solar 
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.7+-blue)](https://www.typescriptlang.org/)
 
 ```typescript
-import { computeFourPillars, computeMajorLuck, dailyAlmanac } from '@4n6h4x0r/stem-branch';
+import { computeFourPillars, computeMajorLuck, dailyAlmanac,
+         getSevenGovernorsChart } from '@4n6h4x0r/stem-branch';
 
 const pillars = computeFourPillars(new Date(2024, 1, 10, 14, 30));
 // → { year: {stem: '甲', branch: '辰'}, month: {stem: '丙', branch: '寅'},
 //     day:   {stem: '壬', branch: '午'}, hour:  {stem: '丁', branch: '未'} }
 
-const luck = computeMajorLuck(new Date(1990, 6, 15), 'male');
-// → { direction: 'forward', startAge: 8, periods: [{pillar: {stem:'甲', ...}, startAge: 8, endAge: 17}, ...] }
+const chart = getSevenGovernorsChart(
+  new Date('1990-01-15T00:30:00Z'),
+  { lat: 25.033, lon: 121.565 },
+);
+// → { bodies: { sun: { siderealLon, mansion: '斗', palace: '丑宮', ... }, ... },
+//     palaces: [...12 palaces with roles...], ascendant: { mansion, palace },
+//     aspects: [...], starSpirits: [...], dignities: { sun: '陷', ... } }
 ```
 
 ## Install
@@ -70,6 +76,34 @@ const a = dailyAlmanac(new Date(2024, 5, 15));
 // a.flyingStars  → { year: {...}, month: {...}, day: {...}, hour: {...} }
 ```
 
+### Seven Governors (七政四餘)
+
+Chinese sidereal astrology — 11 celestial bodies (7 planets + 4 lunar points) placed in 28 lunar mansions and 12 palaces:
+
+```typescript
+import { getSevenGovernorsChart, toSiderealLongitude,
+         getRahuPosition, getPurpleQiPosition } from '@4n6h4x0r/stem-branch';
+
+// Full natal chart
+const chart = getSevenGovernorsChart(
+  new Date('1990-01-15T00:30:00Z'),  // birth moment (UTC)
+  { lat: 25.033, lon: 121.565 },     // Taipei
+);
+// chart.bodies.sun     → { siderealLon, mansion, mansionDegree, palace }
+// chart.palaces         → 12 palaces with roles relative to ascendant
+// chart.aspects         → inter-body aspects (合/沖/刑/三合)
+// chart.dignities       → per-body dignity (廟/旺/平/陷)
+
+// Individual computations
+const rahu = getRahuPosition(new Date());  // Moon's ascending node
+const purpleQi = getPurpleQiPosition(new Date());  // ~28-year cycle
+
+// Sidereal conversion with configurable modes
+const sidLon = toSiderealLongitude(201.298, new Date());  // tropical → sidereal
+```
+
+Computation methods, the Ketu/Rahu translation problem, and historical context: [docs/seven-governors.md](docs/seven-governors.md)
+
 ### Divination Systems (三式)
 
 ```typescript
@@ -112,10 +146,12 @@ For comparison, [sxwnl](https://github.com/sxwnl/sxwnl) (寿星万年历) — th
 | Month Pillar (月柱) vs sxwnl | 2,412 dates | 1900–2100 | **100%** match |
 | Lunar New Year (農曆) | 61 dates | 1990–2050 | **100%** match |
 | Intercalary Months (閏月) | 10 years | 2001–2025 | **100%** match |
+| Planet positions vs JPL | 808 epochs × 8 planets | 1900–2100 | mean **1–14"**, max **29"** |
+| Planet positions vs Swiss Eph | 808 epochs × 7 planets | 1900–2100 | **< 3"** agreement |
 
 Lunar calendar validated against Hong Kong Observatory / USNO data, including correct handling of the [2033 problem](docs/technical-notes.md#the-2033-problem-二〇三三年問題).
 
-Full 3-way comparison methodology with residual statistics: [docs/accuracy.md](docs/accuracy.md). Design decisions, data sources, and timezone reference analysis: [docs/technical-notes.md](docs/technical-notes.md)
+Full 3-way comparison methodology with residual statistics: [docs/accuracy.md](docs/accuracy.md). Design decisions, data sources, and timezone reference analysis: [docs/technical-notes.md](docs/technical-notes.md). Seven Governors computation methods and historical context: [docs/seven-governors.md](docs/seven-governors.md)
 
 ## API Reference
 
@@ -173,6 +209,41 @@ Full 3-way comparison methodology with residual statistics: [docs/accuracy.md](d
 | `findNearestEclipse(date, kind?)` | Nearest eclipse to a given date |
 | `isEclipseDate(date)` | Check if a UTC date has an eclipse |
 | `ECLIPSE_DATA_RANGE` | `{ min: -1999, max: 3000 }` |
+
+### 1b. Seven Governors (七政四餘)
+
+Chinese sidereal astrology engine — sidereal positions, mansions, palaces, aspects, dignities, and star spirits.
+
+#### Chart Assembly
+
+| Export | Description |
+|---|---|
+| `getSevenGovernorsChart(date, location, options?)` | Complete 七政四餘 natal chart with all 11 bodies |
+
+#### Sidereal Conversion
+
+| Export | Description |
+|---|---|
+| `toSiderealLongitude(tropicalLon, date, mode?)` | Convert tropical → sidereal longitude (3 modes: modern, classical, ayanamsa) |
+
+#### Four Remainders (四餘)
+
+| Export | Description |
+|---|---|
+| `getRahuPosition(date)` | 羅睺: Moon's mean ascending node (~18.6-year retrograde cycle) |
+| `getKetuPosition(date, mode?)` | 計都: osculating lunar apogee (default) or descending node |
+| `getYuebeiPosition(date)` | 月孛: mean lunar apogee (Black Moon Lilith) |
+| `getPurpleQiPosition(date)` | 紫氣: classical ~28-year prograde cycle |
+
+#### Mansion & Palace Lookup
+
+| Export | Description |
+|---|---|
+| `getMansionForLongitude(siderealLon)` | Map sidereal longitude to one of 28 lunar mansions |
+| `getPalaceForLongitude(siderealLon)` | Map sidereal longitude to one of 12 palaces |
+| `getAscendant(date, location)` | Compute ascending degree from birth time and location |
+
+Computation methods and historical context: [docs/seven-governors.md](docs/seven-governors.md)
 
 ### 2. Stem-Branch System (干支)
 
@@ -636,6 +707,22 @@ type EclipseKind = 'solar' | 'lunar';
 type SolarEclipseType = 'T' | 'A' | 'P' | 'H';
 type LunarEclipseType = 'T' | 'P' | 'N';
 interface Eclipse { date: Date; kind: EclipseKind; type: SolarEclipseType | LunarEclipseType; magnitude: number; }
+
+// Seven Governors (七政四餘)
+type Governor = 'sun' | 'moon' | 'mercury' | 'venus' | 'mars' | 'jupiter' | 'saturn';
+type Remainder = 'rahu' | 'ketu' | 'yuebei' | 'purpleQi';
+type GovernorOrRemainder = Governor | Remainder;
+type SiderealMode = { type: 'modern' } | { type: 'classical'; epoch: 'kaiyuan' | 'chongzhen' | number } | { type: 'ayanamsa'; value: number };
+type KetuMode = 'apogee' | 'descending-node';
+type MansionName = '角' | '亢' | ... | '軫';  // 28 lunar mansion names
+type PalaceName = '子宮' | '丑宮' | ... | '亥宮';  // 12 palace names
+type Dignity = '廟' | '旺' | '平' | '陷';
+type AspectType = '合' | '沖' | '刑' | '三合';
+
+interface BodyPosition { siderealLon: number; tropicalLon: number; mansion: MansionName; mansionDegree: number; palace: PalaceName; }
+interface PalaceInfo { name: PalaceName; role: PalaceRole; mansions: MansionName[]; occupants: GovernorOrRemainder[]; }
+interface SevenGovernorsOptions { siderealMode?: SiderealMode; ketuMode?: KetuMode; }
+interface SevenGovernorsChart { date: Date; location: { lat: number; lon: number }; siderealMode: SiderealMode; ketuMode: KetuMode; bodies: Record<GovernorOrRemainder, BodyPosition>; palaces: PalaceInfo[]; ascendant: { mansion: MansionName; palace: PalaceName }; starSpirits: StarSpirit[]; aspects: Aspect[]; dignities: Record<GovernorOrRemainder, Dignity>; }
 ```
 
 ## License
