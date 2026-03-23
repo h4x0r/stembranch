@@ -19,8 +19,19 @@ interface CorrectionCoeffs {
   c6: number;
 }
 
-// Placeholder: will be populated by Task 7 (DE441 correction fitting)
-const CORRECTIONS: Partial<Record<Planet, CorrectionCoeffs>> = {};
+// Fitted by scripts/fit-de441-planet-corrections.mjs against JPL Horizons DE441.
+// Range: 1700–2300 CE, 60-day step, apparent RA/Dec → ecliptic longitude residual.
+// Inner planets: periodic VSOP87D truncation dominates (polynomial captures secular trend).
+// Outer planets: larger secular drift, polynomial reduces mean error ~30-40%.
+const CORRECTIONS: Partial<Record<Planet, CorrectionCoeffs>> = {
+  mercury: { c0: 1.032914, c2: -310.833825, c4: 3971.392489, c6: -25283.573354 },
+  venus:   { c0: 3.203028, c2: -303.293119, c4: 3667.723344, c6: -22382.025131 },
+  mars:    { c0: 13.321594, c2: -140.615778, c4: 1341.456827, c6: -6086.155884 },
+  jupiter: { c0: 18.378314, c2: -60.793482, c4: 1979.551217, c6: -14381.360642 },
+  saturn:  { c0: 19.178414, c2: -4.642329, c4: -17.796777, c6: 513.439309 },
+  uranus:  { c0: 19.959854, c2: 4.641783, c4: -892.179130, c6: 8522.016636 },
+  neptune: { c0: 19.087166, c2: 15.817694, c4: -452.117173, c6: 3441.545710 },
+};
 
 /**
  * Get DE441 longitude correction in arcseconds for a planet at tau.
