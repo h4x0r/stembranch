@@ -266,3 +266,22 @@ export { getMoonPosition } from './moon/moon';
 
 // ── 行星 (Planet Ephemeris) ────────────────────────────────
 export { getPlanetPosition } from './planets/planets';
+
+// ── 七政四餘 (Seven Governors Four Remainders) ──────────────
+export {
+  getSevenGovernorsChart,
+  toSiderealLongitude,
+  getRahuPosition, getKetuPosition,
+  getYuebeiPosition, getPurpleQiPosition,
+  getMansionForLongitude, getPalaceForLongitude,
+  getAscendant,
+} from './seven-governors';
+
+export type {
+  Governor, Remainder, GovernorOrRemainder,
+  SiderealMode, KetuMode,
+  MansionName, PalaceName, PalaceRole, Dignity, AspectType,
+  BodyPosition, PalaceInfo, StarSpirit, Aspect,
+  SevenGovernorsOptions, SevenGovernorsChart,
+  MansionResult, PalaceResult, AscendantResult,
+} from './seven-governors';
