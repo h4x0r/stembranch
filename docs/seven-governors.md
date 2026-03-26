@@ -554,7 +554,7 @@ Most 七政四餘 charting software — including the widely-used
 計都 and 羅睺 as lunar nodes always 180° apart. This propagation occurs
 because:
 
-1. **The Cai Boli almanac is the most accessible reference.** The
+1. **The Cai Boli 蔡伯勵 almanac is the most accessible reference.** The
    《七政經緯曆書》 follows Qing conventions and is what most Hong Kong
    and Southeast Asian practitioners consult. Developers build from this.
 
@@ -591,7 +591,7 @@ had deliberately abandoned.
 | Song dynasty | Apogee (canonical) | 《果老星宗》[^guolao]; Shen Kuo treated as node (minority view) |
 | Ming dynasty | **Apogee** (standard) | 《星學大成》; 《果老星宗》[^guolao] |
 | 1645 | **Descending node** (Qing reversion) | 時憲曆 (Schall von Bell); Liu (2020)[^liu2020] |
-| Modern software | Descending node (following Qing) | Cai Boli 《七政經緯曆書》 tradition |
+| Modern software | Descending node (following Qing) | Cai Boli 蔡伯勵 《七政經緯曆書》 tradition |
 | Scholarly consensus | **Apogee** | Niu (1994)[^niu1994]; Mak (2014)[^mak2014]; Kotyk (2018)[^kotyk2018] |
 
 ### Is 紫氣 a Jyotish problem?
