@@ -74,11 +74,11 @@ The earliest datable editions of ZWDS texts are Ming dynasty printings:
 
 | Text | Content | Earliest known edition |
 |------|---------|----------------------|
-| 《紫微斗數全集》 | Collected methods and star tables | Ming dynasty |
-| 《紫微斗數全書》 | Comprehensive reference (most widely circulated) | Ming dynasty[^zwdsquanshu] |
-| 《紫微斗數捷覽》 | Abbreviated reference for practitioners | Ming dynasty |
+| 《紫微斗數全集》 (*Ziwei Doushu Quanji*) | Collected methods and star tables | Ming dynasty |
+| 《紫微斗數全書》 (*Ziwei Doushu Quanshu*) | Comprehensive reference (most widely circulated) | Ming dynasty[^zwdsquanshu] |
+| 《紫微斗數捷覽》 (*Ziwei Doushu Jielan*) | Abbreviated reference for practitioners | Ming dynasty |
 
-The pseudepigraphical pattern parallels 《果老星宗》 in the 七政四餘 tradition,
+The pseudepigraphical pattern parallels 《果老星宗》 (*Guolao Xingzong*) in the 七政四餘 tradition,
 which was attributed to the mythical Tang Daoist Zhang Guolao but whose earliest
 printed edition dates to 1593.
 

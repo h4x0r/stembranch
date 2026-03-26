@@ -131,7 +131,7 @@ the standard choice.
 ### 3.2 Ketu (計都) — osculating lunar apogee or descending node
 
 This is the most historically contentious of the four remainders. In the
-mature Chinese 七政四餘 system (as codified in 《果老星宗》[^guolao]), 計都 is
+mature Chinese 七政四餘 system (as codified in 《果老星宗》 (*Guolao Xingzong*)[^guolao]), 計都 is
 identified with the **osculating lunar apogee** — not the descending node
 as in the original Indian system. See [§7: Historical Controversies](#7-historical-controversies) for the full
 historical analysis.
@@ -410,7 +410,7 @@ They are shadow planets (chāyā graha, छाया ग्रह) that cause ec
 **The Chinese reception.** The transmission came primarily through the
 *Jiuzhi li* (九執曆), translated by [Gautama Siddha](https://en.wikipedia.org/wiki/Gautama_Siddha)
 (瞿曇悉達) in 718 CE from Indian astronomical sources and preserved as
-fascicle 104 of the 《開元占經》[^kaiyuan] (compiled 714–724 CE). On the
+fascicle 104 of the 《開元占經》 (*Kaiyuan Zhanjing*)[^kaiyuan] (compiled 714–724 CE). On the
 Jiuzhi li as the primary vector for Indian astronomical concepts entering
 China, see Yabuuchi (1979)[^yabuuchi1979] and Niu (2023)[^brill2023].
 
@@ -477,8 +477,8 @@ astronomical insight or a fortunate accident of transmission is debated.
 ### 7.2 The Schall reforms: 紫氣 deletion and 計都 reversion
 
 When the Jesuit astronomer [Johann Adam Schall von Bell](https://en.wikipedia.org/wiki/Johann_Adam_Schall_von_Bell)
-(湯若望, 1592–1666) reformed the Chinese calendar as the 時憲曆 (Shixian
-Calendar, 1645), he made two consequential changes to the Four Remainders.
+(湯若望, 1592–1666) reformed the Chinese calendar as the Shixian Calendar
+(時憲曆, 1645), he made two consequential changes to the Four Remainders.
 Liu (2020, pp. 118–121)[^liu2020] provides a detailed account of these
 reforms.
 
@@ -506,7 +506,7 @@ two problems:
    India but **reversed the elemental attributions**, creating an internally
    inconsistent system.
 
-**The Calendar Case.** In 1664, [Yang Guangxian](https://en.wikipedia.org/wiki/Yang_Guangxian)
+**The Calendar Case (曆獄).** In 1664, [Yang Guangxian](https://en.wikipedia.org/wiki/Yang_Guangxian)
 (楊光先) filed formal charges against Schall, making the deletion of 紫氣
 one of the central accusations. The deliberating council's verdict held:
 
@@ -524,7 +524,7 @@ or delete all four; selective removal is inconsistent.
 Schall was sentenced to death. The sentence was commuted after the
 [Beijing earthquake of 1665](https://en.wikipedia.org/wiki/1665_Tong_County_earthquake),
 interpreted as a sign of Heaven's disapproval. The 時憲曆 was temporarily
-abolished (1665–1669) and the 大統曆 restored. After the Kangxi Emperor (康熙帝)
+abolished (1665–1669) and the Datong Calendar (大統曆) restored. After the Kangxi Emperor (康熙帝)
 took personal power, [Ferdinand Verbiest](https://en.wikipedia.org/wiki/Ferdinand_Verbiest)
 (南懷仁) defeated Yang in public astronomical prediction contests, the
 時憲曆 was reinstated, and Schall was posthumously rehabilitated
@@ -544,7 +544,7 @@ coherent cosmological unit that could not be selectively dismembered.
 **Legacy: the Qing convention.** After the Calendar Case and Schall's
 posthumous rehabilitation, Verbiest retained the Schall convention for 計都
 in the restored 時憲曆. The Qing convention subsequently became the standard
-for official almanacs, most influentially the 《七政經緯曆書》 compiled by
+for official almanacs, most influentially the 《七政經緯曆書》 (*Qizheng Jingwei Lishu*) compiled by
 the Zhenbutang (真步堂) tradition (first published 1891) and continued by the
 Hong Kong feng shui master Cai Boli (蔡伯勵, 1922–2018). Because Cai Boli's
 almanac is the most widely used 七政四餘 reference in Hong Kong and
@@ -564,7 +564,7 @@ apogee the ascending node or the descending node?" They are different
 geometric features of the lunar orbit.
 
 The pre-Qing convention (計北羅南, documented by Shen Kuo (沈括) in the
-《夢溪筆談》, 1088) and the Qing convention (計南羅北, from Schall) both
+《夢溪筆談》 *Mengxi Bitan*, 1088) and the Qing convention (計南羅北, from Schall) both
 treat 計都 as a node — they disagree only about *which* node. Both
 diverge from the 《果老星宗》 apogee identification. The scholarly
 consensus (Niu 1994[^niu1994]; Mak 2014[^mak2014]; Kotyk 2018[^kotyk2018])
@@ -575,11 +575,11 @@ and the node-based framing is a regression.
 
 How do we know 計都 became the apogee and not just a swapped node? The
 earliest Chinese text containing actual positional tables for 計都 is the
-*Qiyao rangzai jue* 七曜攘災訣 ("Formulae for Averting Disasters [Caused by]
+*Qiyao Rangzai Jue* (七曜攘災訣, "Formulae for Averting Disasters [Caused by]
 the Seven Luminaries"), a Buddhist astrological work compiled after 806 CE
-and preserved in the Japanese *Sukuyōdō* 宿曜道 tradition. The text gives
+and preserved in the Japanese *Sukuyōdō* (宿曜道) tradition. The text gives
 ephemerides for 羅睺 spanning 93 years and for 計都 spanning 62 years, with
-epoch year 元和 1 (806 CE).[^mak2024]
+epoch year Yuanhe (元和) 1 (806 CE).[^mak2024]
 
 Niu Weixing's landmark analysis[^niu1994] showed that the 62-year 計都
 ephemeris matches the **lunar apsidal precession cycle** (~8.85 years per
@@ -649,7 +649,7 @@ had deliberately abandoned.
 | 718 CE | Initially descending node | 九執曆 (Gautama Siddha) |
 | 806 CE | **Lunar apogee** (shift documented) | 七曜攘災訣; proven by Niu (1994)[^niu1994] |
 | Song dynasty | Apogee (canonical) | 《果老星宗》[^guolao]; Shen Kuo treated as node (minority view) |
-| Ming dynasty | **Apogee** (standard) | 《星學大成》; 《果老星宗》[^guolao] |
+| Ming dynasty | **Apogee** (standard) | 《星學大成》 (*Xingxue Dacheng*); 《果老星宗》[^guolao] |
 | 1645 | **Descending node** (Qing reversion) | 時憲曆 (Schall von Bell); Liu (2020)[^liu2020] |
 | Modern software | Descending node (following Qing) | Cai Boli (蔡伯勵) 《七政經緯曆書》 tradition |
 | Scholarly consensus | **Apogee** | Niu (1994)[^niu1994]; Mak (2014)[^mak2014]; Kotyk (2018)[^kotyk2018] |

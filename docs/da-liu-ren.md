@@ -356,7 +356,7 @@ and no computation can proceed.
 
 ## 4. Classical Texts
 
-### 《六壬大全》
+### 《六壬大全》 — *Liuren Daquan* (Complete Liu Ren)
 
 The sole Liu Ren text included in the *Siku Quanshu* (四庫全書), and the
 most comprehensive traditional reference for the system. The work's
@@ -371,7 +371,7 @@ Its inclusion in the *Siku Quanshu* — from which many mantic texts were
 excluded — attests to its perceived legitimacy within the Qing
 imperial scholarly apparatus.
 
-### 《大六壬指南》
+### 《大六壬指南》 — *Daliuren Zhinan* (Guide to Da Liu Ren)
 
 Written by Chen Gongxian (陳公獻) during the late Ming or early Qing
 period, this practical manual emphasises case-based instruction. Where
