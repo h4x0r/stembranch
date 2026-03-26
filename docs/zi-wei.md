@@ -1,3 +1,12 @@
+---
+title: "紫微斗數 Purple Star Astrology — Chinese Natal Horoscopy"
+description: "紫微斗數 (Zi Wei Dou Shu), Chinese natal astrology placing 14 major stars into 12 life-domain palaces. Mathematical star placement rules, Four Transformations (四化), comparison with BaZi, and the Chen Tuan attribution question."
+head:
+  - - meta
+    - name: keywords
+      content: "紫微斗數, Zi Wei Dou Shu, Purple Star, Chinese astrology, 十四主星, 四化, 命宮, natal chart, Chen Tuan, 陳摶"
+---
+
 # Purple Star Astrology (紫微斗數)
 
 Chinese natal astrology system placing 14 major stars and numerous auxiliary

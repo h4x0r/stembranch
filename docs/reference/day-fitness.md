@@ -11,7 +11,7 @@ head:
 
 The Day Fitness cycle (建除十二神) is a twelve-day repeating cycle used in traditional Chinese almanacs (通書/黃曆) to classify each day's suitability for various activities. Each of the twelve positions — 建 (Establish), 除 (Remove), 滿 (Full), 平 (Balance), 定 (Stable), 執 (Grasp), 破 (Break), 危 (Danger), 成 (Succeed), 收 (Receive), 開 (Open), 閉 (Close) — carries traditional associations that guide date selection (擇日) for important events.
 
-The 12-day fitness cycle (建除十二神) is a repeating calendar cycle used in Chinese almanacs (通書/黃曆) to classify each day's suitability for various activities.
+See also: [Almanac Flags](/reference/almanac-flags) · [Virtue Stars](/reference/virtue-stars) · [Deity Directions](/reference/deity-directions)
 
 ## The Cycle
 

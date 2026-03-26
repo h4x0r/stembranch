@@ -11,9 +11,9 @@ head:
 
 Almanac flags (神煞) are symbolic markers from traditional Chinese calendars (通書/黃曆) and fate analysis (命理學). Each flag is derived from the relationship between Heavenly Stems (天干) and Earthly Branches (地支) in a person's birth chart or a given date. Practitioners use them in BaZi (八字) chart reading and date selection (擇日) to identify auspicious and inauspicious influences.
 
-Symbolic markers from Chinese almanacs (通書/黃曆) and 命理學 (fate analysis). Each flag is derived from pillar components — stems, branches, or their relationships — using traditional lookup rules.
+stem-branch implements 30 almanac flags across 8 categories.
 
-stembranch implements 30 almanac flags across 8 categories.
+See also: [Day Fitness Cycle](/reference/day-fitness) · [Virtue Stars](/reference/virtue-stars) · [Deity Directions](/reference/deity-directions)
 
 ## Overview
 

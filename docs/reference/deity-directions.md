@@ -11,7 +11,7 @@ head:
 
 In Chinese date selection (擇日) and feng shui practice, four deities are assigned daily compass directions based on the day's Heavenly Stem (日干). The Joy Deity (喜神), Fortune Deity (福神), Wealth Deity (財神), and Noble Deity (貴神) each occupy a specific cardinal or intercardinal direction on any given day. Practitioners consult these directions when choosing orientations for important activities.
 
-Four deities have daily compass directions determined by the **day stem** (日干). These are used in 擇日 (date selection) and feng shui applications to determine auspicious directions for the day.
+See also: [Almanac Flags](/reference/almanac-flags) · [Day Fitness Cycle](/reference/day-fitness) · [Virtue Stars](/reference/virtue-stars)
 
 ## The Four Deities
 

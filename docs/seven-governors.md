@@ -1,3 +1,12 @@
+---
+title: "七政四餘 Seven Governors — Chinese Sidereal Astrology"
+description: "Chinese sidereal astrology (七政四餘) computing 7 planetary positions + 4 lunar points across 28 mansions and 12 palaces. Astronomical models, historical context from 果老星宗 to the Qing Calendar Case, and the Rahu/Ketu identity problem."
+head:
+  - - meta
+    - name: keywords
+      content: "七政四餘, Seven Governors, Chinese astrology, 果老星宗, sidereal, lunar mansions, 二十八宿, 計都, 羅睺, 紫氣, 月孛, Four Remainders, 四餘"
+---
+
 # Seven Governors Four Remainders (七政四餘)
 
 Chinese sidereal astrology system computing positions for 11 celestial bodies

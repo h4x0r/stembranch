@@ -1,3 +1,12 @@
+---
+title: "奇門遁甲 Mystery Gates — Strategic Timing Divination"
+description: "奇門遁甲 (Qi Men Dun Jia), the strategic timing system of China's three cosmic-board divination methods (三式). Eight Gates, Nine Stars, eight-layer nine-palace grid, and 1,080 chart configurations for yang/yin ascending and descending."
+head:
+  - - meta
+    - name: keywords
+      content: "奇門遁甲, Qi Men Dun Jia, Mystery Gates, 三式, eight gates, 八門, nine palaces, 九宮, 洛書, Chinese divination, strategic timing"
+---
+
 # 奇門遁甲 Mystery Gates Escaping Armor (Qí Mén Dùn Jiǎ)
 
 ## Overview

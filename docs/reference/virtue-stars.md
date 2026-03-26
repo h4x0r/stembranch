@@ -11,7 +11,7 @@ head:
 
 The Virtue Stars (德星) are among the most auspicious markers in the Chinese calendar system. Each month has a Heavenly Virtue (天德) and a Monthly Virtue (月德), determined by the month's Earthly Branch. When a day's stem or branch matches a virtue star, it is considered especially favorable for important activities. Each virtue star also has a combination partner (合), derived through the Five Combinations (五合) relationship.
 
-The virtue stars (德星) are auspicious markers derived from the **month branch**. Each month has a Heavenly Virtue (天德) and a Monthly Virtue (月德), plus their combination partners (合).
+See also: [Almanac Flags](/reference/almanac-flags) · [Day Fitness Cycle](/reference/day-fitness) · [Deity Directions](/reference/deity-directions)
 
 ## 月德 Monthly Virtue
 

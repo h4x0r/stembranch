@@ -1,3 +1,12 @@
+---
+title: "大六壬 Six Ren — Cosmic Board Divination"
+description: "大六壬 (Da Liu Ren), the oldest of China's three cosmic-board divination systems (三式). Four Lessons, Three Transmissions, twelve heavenly generals, and the nine-method priority cascade for determining the spirit course."
+head:
+  - - meta
+    - name: keywords
+      content: "大六壬, Liu Ren, Six Ren, 三式, cosmic board divination, 四課, 三傳, twelve heavenly generals, 天將, Chinese divination"
+---
+
 # Da Liu Ren (大六壬)
 
 The oldest and most complex of the three cosmic-board divination systems
