@@ -385,7 +385,7 @@ tracked for future implementation.
 These are not merely academic questions — they directly affect which
 celestial positions your software computes and whether those positions match
 the system's classical foundations. Most modern charting software, including
-MOIRA and tools based on the Cai Boli 蔡伯勵 almanac tradition, follows
+MOIRA and tools based on the Cai Boli (蔡伯勵) almanac tradition, follows
 Qing-era conventions that diverge from the mature Chinese system as codified
 in 《果老星宗》[^guolao]. Understanding these divergences is essential for
 any implementation that aims to be historically informed.
@@ -421,7 +421,7 @@ In the received Chinese system:
 - **計都** diverged from the descending node
 
 By the time the mature 七政四餘 system was codified in 《果老星宗》[^guolao]
-(attributed to Zhang Guolao 張果老; earliest known edition Ming dynasty, 1593),
+(attributed to Zhang Guolao (張果老); earliest known edition Ming dynasty, 1593),
 計都 was identified with the **lunar apogee**, not the descending node. This
 is astronomically a completely different point — the apogee lies on the
 Moon's apsidal line, not its nodal line.
@@ -545,8 +545,8 @@ coherent cosmological unit that could not be selectively dismembered.
 posthumous rehabilitation, Verbiest retained the Schall convention for 計都
 in the restored 時憲曆. The Qing convention subsequently became the standard
 for official almanacs, most influentially the 《七政經緯曆書》 compiled by
-the Zhenbutang 真步堂 tradition (first published 1891) and continued by the
-Hong Kong feng shui master Cai Boli 蔡伯勵 (1922–2018). Because Cai Boli's
+the Zhenbutang (真步堂) tradition (first published 1891) and continued by the
+Hong Kong feng shui master Cai Boli (蔡伯勵, 1922–2018). Because Cai Boli's
 almanac is the most widely used 七政四餘 reference in Hong Kong and
 Southeast Asia, the Qing convention dominates modern practice in those
 regions.
@@ -563,7 +563,7 @@ north node or the south node?" is as nonsensical as asking "is the Moon's
 apogee the ascending node or the descending node?" They are different
 geometric features of the lunar orbit.
 
-The pre-Qing convention (計北羅南, documented by Shen Kuo 沈括 in the
+The pre-Qing convention (計北羅南, documented by Shen Kuo (沈括) in the
 《夢溪筆談》, 1088) and the Qing convention (計南羅北, from Schall) both
 treat 計都 as a node — they disagree only about *which* node. Both
 diverge from the 《果老星宗》 apogee identification. The scholarly
@@ -614,7 +614,7 @@ Most 七政四餘 charting software — including the widely-used
 計都 and 羅睺 as lunar nodes always 180° apart. This propagation occurs
 because:
 
-1. **The Cai Boli 蔡伯勵 almanac is the most accessible reference.** The
+1. **The Cai Boli (蔡伯勵) almanac is the most accessible reference.** The
    《七政經緯曆書》 follows Qing conventions and is what most Hong Kong
    and Southeast Asian practitioners consult. Developers build from this.
 
@@ -651,7 +651,7 @@ had deliberately abandoned.
 | Song dynasty | Apogee (canonical) | 《果老星宗》[^guolao]; Shen Kuo treated as node (minority view) |
 | Ming dynasty | **Apogee** (standard) | 《星學大成》; 《果老星宗》[^guolao] |
 | 1645 | **Descending node** (Qing reversion) | 時憲曆 (Schall von Bell); Liu (2020)[^liu2020] |
-| Modern software | Descending node (following Qing) | Cai Boli 蔡伯勵 《七政經緯曆書》 tradition |
+| Modern software | Descending node (following Qing) | Cai Boli (蔡伯勵) 《七政經緯曆書》 tradition |
 | Scholarly consensus | **Apogee** | Niu (1994)[^niu1994]; Mak (2014)[^mak2014]; Kotyk (2018)[^kotyk2018] |
 
 ### 7.6 Which convention does this library follow?
@@ -695,13 +695,13 @@ primarily in 《果老星宗》[^guolao]:
 
 [^kaiyuan]: **《開元占經》** (Kaiyuan Zhanjing) — Tang dynasty compilation (714–724 CE) by [Gautama Siddha](https://en.wikipedia.org/wiki/Gautama_Siddha) (瞿曇悉達), containing the 《九執曆》 (Jiuzhi li) in vol. 104 — the primary vector for Indian astronomical concepts entering China. [Full text on Chinese Text Project](https://ctext.org/datawiki.pl?if=en&res=252606).
 
-[^budeyi]: **Yang Guangxian 楊光先, 《不得已》** (Bu De Yi, c. 1664) — Primary source for the charges against Schall von Bell, including the argument that 紫氣 cannot be selectively deleted from the 四餘. [Full text on Chinese Text Project](https://ctext.org/datawiki.pl?if=en&res=416720); also at [Wikisource](https://zh.wikisource.org/wiki/%E4%B8%8D%E5%BE%97%E5%B7%B2/%E4%B8%8A%E5%8D%B7).
+[^budeyi]: **Yang Guangxian (楊光先), 《不得已》** (Bu De Yi, c. 1664) — Primary source for the charges against Schall von Bell, including the argument that 紫氣 cannot be selectively deleted from the 四餘. [Full text on Chinese Text Project](https://ctext.org/datawiki.pl?if=en&res=416720); also at [Wikisource](https://zh.wikisource.org/wiki/%E4%B8%8D%E5%BE%97%E5%B7%B2/%E4%B8%8A%E5%8D%B7).
 
-[^niu1994]: **Niu Weixing 钮卫星**, "罗睺、计都天文学含义考源" (An Inquiry into the Astronomical Meaning of Rahu and Ketu), *Acta Astronomica Sinica* 天文学报, Vol. 35 No. 3, 1994, pp. 326–332. English version: "An investigation into the astronomical meaning of Luohou and Jidu", *Chinese Astronomy and Astrophysics* 19(2), 1995. Research identifying 計都 with the osculating lunar apogee, tracing the evolution of the concept through Chinese astronomical texts. [DOI: 10.1016/0275-1062(95)00033-O](https://doi.org/10.1016/0275-1062(95)00033-O); [ADS](https://ui.adsabs.harvard.edu/abs/1995ChA&A..19..259N/abstract); [USTC faculty page](https://faculty.ustc.edu.cn/niuweixing/zh_CN/lwcg/64044/content/20729.htm).
+[^niu1994]: **Niu Weixing (钮卫星)**, "罗睺、计都天文学含义考源" (An Inquiry into the Astronomical Meaning of Rahu and Ketu), *Acta Astronomica Sinica* 天文学报, Vol. 35 No. 3, 1994, pp. 326–332. English version: "An investigation into the astronomical meaning of Luohou and Jidu", *Chinese Astronomy and Astrophysics* 19(2), 1995. Research identifying 計都 with the osculating lunar apogee, tracing the evolution of the concept through Chinese astronomical texts. [DOI: 10.1016/0275-1062(95)00033-O](https://doi.org/10.1016/0275-1062(95)00033-O); [ADS](https://ui.adsabs.harvard.edu/abs/1995ChA&A..19..259N/abstract); [USTC faculty page](https://faculty.ustc.edu.cn/niuweixing/zh_CN/lwcg/64044/content/20729.htm).
 
-[^yabuuchi1989]: **Yabuuchi Kiyoshi 薮内清**, *Zōtei Zui-Tō rekihō-shi no kenkyū* (増訂 隋唐暦法史の研究, Rinsen Shoten, 1989) — Research on Sui–Tang calendrical history, including analysis of the Indian–Chinese astronomical transmission and the pragmatic motivations for the Ketu identity shift. [CiNii](https://ci.nii.ac.jp/ncid/BB26841838); [biographical article](https://www.academia.edu/9268531/Yabuuchi_Kiyoshi_His_life_Works_and_Significant_Contributions_to_the_Chinese_History_of_Science_and_Technology).
+[^yabuuchi1989]: **Yabuuchi Kiyoshi (薮内清)**, *Zōtei Zui-Tō rekihō-shi no kenkyū* (増訂 隋唐暦法史の研究, Rinsen Shoten, 1989) — Research on Sui–Tang calendrical history, including analysis of the Indian–Chinese astronomical transmission and the pragmatic motivations for the Ketu identity shift. [CiNii](https://ci.nii.ac.jp/ncid/BB26841838); [biographical article](https://www.academia.edu/9268531/Yabuuchi_Kiyoshi_His_life_Works_and_Significant_Contributions_to_the_Chinese_History_of_Science_and_Technology).
 
-[^yabuuchi1979]: **Yabuuchi Kiyoshi 薮内清**, "Researches on the Chiu-chih li," *Acta Asiatica* 36, 1979, pp. 7–48 — On the 九執曆 as the primary vector for Indian astronomical transmission into China. [CiNii](https://ci.nii.ac.jp/naid/40001001194/).
+[^yabuuchi1979]: **Yabuuchi Kiyoshi (薮内清)**, "Researches on the Chiu-chih li," *Acta Asiatica* 36, 1979, pp. 7–48 — On the 九執曆 as the primary vector for Indian astronomical transmission into China. [CiNii](https://ci.nii.ac.jp/naid/40001001194/).
 
 [^kotyk2018]: **Jeffrey Kotyk**, "The Sinicization of Indo-Iranian Astrology in Medieval China," *Sino-Platonic Papers* 282, 2018, pp. 1–95. Argues 紫氣 and 月孛 originated from foreign (Indo-Iranian) sources; provides the most detailed published analysis of 紫氣's intercalary-month derivation and its ecliptic computation (pp. 52–55). [Free PDF](https://sino-platonic.org/complete/spp282_Indo-Iranian_Astrology_China.pdf).
 
@@ -711,15 +711,15 @@ primarily in 《果老星宗》[^guolao]:
 
 [^jami2015]: **Catherine Jami**, "Revisiting the Calendar Case (1664–1669): Science, Religion, and Politics in Early Qing Beijing," *Korean Journal of History of Science* 27(2), 2015, pp. 459–477. [Open access PDF](https://shs.hal.science/halshs-01222267/document).
 
-[^chu1997]: **Chu Pingyi 祝平一**, "Scientific Dispute in the Imperial Court: The 1664 Calendar Case," *Chinese Science* 14, 1997, pp. 7–34. Primary study of the 曆獄 proceedings.
+[^chu1997]: **Chu Pingyi (祝平一)**, "Scientific Dispute in the Imperial Court: The 1664 Calendar Case," *Chinese Science* 14, 1997, pp. 7–34. Primary study of the 曆獄 proceedings.
 
-[^chu2018]: **Chu Pingyi 祝平一**, "Against Prognostication: Ferdinand Verbiest's Criticisms of Chinese Mantic Arts," ch. 15 in Michael Lackner (ed.), *Coping with the Future: Theories and Practices of Divination in East Asia* (Brill, 2018; Sinica Leidensia 138; ISBN 978-90-04-34653-6). On Verbiest's failed attempt to replace Chinese astrological annotations with Western natural astrology. [Brill](https://brill.com/view/title/34845).
+[^chu2018]: **Chu Pingyi (祝平一)**, "Against Prognostication: Ferdinand Verbiest's Criticisms of Chinese Mantic Arts," ch. 15 in Michael Lackner (ed.), *Coping with the Future: Theories and Practices of Divination in East Asia* (Brill, 2018; Sinica Leidensia 138; ISBN 978-90-04-34653-6). On Verbiest's failed attempt to replace Chinese astrological annotations with Western natural astrology. [Brill](https://brill.com/view/title/34845).
 
 [^brill2023]: "An 8th-Century CE Indian Astronomical Treatise in Chinese," in *Plurilingualism in Traditional Eurasian Scholarship* (Brill, 2023). On the Jiuzhi li as the primary vector for Indian astronomical concepts entering China. [Brill](https://brill.com/display/book/9789004527256/BP000030.xml).
 
 [^hopeng]: **Ho Peng Yoke**, *Chinese Mathematical Astrology: Reaching Out to the Stars* (RoutledgeCurzon, 2003; Needham Research Institute Series) — Covers the three cosmic-board divination systems (三式: 太乙, 奇門遁甲, 六壬) and their mathematical structures. General background on Chinese astrology and Indian transmission. [Routledge](https://www.routledge.com/Chinese-Mathematical-Astrology-Reaching-Out-to-the-Stars/Yoke/p/book/9780415863100); [Review in *EASTM*](https://brill.com/view/journals/east/23/1/article-p134_8.xml?language=en).
 
-[^pannai]: **Pan Nai 潘鼐**, *Zhongguo Hengxing Guance Shi* (中國恆星觀測史, History of Fixed Star Observation in China; Xuelin Press, 2009 revised ed., ISBN 9787807306948) — Reference for determinative star identifications and the 28-mansion system. [Google Books](https://books.google.com/books/about/%E4%B8%AD%E5%9B%BD%E6%81%92%E6%98%9F%E8%A7%82%E6%B5%8B%E5%8F%B2.html?id=RQDr888FHoEC).
+[^pannai]: **Pan Nai (潘鼐)**, *Zhongguo Hengxing Guance Shi* (中國恆星觀測史, History of Fixed Star Observation in China; Xuelin Press, 2009 revised ed., ISBN 9787807306948) — Reference for determinative star identifications and the 28-mansion system. [Google Books](https://books.google.com/books/about/%E4%B8%AD%E5%9B%BD%E6%81%92%E6%98%9F%E8%A7%82%E6%B5%8B%E5%8F%B2.html?id=RQDr888FHoEC).
 
 [^sunkim]: **Sun Xiaochun & Jacob Kistemaker**, *The Chinese Sky During the Han: Constellating Stars and Society* (Brill, 1997; Sinica Leidensia vol. 38, ISBN 9789004107373) — Determinative star positions and mansion boundary reconstruction. [WorldCat](https://www.worldcat.org/title/chinese-sky-during-the-han-constellating-stars-and-society/oclc/185938073); [Academia.edu review](https://www.academia.edu/38558071/).
 
@@ -731,6 +731,6 @@ primarily in 《果老星宗》[^guolao]:
 
 [^hipparcos]: **ESA**, *The Hipparcos and Tycho Catalogues* (ESA SP-1200, 1997) — Source for determinative star positions used in mansion boundary data. [ESA catalogue page](https://www.cosmos.esa.int/web/hipparcos/catalogues); [NASA HEASARC](https://heasarc.gsfc.nasa.gov/w3browse/all/hipparcos.html); [VizieR](https://ui.adsabs.harvard.edu/abs/1997yCat.1239....0E/abstract).
 
-[^niu2010]: **Niu Weixing 钮卫星**, "从'罗、计'到'四余'：外来天文概念汉化之一例" (From Rahu and Ketu to Four Invisible Bodies: An Example of the Sinicization of Foreign Astronomical Terminology), *Journal of Shanghai Jiao Tong University (Philosophy and Social Sciences Edition)* 18(6), 2010, pp. 48–57. Follow-up study tracing how 計都's identity shifted from node to apogee between 718 and 806 CE. [Author profile (SJTU)](https://sjtu.academia.edu/weixingniu).
+[^niu2010]: **Niu Weixing (钮卫星)**, "从'罗、计'到'四余'：外来天文概念汉化之一例" (From Rahu and Ketu to Four Invisible Bodies: An Example of the Sinicization of Foreign Astronomical Terminology), *Journal of Shanghai Jiao Tong University (Philosophy and Social Sciences Edition)* 18(6), 2010, pp. 48–57. Follow-up study tracing how 計都's identity shifted from node to apogee between 718 and 806 CE. [Author profile (SJTU)](https://sjtu.academia.edu/weixingniu).
 
 [^mak2024]: **Bill M. Mak**, "Persian Astronomy in China," *Journal of Indian Philosophy* 52(4), 2024. On the 七曜攘災訣 and the Persian intermediaries in the transmission of Indian astronomical concepts to China. [DOI: 10.1177/09719458241247636](https://doi.org/10.1177/09719458241247636).

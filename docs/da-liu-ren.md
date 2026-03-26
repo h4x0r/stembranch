@@ -54,7 +54,7 @@ computational architectures diverge significantly[^kalinowski2022].
 
 The earliest physical evidence for the cosmic-board tradition comes from
 the Shuanggudui tomb (阜陽雙墩堆) in Anhui province, sealed in 165 BCE
-(Marquis of Ruyin 汝陰侯). This tomb yielded a lacquered *shi* board
+(Marquis of Ruyin (汝陰侯)). This tomb yielded a lacquered *shi* board
 (式盤) — a two-plate cosmographic instrument with heaven and earth
 discs — that predates all other known specimens[^harper1978].
 
@@ -431,6 +431,6 @@ and would benefit from further textual and archaeological research:
 
 [^smith1991]: **Richard J. Smith**, *Fortune-tellers and Philosophers: Divination in Traditional Chinese Society* (Boulder: Westview Press, 1991). Broad survey of Chinese mantic traditions including institutional contexts for the three cosmic-board systems. [DOI: 10.4324/9780429039799](https://doi.org/10.4324/9780429039799).
 
-[^liling]: **Li Ling 李零**, *Zhongguo fangshu kao* 中國方術考 (修訂本) (Beijing: Dongfang chubanshe 東方出版社, 2000). The most comprehensive Chinese-language study of the *fangshu* (technical arts) tradition, including *shi* board cosmology and Liu Ren's place within the mantic landscape.
+[^liling]: **Li Ling (李零)**, *Zhongguo fangshu kao* 中國方術考 (修訂本) (Beijing: Dongfang chubanshe 東方出版社, 2000). The most comprehensive Chinese-language study of the *fangshu* (technical arts) tradition, including *shi* board cosmology and Liu Ren's place within the mantic landscape.
 
 [^needham]: **Joseph Needham**, *Science and Civilisation in China*, Vol. 2: *History of Scientific Thought* (Cambridge: Cambridge University Press, 1956). Places the *shi* board and associated divination systems within the broader context of Chinese cosmological thought. [DOI: 10.1017/CBO9780511816994](https://doi.org/10.1017/CBO9780511816994).
