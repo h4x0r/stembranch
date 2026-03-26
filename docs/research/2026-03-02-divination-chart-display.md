@@ -13,17 +13,13 @@ The 命盤 (destiny chart) is universally rendered as a **4x4 CSS grid**
 where the 12 outer cells are the 12 palaces and the center 2x2 area
 displays birth information.
 
-```
-┌──────────┬──────────┬──────────┬──────────┐
-│ 巳 (Si)  │ 午 (Wu)  │ 未 (Wei) │ 申 (Shen)│
-├──────────┼──────────┴──────────┼──────────┤
-│ 辰 (Chen)│                     │ 酉 (You) │
-│          │   Center Info Area  │          │
-├──────────┤   (birth data,      ├──────────┤
-│ 卯 (Mao) │    五行局, etc.)    │ 戌 (Xu)  │
-├──────────┼──────────┬──────────┼──────────┤
-│ 寅 (Yin) │ 丑 (Chou)│ 子 (Zi)  │ 亥 (Hai) │
-└──────────┴──────────┴──────────┴──────────┘
+```mermaid
+block-beta
+  columns 4
+  si["巳 (Si)"] wu["午 (Wu)"] wei["未 (Wei)"] shen["申 (Shen)"]
+  chen["辰 (Chen)"] center["Center Info Area<br/>(birth data, 五行局, etc.)"]:2 you["酉 (You)"]
+  mao["卯 (Mao)"] space[" "]:2 xu["戌 (Xu)"]
+  yin["寅 (Yin)"] chou["丑 (Chou)"] zi["子 (Zi)"] hai["亥 (Hai)"]
 ```
 
 Palaces are placed **anti-clockwise** starting from 命宮 (which varies
@@ -96,14 +92,12 @@ Based on the Lo Shu magic square. Each cell contains 4-5 stacked layers
 of information. The center palace (5/中宮) is special: its star (天禽)
 and stem typically borrow to 坤宮 (palace 2).
 
-```
-┌──────────┬──────────┬──────────┐
-│ 4 巽 SE  │ 9 離 S   │ 2 坤 SW  │
-├──────────┼──────────┼──────────┤
-│ 3 震 E   │ 5 中     │ 7 兌 W   │
-├──────────┼──────────┼──────────┤
-│ 8 艮 NE  │ 1 坎 N   │ 6 乾 NW  │
-└──────────┴──────────┴──────────┘
+```mermaid
+block-beta
+  columns 3
+  a["4 巽 SE"] b["9 離 S"] c["2 坤 SW"]
+  d["3 震 E"] e["5 中"] f["7 兌 W"]
+  g["8 艮 NE"] h["1 坎 N"] i["6 乾 NW"]
 ```
 
 ### Palace Cell Content (top to bottom within each cell)
@@ -119,13 +113,11 @@ The four conceptual plates map to visual layers:
 
 Typical cell visual:
 
-```
-┌────────────────────┐
-│ [八神]             │  ← Spirit (topmost)
-│ [九星]    [天盤干]  │  ← Heaven plate
-│ [八門]    [地盤干]  │  ← Human + Earth plate
-│ [宮數/卦名]        │  ← Base trigram info
-└────────────────────┘
+```mermaid
+graph TD
+  A["八神 — Spirit (topmost)"] --> B["九星 + 天盤干 — Heaven plate"]
+  B --> C["八門 + 地盤干 — Human + Earth plate"]
+  C --> D["宮數/卦名 — Base trigram info"]
 ```
 
 ### External Info (outside the 3x3 grid)
@@ -239,23 +231,23 @@ Da Liu Ren charts have **two distinct visual sections**:
 
 ### Full Chart Layout
 
-```
-┌─────────────────────────────────────┐
-│  Header: 日干支, 時辰, 月將, 方法    │
-├──────────┬──────────────────────────┤
-│  三傳     │  四課 (R→L)             │
-│  初: XX   │  ┌────┬────┬────┬────┐  │
-│  中: XX   │  │ 四 │ 三 │ 二 │ 一 │  │
-│  末: XX   │  │上神│上神│上神│上神│  │
-│           │  │下位│下位│下位│下位│  │
-│           │  └────┴────┴────┴────┘  │
-├──────────┴──────────────────────────┤
-│  天地盤 (circular or tabular)       │
-│  showing 12 positions with:         │
-│  天盤 branch + 地盤 branch + 天將   │
-├─────────────────────────────────────┤
-│  神煞 / method annotation            │
-└─────────────────────────────────────┘
+```mermaid
+graph TD
+  subgraph Header
+    H["日干支 · 時辰 · 月將 · 方法"]
+  end
+  subgraph Body
+    direction LR
+    T["三傳<br/>初: XX<br/>中: XX<br/>末: XX"]
+    L["四課 (R→L)<br/>四 · 三 · 二 · 一<br/>上神 上神 上神 上神<br/>下位 下位 下位 下位"]
+  end
+  subgraph Plates
+    P["天地盤 (circular or tabular)<br/>12 positions: 天盤 branch + 地盤 branch + 天將"]
+  end
+  subgraph Footer
+    F["神煞 / method annotation"]
+  end
+  Header --> Body --> Plates --> Footer
 ```
 
 ### Circular Display CSS Approach
@@ -331,14 +323,12 @@ foundations rather than being separate methods needing artificial combination.
 Essentially a Qi Men chart (3x3 grid) with an **additional layer** for
 十二天將:
 
-```
-┌────────────────────┐
-│ [八神]             │
-│ [天將] ← NEW LAYER │
-│ [九星]    [天盤干]  │
-│ [八門]    [地盤干]  │
-│ [宮數/卦名]        │
-└────────────────────┘
+```mermaid
+graph TD
+  A["八神 — Spirit"] --> B["天將 — Heavenly General ← NEW LAYER"]
+  B --> C["九星 + 天盤干 — Heaven plate"]
+  C --> D["八門 + 地盤干 — Human + Earth plate"]
+  D --> E["宮數/卦名 — Base trigram info"]
 ```
 
 ---

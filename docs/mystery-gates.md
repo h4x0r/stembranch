@@ -92,17 +92,12 @@ The structural foundation of 奇門遁甲 is the nine-palace grid, derived from
 the Lo Shu (洛書) magic square — a 3×3 arrangement in which every row, column,
 and diagonal sums to 15[^needham]:
 
-```
-┌─────────┬─────────┬─────────┐
-│ 4  巽   │ 9  離   │ 2  坤   │
-│ SE      │ S       │ SW      │
-├─────────┼─────────┼─────────┤
-│ 3  震   │ 5  中   │ 7  兌   │
-│ E       │ Center  │ W       │
-├─────────┼─────────┼─────────┤
-│ 8  艮   │ 1  坎   │ 6  乾   │
-│ NE      │ N       │ NW      │
-└─────────┴─────────┴─────────┘
+```mermaid
+block-beta
+  columns 3
+  a["4 巽<br/>SE"] b["9 離<br/>S"] c["2 坤<br/>SW"]
+  d["3 震<br/>E"] e["5 中<br/>Center"] f["7 兌<br/>W"]
+  g["8 艮<br/>NE"] h["1 坎<br/>N"] i["6 乾<br/>NW"]
 ```
 
 Each palace is associated with a trigram (八卦) and compass direction. The

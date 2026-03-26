@@ -4,41 +4,15 @@ stembranch computes everything from first principles — no lookup tables for as
 
 ## Architecture
 
-```
-                    ┌─────────────────┐
-                    │  VSOP87D        │
-                    │  (2,425 terms)  │
-                    └────────┬────────┘
-                             │ heliocentric ecliptic longitude
-                    ┌────────▼────────┐
-                    │  DE441          │
-                    │  correction     │
-                    │  (even sextic)  │
-                    └────────┬────────┘
-                             │ corrected longitude
-              ┌──────────────▼──────────────┐
-              │  IAU2000B Nutation          │
-              │  (77 lunisolar terms)       │
-              └──────────────┬──────────────┘
-                             │ apparent geocentric longitude
-         ┌───────────────────▼───────────────────┐
-         │  Newton-Raphson Root Finding           │
-         │  → solar term crossing moments         │
-         └───────────────────┬───────────────────┘
-                             │
-          ┌──────────────────┼──────────────────┐
-          ▼                  ▼                  ▼
-    ┌───────────┐    ┌───────────┐    ┌──────────────┐
-    │ Four      │    │ Lunar     │    │ Solar Term   │
-    │ Pillars   │    │ Calendar  │    │ Moments      │
-    │ (四柱)    │    │ (農曆)    │    │ (節氣)       │
-    └─────┬─────┘    └───────────┘    └──────────────┘
-          │
-    ┌─────▼──────────────────────────────────┐
-    │ Divination Systems                     │
-    │ 大六壬 · 奇門遁甲 · 紫微斗數          │
-    │ 神煞 · 飛星 · 建除 · 德星              │
-    └────────────────────────────────────────┘
+```mermaid
+graph TD
+  A["VSOP87D<br/>(2,425 terms)"] -->|heliocentric ecliptic longitude| B["DE441 correction<br/>(even sextic)"]
+  B -->|corrected longitude| C["IAU2000B Nutation<br/>(77 lunisolar terms)"]
+  C -->|apparent geocentric longitude| D["Newton-Raphson Root Finding<br/>→ solar term crossing moments"]
+  D --> E["Four Pillars (四柱)"]
+  D --> F["Lunar Calendar (農曆)"]
+  D --> G["Solar Term Moments (節氣)"]
+  E --> H["Divination Systems<br/>大六壬 · 奇門遁甲 · 紫微斗數<br/>神煞 · 飛星 · 建除 · 德星"]
 ```
 
 ## Module Inventory
