@@ -26,16 +26,6 @@ which are then grouped into 12 palaces (宮). The ascendant (命宮) determines
 which palace governs the native's fate, and the remaining 11 palaces are assigned
 roles (財帛宮, 兄弟宮, etc.) by offset from the ascendant.
 
-### Sample birth chart
-
-The chart below shows the traditional 12-palace grid layout for a birth at
-1990-01-15 00:30 UTC in Taipei. Palaces are arranged by Earthly Branch with
-south at top (Chinese convention). Bodies in red are the seven governors (七政);
-bodies in purple are the four remainders (四餘). Dignity ratings (廟旺平陷)
-indicate each body's strength in its palace.
-
-![Sample 七政四餘 birth chart showing 11 celestial bodies placed in 12 palaces with mansion annotations, dignity ratings, and ascendant marker](/seven-governors-chart.svg)
-
 ---
 
 ## 1. Sidereal Reference Frame
