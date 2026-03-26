@@ -114,10 +114,12 @@ The four conceptual plates map to visual layers:
 Typical cell visual:
 
 ```mermaid
-graph TD
-  A["八神 — Spirit (topmost)"] --> B["九星 + 天盤干 — Heaven plate"]
-  B --> C["八門 + 地盤干 — Human + Earth plate"]
-  C --> D["宮數/卦名 — Base trigram info"]
+block-beta
+  columns 1
+  a["八神 — Spirit (topmost)"]
+  b["九星 + 天盤干 — Heaven plate"]
+  c["八門 + 地盤干 — Human + Earth plate"]
+  d["宮數/卦名 — Base trigram info"]
 ```
 
 ### External Info (outside the 3x3 grid)
@@ -232,22 +234,12 @@ Da Liu Ren charts have **two distinct visual sections**:
 ### Full Chart Layout
 
 ```mermaid
-graph TD
-  subgraph Header
-    H["日干支 · 時辰 · 月將 · 方法"]
-  end
-  subgraph Body
-    direction LR
-    T["三傳<br/>初: XX<br/>中: XX<br/>末: XX"]
-    L["四課 (R→L)<br/>四 · 三 · 二 · 一<br/>上神 上神 上神 上神<br/>下位 下位 下位 下位"]
-  end
-  subgraph Plates
-    P["天地盤 (circular or tabular)<br/>12 positions: 天盤 branch + 地盤 branch + 天將"]
-  end
-  subgraph Footer
-    F["神煞 / method annotation"]
-  end
-  Header --> Body --> Plates --> Footer
+block-beta
+  columns 2
+  header["Header: 日干支 · 時辰 · 月將 · 方法"]:2
+  sanchuan["三傳<br/>初: XX<br/>中: XX<br/>末: XX"] sike["四課 (R→L)<br/>四 · 三 · 二 · 一<br/>上神 上神 上神 上神<br/>下位 下位 下位 下位"]
+  plates["天地盤 (circular or tabular)<br/>12 positions: 天盤 branch + 地盤 branch + 天將"]:2
+  footer["神煞 / method annotation"]:2
 ```
 
 ### Circular Display CSS Approach
@@ -324,11 +316,13 @@ Essentially a Qi Men chart (3x3 grid) with an **additional layer** for
 十二天將:
 
 ```mermaid
-graph TD
-  A["八神 — Spirit"] --> B["天將 — Heavenly General ← NEW LAYER"]
-  B --> C["九星 + 天盤干 — Heaven plate"]
-  C --> D["八門 + 地盤干 — Human + Earth plate"]
-  D --> E["宮數/卦名 — Base trigram info"]
+block-beta
+  columns 1
+  a["八神 — Spirit"]
+  b["天將 — Heavenly General ← NEW LAYER"]
+  c["九星 + 天盤干 — Heaven plate"]
+  d["八門 + 地盤干 — Human + Earth plate"]
+  e["宮數/卦名 — Base trigram info"]
 ```
 
 ---

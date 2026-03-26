@@ -268,7 +268,9 @@ Mansions vary considerably in angular width:
 
 The mansion boundaries are sourced from J2000.0 ecliptic longitudes of the
 Hipparcos[^hipparcos] catalogue determinative stars, converted to the
-Spica-anchored sidereal frame.
+Spica-anchored sidereal frame. For historical determinative star
+identifications and the evolution of the 28-mansion system, see
+Pan Nai (2009)[^pannai] and Sun & Kistemaker (1997)[^sunkim].
 
 Mansion lookup uses binary search on the sorted boundary array, handling the
 wrap-around at the 軫/角 boundary (360° → 0°).
@@ -413,6 +415,8 @@ They are shadow planets (chāyā graha, छाया ग्रह) that cause ec
 fascicle 104 of the 《開元占經》 (*Kaiyuan Zhanjing*)[^kaiyuan] (compiled 714–724 CE). On the
 Jiuzhi li as the primary vector for Indian astronomical concepts entering
 China, see Yabuuchi (1979)[^yabuuchi1979] and Niu (2023)[^brill2023].
+For broader context on the 三式 systems and their relationship to Indian
+transmission, see Ho Peng Yoke (2003)[^hopeng].
 
 In the received Chinese system:
 

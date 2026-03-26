@@ -222,17 +222,10 @@ block-beta
 #### Six Waters (大六壬神課)
 
 ```mermaid
-graph TD
-  subgraph FL ["Four Lessons 四課"]
-    L["一課 · 二課 · 三課 · 四課<br/>巳 · 寅 · 亥 · 申<br/>壬 · 巳 · 申 · 亥"]
-  end
-  subgraph TT ["Three Transmissions 三傳"]
-    T["初傳 · 中傳 · 末傳<br/>寅 · 亥 · 申"]
-  end
-  subgraph HE ["Heaven-Earth Board 天地盤"]
-    P["天盤: 子丑寅卯辰巳午未申酉戌亥<br/>地盤: 子丑寅卯辰巳午未申酉戌亥"]
-  end
-  FL --> TT --> HE
+block-beta
+  columns 2
+  fl["四課 Four Lessons<br/>一課 · 二課 · 三課 · 四課<br/>巳 · 寅 · 亥 · 申<br/>壬 · 巳 · 申 · 亥"] tt["三傳 Three Transmissions<br/>初傳: 寅<br/>中傳: 亥<br/>末傳: 申"]
+  he["天地盤 Heaven-Earth Board<br/>天盤: 子丑寅卯辰巳午未申酉戌亥<br/>地盤: 子丑寅卯辰巳午未申酉戌亥"]:2
 ```
 
 #### Strange Gates Threading Six Waters (奇門穿壬) -- 3x3 with overlay

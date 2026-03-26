@@ -15,7 +15,7 @@ head:
 
 奇門遁甲 is one of the three cosmic board divination systems (三式, *sānshì*)
 of Chinese metaphysics, alongside 大六壬 (Six Ren) and 太乙 (Grand
-Unity)[^hopeng][^kalinowski2022]. Where 大六壬 reads the present through the
+Unity)[^hopeng][^kalinowski2022][^smith2012]. Where 大六壬 reads the present through the
 twelve heavenly generals and 太乙 forecasts dynastic-scale events, 奇門遁甲
 specializes in *timing* — selecting the optimal moment and direction for action.
 Its classical domain is military strategy: choosing when to advance, where to
@@ -69,12 +69,14 @@ Jīng*, Scripture of the Hidden Talisman), which establishes the metaphysical
 principles of cosmic timing and strategic alignment that 奇門遁甲 applies in
 practice[^hopeng].
 
-The system's military applications are well attested in historical sources.
+The system's military applications are well attested in historical sources[^loewe1994].
 Butler documents the use of cosmic board divination in Han-dynasty military
 planning, where battle array schemas incorporated 遁甲 principles for
 determining auspicious and inauspicious positions[^butler2016]. Harper and
 Kalinowski provide extensive analysis of the *shi* (式) cosmic board as a
-physical instrument underlying all three 三式 methods[^harper1978][^harper2017].
+physical instrument underlying all three 三式 methods[^harper1978][^harper2017][^kalinowski1983].
+Dunhuang manuscripts offer further evidence of the system's medieval
+practice and transmission[^kalinowski2003].
 
 ### Transmission to Japan
 

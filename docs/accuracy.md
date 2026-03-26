@@ -615,19 +615,17 @@ already 3.2× larger (0.361″ vs 0.113″).
 ### 3.17 Data source validity and coverage
 
 ```mermaid
-graph TD
-    subgraph sources["Data Source Validity Ranges"]
-        direction TB
-        A["<b>JPL DE441</b> · numerical integration<br/>−13,200 → +17,191 CE<br/><i>Primary reference · sub-mas accuracy</i>"]
-        B["<b>Swiss Ephemeris</b> · Moshier analytical<br/>−13,200 → +17,191 CE<br/><i>Tested: 1900–2100 CE · 0.12–0.95″ mean vs JPL</i>"]
-        C["<b>stem-branch</b> · VSOP87D + DE441 even polynomial<br/>Computed: −2,000 → +5,000 CE · 10,392 terms · 0 failures<br/>JPL-validated: 209–2,493 CE · mean 1.05 s<br/><i>Sweet spot (|ΔL| < 0.5″): 0–4,000 CE</i>"]
-        D["<b>sxwnl</b> · VSOP87D + DE405 cubic<br/>Practical: 1,800–2,200 CE<br/>Validated: 1,900–2,100 CE · mean 2.38 s vs JPL<br/><i>|ΔL| < stem-branch: 1,933–2,012 CE only (1.1%)</i>"]
-    end
+block-beta
+  columns 1
+  A["JPL DE441 · numerical integration\n−13,200 → +17,191 CE\nPrimary reference · sub-mas accuracy"]
+  B["Swiss Ephemeris · Moshier analytical\n−13,200 → +17,191 CE\nTested: 1900–2100 CE · 0.12–0.95″ mean vs JPL"]
+  C["stem-branch · VSOP87D + DE441 even polynomial\nComputed: −2,000 → +5,000 CE · 10,392 terms · 0 failures\nJPL-validated: 209–2,493 CE · mean 1.05 s\nSweet spot |ΔL| < 0.5″: 0–4,000 CE"]
+  D["sxwnl · VSOP87D + DE405 cubic\nPractical: 1,800–2,200 CE\nValidated: 1,900–2,100 CE · mean 2.38 s vs JPL\n|ΔL| < stem-branch: 1,933–2,012 CE only 1.1%"]
 
-    style A fill:#cce5ff,stroke:#004085
-    style B fill:#e2e3e5,stroke:#383d41
-    style C fill:#d4edda,stroke:#28a745
-    style D fill:#fff3cd,stroke:#856404
+  style A fill:#cce5ff,stroke:#004085
+  style B fill:#e2e3e5,stroke:#383d41
+  style C fill:#d4edda,stroke:#28a745
+  style D fill:#fff3cd,stroke:#856404
 ```
 
 | Source | Computed range | JPL-validated | Sweet spot | Key design |
