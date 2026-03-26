@@ -1,8 +1,19 @@
-# 神煞 Almanac Flags
+---
+title: "神煞 Almanac Flags — Chinese Calendar Day Selection Reference"
+description: "Complete lookup tables for 30 Chinese almanac flags (神煞) including 天乙貴人, 驛馬, 桃花, 華蓋. Derivation rules from day stem, branch, and calendar for BaZi and date selection."
+head:
+  - - meta
+    - name: keywords
+      content: "神煞, shenshen, almanac flags, 天乙貴人, 驛馬, 桃花, 華蓋, Chinese calendar, BaZi, 八字, date selection, 擇日"
+---
+
+# 神煞 Almanac Flags (Shén Shà)
+
+Almanac flags (神煞) are symbolic markers from traditional Chinese calendars (通書/黃曆) and fate analysis (命理學). Each flag is derived from the relationship between Heavenly Stems (天干) and Earthly Branches (地支) in a person's birth chart or a given date. Practitioners use them in BaZi (八字) chart reading and date selection (擇日) to identify auspicious and inauspicious influences.
 
 Symbolic markers from Chinese almanacs (通書/黃曆) and 命理學 (fate analysis). Each flag is derived from pillar components — stems, branches, or their relationships — using traditional lookup rules.
 
-stembranch implements 29 almanac flags across 8 categories.
+stembranch implements 30 almanac flags across 8 categories.
 
 ## Overview
 
@@ -408,3 +419,11 @@ import {
   getThreeWonders,          // FourPillars → 'heaven'|'earth'|'human'|null
 } from 'stem-branch';
 ```
+
+---
+
+## See Also
+
+- [建除十二神 Day Fitness Cycle](./day-fitness.md) — The 12-day cycle classifying daily suitability
+- [天德月德 Virtue Stars](./virtue-stars.md) — Monthly auspicious stars (Heavenly and Monthly Virtue)
+- [神煞方位 Deity Directions](./deity-directions.md) — Daily compass directions for four deities

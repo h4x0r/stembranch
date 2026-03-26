@@ -89,7 +89,7 @@ stembranch computes everything from first principles — no lookup tables for as
 
 1. **No lookup tables for astronomy.** Solar terms are computed by solving for the Sun's ecliptic longitude reaching multiples of 15°. The solar longitude comes from evaluating the full VSOP87D series.
 
-2. **Validated against ground truth.** The DE441 correction was fitted against 1,008 JPL Horizons data points spanning 209–2493 CE, achieving mean 1.05s / max 3.05s accuracy.
+2. **Validated against JPL DE441.** The DE441 correction was fitted against 1,008 JPL Horizons data points spanning 209–2493 CE, achieving mean 1.05s / max 3.05s accuracy.
 
 3. **Deterministic.** Given the same input date, the output is always the same. No randomness, no external state.
 

@@ -1,4 +1,15 @@
-# 建除十二神 Day Fitness Cycle
+---
+title: "建除十二神 Day Fitness Cycle — Chinese Almanac Day Classification"
+description: "The 12-day fitness cycle (建除十二神) used in Chinese almanacs to classify daily suitability. Complete cycle with auspicious/inauspicious ratings and derivation from day and month branches."
+head:
+  - - meta
+    - name: keywords
+      content: "建除十二神, day fitness, 建除, Chinese almanac, 通書, 黃曆, auspicious days, 擇日, date selection"
+---
+
+# 建除十二神 Day Fitness Cycle (Jiàn Chú Shí'èr Shén)
+
+The Day Fitness cycle (建除十二神) is a twelve-day repeating cycle used in traditional Chinese almanacs (通書/黃曆) to classify each day's suitability for various activities. Each of the twelve positions — 建 (Establish), 除 (Remove), 滿 (Full), 平 (Balance), 定 (Stable), 執 (Grasp), 破 (Break), 危 (Danger), 成 (Succeed), 收 (Receive), 開 (Open), 閉 (Close) — carries traditional associations that guide date selection (擇日) for important events.
 
 The 12-day fitness cycle (建除十二神) is a repeating calendar cycle used in Chinese almanacs (通書/黃曆) to classify each day's suitability for various activities.
 
@@ -50,3 +61,11 @@ getDayFitness('辰', '寅'); // → '滿'
 getDayFitnessForDate(new Date(2024, 5, 15));
 // → { fitness: '成', auspicious: true }
 ```
+
+---
+
+## See Also
+
+- [神煞 Almanac Flags](./almanac-flags.md) — 30 symbolic markers for BaZi and date selection
+- [天德月德 Virtue Stars](./virtue-stars.md) — Monthly auspicious stars (Heavenly and Monthly Virtue)
+- [神煞方位 Deity Directions](./deity-directions.md) — Daily compass directions for four deities

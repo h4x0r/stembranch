@@ -3,14 +3,23 @@ import { withMermaid } from 'vitepress-plugin-mermaid';
 
 export default withMermaid(defineConfig({
   title: 'stem-branch',
-  description: 'Chinese calendar and stem-branch algorithms — reference documentation',
+  description: 'The most accurate open-source Chinese calendar engine — solar terms, lunar calendar, BaZi, divination, and sidereal astrology from first principles.',
   base: '/stem-branch/',
-  lang: 'zh-Hant',
+  lang: 'en',
+  cleanUrls: true,
+  lastUpdated: true,
+  sitemap: {
+    hostname: 'https://h4x0r.github.io/stem-branch',
+  },
   head: [
     ['meta', { name: 'theme-color', content: '#b91c1c' }],
+    ['meta', { property: 'og:type', content: 'website' }],
+    ['meta', { property: 'og:site_name', content: 'stem-branch' }],
+    ['meta', { property: 'og:description', content: 'The most accurate open-source Chinese calendar engine — solar terms verified to 1.05 seconds against JPL DE441.' }],
   ],
   themeConfig: {
     nav: [
+      { text: 'API Reference', link: '/api/astronomy' },
       { text: 'Reference', link: '/reference/almanac-flags' },
       { text: 'Algorithms', link: '/algorithms/overview' },
       { text: 'Accuracy', link: '/accuracy' },
@@ -22,6 +31,18 @@ export default withMermaid(defineConfig({
         text: 'Getting Started',
         items: [
           { text: 'Install & Quick Start', link: '/getting-started' },
+        ],
+      },
+      {
+        text: 'API Reference',
+        items: [
+          { text: 'Astronomy', link: '/api/astronomy' },
+          { text: 'Stem-Branch System', link: '/api/stem-branch' },
+          { text: 'Four Pillars & Derivations', link: '/api/four-pillars' },
+          { text: 'Almanac Features', link: '/api/almanac' },
+          { text: 'Divination Systems', link: '/api/divination' },
+          { text: 'Seven Governors', link: '/api/seven-governors' },
+          { text: 'Timezone & Location', link: '/api/timezone' },
         ],
       },
       {
@@ -47,6 +68,12 @@ export default withMermaid(defineConfig({
         items: [
           { text: 'Accuracy', link: '/accuracy' },
           { text: 'Technical Notes', link: '/technical-notes' },
+        ],
+      },
+      {
+        text: 'Seven Governors 七政四餘',
+        items: [
+          { text: 'Computation Methods', link: '/seven-governors' },
         ],
       },
     ],

@@ -1,4 +1,15 @@
-# 天德月德 Virtue Stars
+---
+title: "天德月德 Virtue Stars — Monthly Auspicious Stars Reference"
+description: "Heavenly Virtue (天德) and Monthly Virtue (月德) stars with combination partners. Lookup tables by month branch for Chinese calendar date selection."
+head:
+  - - meta
+    - name: keywords
+      content: "天德, 月德, virtue stars, 德星, heavenly virtue, monthly virtue, Chinese calendar, 擇日, date selection, auspicious"
+---
+
+# 天德月德 Virtue Stars (Tiān Dé Yuè Dé)
+
+The Virtue Stars (德星) are among the most auspicious markers in the Chinese calendar system. Each month has a Heavenly Virtue (天德) and a Monthly Virtue (月德), determined by the month's Earthly Branch. When a day's stem or branch matches a virtue star, it is considered especially favorable for important activities. Each virtue star also has a combination partner (合), derived through the Five Combinations (五合) relationship.
 
 The virtue stars (德星) are auspicious markers derived from the **month branch**. Each month has a Heavenly Virtue (天德) and a Monthly Virtue (月德), plus their combination partners (合).
 
@@ -80,3 +91,11 @@ getMonthlyVirtueCombo('寅'); // → '辛'
 getHeavenlyVirtue('寅');     // → '丁'
 getHeavenlyVirtueCombo('寅'); // → '壬'
 ```
+
+---
+
+## See Also
+
+- [神煞 Almanac Flags](./almanac-flags.md) — 30 symbolic markers for BaZi and date selection
+- [建除十二神 Day Fitness Cycle](./day-fitness.md) — The 12-day cycle classifying daily suitability
+- [神煞方位 Deity Directions](./deity-directions.md) — Daily compass directions for four deities

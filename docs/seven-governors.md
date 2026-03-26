@@ -83,7 +83,7 @@ longitudes come from the library's existing planetary engine:
 These produce geocentric apparent tropical ecliptic longitudes, which are then
 converted to sidereal via the ayanamsa described above.
 
-Accuracy against JPL DE441 (numerical ground truth):
+Accuracy against JPL DE441 (primary reference):
 - Inner planets (Mercury, Venus): mean ~1–2", max ~6"
 - Outer planets (Mars–Saturn): mean ~11–14", max ~23–29"
 

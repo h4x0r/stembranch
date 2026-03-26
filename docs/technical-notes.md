@@ -73,7 +73,7 @@ The lunar calendar uses a 冬至-anchor approach:
 | Timezone / DST | IANA Time Zone Database | Embedded transition table (78 timezones, 11,742 transitions, 1900-2026); `Intl` fallback for unknown timezones. See [Timezone & DST](#timezone--dst) below |
 | City database | 143 cities, 11 regions | IANA timezone IDs + coordinates for solar time |
 | Eclipse dates | NASA Five Millennium Canon | 23,962 eclipses (-1999 to 3000 CE) |
-| Solar longitude reference | [JPL Horizons](https://ssd.jpl.nasa.gov/horizons/) | DE441 numerical integration; independent ground truth for 3-way comparison |
+| Solar longitude reference | [JPL Horizons](https://ssd.jpl.nasa.gov/horizons/) | DE441 numerical integration; primary reference for 3-way comparison |
 | Day pillar | Arithmetic | Epoch: 2000-01-07 = 甲子日 |
 | Stem/branch cycles | Lookup tables | Standard 10-stem, 12-branch sequences |
 
