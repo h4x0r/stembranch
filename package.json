@@ -19,6 +19,9 @@
       }
     }
   },
+  "bin": {
+    "stem-branch": "./dist/cli.cjs"
+  },
   "files": [
     "dist"
   ],

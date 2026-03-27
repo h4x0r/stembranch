@@ -326,3 +326,60 @@ export function eclipticToEquatorial(
   );
   return [ra, dec];
 }
+
+// ── Sidereal time ───────────────────────────────────────────────────────
+
+/**
+ * Greenwich Mean Sidereal Time (GMST) for a given date.
+ *
+ * Uses the IAU 1982 model (Meeus Ch. 12): computes GMST from the Julian
+ * Date split into UT day-fraction and the epoch polynomial in T0.
+ *
+ * @param date - UTC Date
+ * @returns GMST in degrees [0, 360)
+ */
+export function greenwichMeanSiderealTime(date: Date): number {
+  const T = dateToJulianCenturies(date);
+  const jd = T * 36525.0 + 2451545.0;
+  const jd0 = Math.floor(jd - 0.5) + 0.5;
+  const T0 = (jd0 - 2451545.0) / 36525.0;
+  const ut = (jd - jd0) * 24.0;
+  const gmst0 = 24110.54841
+    + 8640184.812866 * T0
+    + 0.093104 * T0 * T0
+    - 6.2e-6 * T0 * T0 * T0;
+  const gmstDeg = (gmst0 / 240.0) + (ut * 15.0 * 1.00273790935);
+  return ((gmstDeg % 360) + 360) % 360;
+}
+
+// ── Horizontal coordinates ───────────────────────────────────────────────
+
+/**
+ * Convert equatorial coordinates to horizontal (alt-azimuth) coordinates.
+ *
+ * @param ra - Right ascension in degrees
+ * @param dec - Declination in degrees
+ * @param lst - Local sidereal time in degrees
+ * @param lat - Geographic latitude in degrees (positive north)
+ * @returns Azimuth and altitude in degrees. Azimuth measured from north (0°)
+ *          through east (90°), south (180°), west (270°).
+ */
+export function equatorialToHorizontal(
+  ra: number, dec: number, lst: number, lat: number,
+): { azimuth: number; altitude: number } {
+  const H = (lst - ra) * DEG_TO_RAD;  // hour angle
+  const decRad = dec * DEG_TO_RAD;
+  const latRad = lat * DEG_TO_RAD;
+
+  const sinAlt = Math.sin(decRad) * Math.sin(latRad) +
+                 Math.cos(decRad) * Math.cos(latRad) * Math.cos(H);
+  const altitude = Math.asin(sinAlt) * RAD_TO_DEG;
+
+  // Azimuth from atan2
+  const y = -Math.cos(decRad) * Math.sin(H);
+  const x = Math.sin(decRad) * Math.cos(latRad) - Math.cos(decRad) * Math.sin(latRad) * Math.cos(H);
+  let azimuth = Math.atan2(y, x) * RAD_TO_DEG;
+  azimuth = ((azimuth % 360) + 360) % 360;
+
+  return { azimuth, altitude };
+}

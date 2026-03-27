@@ -285,3 +285,103 @@ export type {
   SevenGovernorsOptions, SevenGovernorsChart,
   MansionResult, PalaceResult, AscendantResult,
 } from './seven-governors';
+
+// ── 天文基礎 (Astronomical Utilities) ────────────────────────
+export {
+  greenwichMeanSiderealTime,
+  dateToJulianCenturies,
+  meanObliquity,
+  trueObliquity,
+  normalizeDegrees,
+  precessionInLongitude,
+  eclipticToEquatorial,
+  DEG_TO_RAD,
+  RAD_TO_DEG,
+} from './astro';
+
+// ── 奇門穿壬 (Qi Men Chuan Ren) ─────────────────────────────
+export {
+  branchToPalace,
+  computeChuanRenChart,
+} from './qimen-chuanren';
+export type { ChuanRenPalace, ChuanRenChart } from './qimen-chuanren';
+
+// ── 西洋占星 (Tropical Astrology) ────────────────────────────
+export {
+  getZodiacSign,
+  computeHouses,
+  findAspects,
+  findParallelAspects,
+  getDignity,
+  computeTropicalChart,
+  computeAscendant,
+  computeMidheaven,
+} from './tropical-astrology';
+export type {
+  ZodiacSign, HouseSystem, AspectName,
+  TropicalPosition, TropicalAspect, HouseCusps, TropicalChart,
+} from './tropical-astrology';
+
+// ── 西洋命盤 (Professional Birth Chart) ──────────────────────
+export { computeBirthChart } from './birth-chart';
+export type {
+  BirthChartData, BirthChartPosition, BirthChartAspect, BirthChartOptions,
+  ExtendedDignity, ExtendedDignityResult, ExtendedAspectName,
+  WesternElement, WesternQuality,
+  Distributions, Hemispheres,
+  MoonPhaseResult, PlanetaryHourResult, SolarProximityResult,
+  FirdariaResult, ProfectionResult, PrenatalSyzygyResult, MutualReception,
+} from './birth-chart-types';
+
+// ── 西洋命盤輔助 (Birth Chart Utilities) ─────────────────────
+export {
+  isDayChart,
+  computeDispositorChain, findFinalDispositor,
+  computeAntiscia, computeContraAntiscia,
+  computeDistributions, computeHemispheres,
+  detectChartPattern, computeMoonPhase,
+  computePlanetaryHour, getPlanetaryDay,
+  computeSolarProximity, isOriental, isOutOfBounds,
+  isVoidOfCourseMoon,
+} from './birth-chart-analysis';
+
+export {
+  getExtendedDignity, isPeregrine,
+  getTriplicityRuler, getTermRuler, getFaceRuler,
+  findMutualReceptions,
+} from './dignity-tables';
+
+export { computeSpeed } from './speed';
+
+export { SIGN_ELEMENT, SIGN_QUALITY, SIGN_POLARITY, SIGN_RULER } from './sign-metadata';
+
+export { findFixedStarConjunctions, precessStar } from './data/fixed-stars';
+export type { FixedStar } from './data/fixed-stars';
+
+export { getSabianSymbol } from './data/sabian-symbols';
+
+export { getWesternLunarMansion } from './western-lunar-mansions';
+export type { WesternLunarMansion } from './western-lunar-mansions';
+
+export {
+  computeFirdaria, computeProfection, findPrenatalSyzygy,
+  findHyleg, findAlcochoden,
+} from './time-lords';
+
+export { equatorialToHorizontal } from './astro';
+
+export { getChironPosition } from './planets/chiron';
+
+// ── 印度占星 (Sidereal Astrology / Jyotish) ─────────────────
+export {
+  getLahiriAyanamsa,
+  getNakshatra,
+  computeVimshottariDashas,
+  computeDivisionalChart,
+  computeSiderealChart,
+} from './sidereal-astrology';
+export type {
+  Nakshatra, DashaPlanet, DivisionalChartType,
+  NakshatraResult, DashaPeriod, SiderealPosition,
+  DivisionalChartPosition, DivisionalChart, SiderealChart,
+} from './sidereal-astrology';
