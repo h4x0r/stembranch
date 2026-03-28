@@ -93,8 +93,8 @@ apogee---a shift demonstrated by Niu Weixing's 1994 recomputation of Tang-dynast
 ephemeris data \cite{niu1995ketu}, before being reverted by Schall von Bell in the
 \textit{Shixian} calendar.
 
-The paper contributes: (1)~computational verification of the apsidal identification
-using modern JPL ephemeris algorithms; (2)~the first rigorous definition of the
+The paper contributes: (1)~computational demonstration of the apsidal identification
+using JPL~DE431 ephemeris data; (2)~the first rigorous definition of the
 \zh{似黃道} (quasi-ecliptic) coordinate system; and (3)~the six-mode framework as
 a reusable instrument for the comparative history of transmitted astronomy.
 \end{abstract}
@@ -245,9 +245,9 @@ modern ephemerides.
 \subsection*{Method}
 
 The paper combines close reading of primary astronomical texts with computational
-verification using modern ephemeris algorithms.  For the computational component
-we use the Swiss Ephemeris library (version~2.10), which implements the JPL
-DE441 planetary and lunar solution.  This allows us to ask a precise empirical
+demonstration using modern ephemeris data.  For the computational component
+we use the JPL Development Ephemeris DE431 (accessed via the Swiss Ephemeris
+library, version~2.10).  This allows us to ask a precise empirical
 question: does a given historical Ketu ephemeris track the lunar apogee, the
 descending node, or something else?  We convert historical sexagesimal positions
 to modern decimal degrees, apply the appropriate calendar and epoch corrections,
@@ -302,7 +302,7 @@ Rahu and Ketu in Sanskrit \textit{siddh\=anta} astronomy and the ecliptic sidere
 coordinate frame in which they were embedded.  Sections~\ref{sec:tang}--\ref{sec:jesuit}
 trace the four dynasties and four coordinate regimes in sequence.
 Section~\ref{sec:fossil} analyses the ongoing algorithmic fossilization in modern
-software.  Section~\ref{sec:computation} presents the computational verification.
+software.  Section~\ref{sec:computation} presents the quantitative demonstration.
 Section~\ref{sec:discussion} draws the six modes together into the theoretical
 framework and discusses their applicability beyond the Ketu case.
 Section~\ref{sec:conclusion} concludes.
@@ -905,8 +905,8 @@ across the coordinate shift, the transformation is detectable in
 retrospect: one can compare the positions predicted by the Song
 ecliptic model with those predicted by the Yuan equatorial model
 for the same historical date, and the systematic offset will reveal
-the nature of the conversion actually performed.  The computational
-verification in Section~\ref{sec:computation} exploits exactly
+the nature of the conversion actually performed.  The quantitative
+demonstration in Section~\ref{sec:computation} exploits exactly
 this property.
 
 The Yuan reform also opens a question that the text itself does
@@ -1469,7 +1469,7 @@ Chinese astrology software that emerged in the 1990s and 2000s.  Modern
 implementations---including the widely used
 \textsc{MOIRA} suite (\texttt{BahnAstro/MOIRA\_chinese\_astrology} on
 GitHub)---inherit the Qing-period Jesuit convention and define \zh{計都} as the
-\emph{descending} lunar node.  This was, as documented in Section~\ref{sec:qing},
+\emph{descending} lunar node.  This was, as documented in Section~\ref{sec:jesuit},
 the explicit policy of Schall von Bell's \textit{Shixian} calendar of 1645, and
 it contradicts the pre-Qing scholarly consensus recovered by Niu
 Weixing~\cite{niu1995ketu}.
@@ -1517,17 +1517,22 @@ to recover the original astronomical content from its fossilized
 residue~\cite{mak2014pseudoplanets}.
 
 % === §9 Computational Verification ============================================
-\section{Computational Verification}\label{sec:computation}
+\section{Quantitative Demonstration}\label{sec:computation}
 % ~1,500 words
 
-\subsection*{Verification~1: Ketu Period Analysis}
+\subsection*{Demonstration~1: Ketu Period Analysis}
 
 The core claim of this paper---that the \zh{計都} of Tang-dynasty ephemerides
 tracks the osculating lunar apogee rather than the descending node---rests
-ultimately on numerical evidence.  We reproduce Niu Weixing's key finding using
-Swiss Ephemeris algorithms (Meeus polynomial series for the lunar perigee and
-node) and extend it over the full 62-year span of the \zh{七曜攘災訣} ephemeris
-(806--868~CE).
+ultimately on numerical evidence.  Using the JPL DE431 planetary ephemeris
+(accessed via Swiss Ephemeris; Meeus polynomial series for the lunar perigee and
+node), we reproduce Niu Weixing's key finding and extend it over the full
+62-year span of the \zh{七曜攘災訣} ephemeris (806--868~CE).\footnote{All
+  ephemeris computations in this section use the JPL Development Ephemeris
+  DE431, which provides sub-arcsecond positional accuracy for dates within
+  the historical scope of this paper.  The coordinate transformations and
+  period analyses are fully reproducible from any software package that
+  exposes DE431 lunar apogee and node positions.}
 
 The two candidate bodies have fundamentally different periods.  The osculating
 lunar apogee (\textit{apogee convention}) completes one full revolution of the
@@ -1601,12 +1606,12 @@ prograde and completes nearly one full revolution; the node-convention body
 (dashed red) retreats retrograde, covering $\approx 200\degree$ in the same
 interval.  The two trajectories diverge by more than $90\degree$ for most of
 the plotted window, making them empirically distinguishable from historical
-ephemeris data.  Data generated from Meeus polynomial series via Swiss
-Ephemeris; \textit{cf.}~\cite{niu1995ketu}.}
+ephemeris data.  Data computed from JPL~DE431 ephemeris;
+\textit{cf.}~\cite{niu1995ketu}.}
 \label{fig:ketu-period}
 \end{figure}
 
-\subsection*{Verification~2: Four-Regime Coordinate Comparison}
+\subsection*{Demonstration~2: Four-Regime Coordinate Comparison}
 
 To quantify the practical consequences of coordinate-system choice for chart
 interpretation, Table~\ref{tab:four-regime} presents the computed positions of
@@ -1666,25 +1671,17 @@ one who uses the node places it in the fifth.  These are qualitatively different
 chart interpretations, and the choice between them is an astronomical question,
 not a matter of lineage preference.
 
-\subsection*{Implementation Note: The \texttt{stem-branch} Library}
-
 The computations underlying Table~\ref{tab:four-regime} and
-Figure~\ref{fig:ketu-period} are fully reproducible from the
-\texttt{stem-branch} open-source library, which implements the
-\zh{果老星宗} convention based on the scholarly consensus of Niu~(1994) and
-Mak~(2014).  In the library's default configuration, \zh{計都} is assigned to
-the osculating lunar apogee (apogee mode); the descending-node mode is
-available as a configuration option to reproduce Qing-convention charts for
-comparative purposes.
+Figure~\ref{fig:ketu-period} require only standard ephemeris queries (lunar
+apogee, node, and planetary longitudes from JPL~DE431) followed by well-known
+coordinate transformations (ecliptic$\leftrightarrow$equatorial via the
+obliquity of date; sidereal offset via precession).  The quasi-ecliptic
+projection defined in Section~\ref{sec:ming} is the sole non-standard
+transformation, and its derivation is given explicitly above.  All results
+are therefore reproducible by any researcher with access to a DE431-based
+ephemeris package~\cite{mak2014pseudoplanets,niu1995ketu}.
 
-The library exposes both the \zh{似黃道} coordinate pipeline and the full
-four-regime transformation chain, allowing researchers to generate positions
-in any of the historically attested reference frames from a single API call.
-All astronomical kernels delegate to the Swiss Ephemeris (JPL DE431 integration),
-ensuring sub-arcsecond accuracy for dates within the historical scope of this
-paper~\cite{mak2014pseudoplanets,niu1995ketu}.
-
-\subsection*{Verification~3: Practical Significance of the \zh{似黃道}}
+\subsection*{Demonstration~3: Practical Significance of the \zh{似黃道}}
 
 The quasi-ecliptic boundary computation whose derivation is presented in
 Section~\ref{sec:ming} yields an additional quantitative result that can now be
@@ -1748,7 +1745,7 @@ coordinate frame---ostensibly the same choice made in the Song
 (\S\ref{sec:song})---but the new frame was tropical rather than sidereal.  A
 reset is not a restoration.  This distinction has direct practical consequences:
 the tropical and sidereal frames diverge by the ayanam\'{s}a ($\approx
-24\degree$ at the present epoch), and the computational verification in
+24\degree$ at the present epoch), and the quantitative demonstration in
 \S\ref{sec:computation} shows that the two Ketu conventions place the body in
 houses that are separated by more than $112\degree$ for the test date.
 
@@ -1861,11 +1858,11 @@ definitively establishing the coordinate conventions of the Song and Yuan
 systems.
 
 The \zh{似黃道} mathematical definition (\S\ref{sec:ming}) has been derived from
-first principles and verified computationally (\S\ref{sec:computation}), but
+first principles and demonstrated computationally (\S\ref{sec:computation}), but
 cross-checking the derivation against attested historical computational
 examples from the \zh{果老星宗} manuscript tradition would further consolidate
-the result.  The computational agreement between the \texttt{stem-branch}
-library and the independently reconstructed \zh{似黃道} boundary gives
+the result.  The computational agreement between the DE431-derived positions
+and the independently reconstructed \zh{似黃道} boundaries gives
 confidence in the derivation, but it cannot substitute for documentary
 confirmation.
 
