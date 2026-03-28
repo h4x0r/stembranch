@@ -1,0 +1,158 @@
+% =============================================================================
+% From Eclipse Demon to Lunar Apogee
+% Companion paper — pdflatex + CJKutf8, two-column
+% =============================================================================
+\documentclass[10pt,a4paper]{article}
+
+% --- Packages (matches when-the-stars-disagree.tex) -------------------------
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{CJKutf8}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage[margin=0.75in]{geometry}
+\usepackage{enumitem}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{siunitx}
+\usepackage{longtable}
+\usepackage[numbers,sort&compress]{natbib}
+\usepackage{xurl}
+\usepackage{authblk}
+\usepackage{pgfplots}
+\usepackage{tikz}
+\usepackage{gensymb}
+\usepackage{adjustbox}
+\usepackage[framemethod=tikz]{mdframed}
+
+\pgfplotsset{compat=1.18}
+
+\setlength{\columnsep}{18pt}
+\setlength{\emergencystretch}{3em}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue!70!black,
+    citecolor=green!50!black,
+    urlcolor=blue!60!black,
+}
+
+% CJK helper
+\newcommand{\zh}[1]{\begin{CJK}{UTF8}{bsmi}#1\end{CJK}}
+
+% ORCID helper
+\newcommand{\orcidlink}[1]{%
+  \href{https://orcid.org/#1}{\textcolor{green!50!black}{\textsf{iD}}}%
+}
+
+% pgfplots colors
+\definecolor{apogeeblue}{HTML}{2166AC}
+\definecolor{nodered}{HTML}{D6604D}
+
+% --- Title -------------------------------------------------------------------
+
+\title{%
+  \textbf{From Eclipse Demon to Lunar Apogee:}\\[4pt]
+  \large Six Modes of Transformation in Cross-Civilizational\\
+  Astronomical Transmission%
+}
+
+\author[1]{Albert Kwun Tai Hui\,\orcidlink{0009-0000-8978-0231}}
+\affil[1]{Security Ronin}
+
+\date{March 2026}
+
+% =============================================================================
+\begin{document}
+
+\twocolumn[
+\maketitle
+
+\begin{abstract}
+% ~200 words — Task 6
+\noindent\textit{Abstract placeholder.}
+\end{abstract}
+\vspace{12pt}
+]
+
+% === §1 Introduction =========================================================
+\section{Introduction}\label{sec:intro}
+% ~1,500 words — Task 6
+
+\textit{Section placeholder.}
+
+% === §2 The Indian Original ===================================================
+\section{The Indian Original: Rahu, Ketu, and Ecliptic Sidereal Coordinates}
+\label{sec:indian}
+% ~1,000 words — Task 7
+
+\textit{Section placeholder.}
+
+% === §3 The Tang Transmission =================================================
+\section{The Tang Transmission: 718--806~CE}\label{sec:tang}
+% ~1,500 words — Task 7
+
+\textit{Section placeholder.}
+
+% === §4 The Song System =======================================================
+\section{Ecliptic Sidereal: The Song System (\zh{三辰通載})}
+\label{sec:song}
+% ~1,200 words — Task 8
+
+\textit{Section placeholder.}
+
+% === §5 The Yuan Reform =======================================================
+\section{Equatorial Sidereal: The Yuan Reform (\zh{鄭氏星案})}
+\label{sec:yuan}
+% ~1,500 words — Task 8
+
+\textit{Section placeholder.}
+
+% === §6 The Ming Synthesis ====================================================
+\section{Quasi-Ecliptic Sidereal: The Ming Synthesis (\zh{果老星宗})}
+\label{sec:ming}
+% ~1,800 words — Task 9
+
+\textit{Section placeholder.}
+
+% === §7 The Jesuit Disruption =================================================
+\section{Ecliptic Tropical: The Jesuit Disruption (1645)}
+\label{sec:jesuit}
+% ~2,000 words — Task 9
+
+\textit{Section placeholder.}
+
+% === §8 Algorithmic Fossilization =============================================
+\section{Algorithmic Fossilization}\label{sec:fossil}
+% ~1,200 words — Task 10
+
+\textit{Section placeholder.}
+
+% === §9 Computational Verification ============================================
+\section{Computational Verification}\label{sec:computation}
+% ~1,500 words — Task 10
+
+\textit{Section placeholder.}
+
+% === §10 Discussion ===========================================================
+\section{Discussion}\label{sec:discussion}
+% ~1,200 words — Task 11
+
+\textit{Section placeholder.}
+
+% === §11 Conclusion ===========================================================
+\section{Conclusion}\label{sec:conclusion}
+% ~500 words — Task 11
+
+\textit{Section placeholder.}
+
+% === Bibliography =============================================================
+\bibliographystyle{unsrtnat}
+\bibliography{silk-road-astronomy}
+
+\end{document}
