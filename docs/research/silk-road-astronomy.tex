@@ -926,14 +926,491 @@ not Indian or Persian but natively Chinese.
 \label{sec:ming}
 % ~1,800 words — Task 9
 
-\textit{Section placeholder.}
+\subsection*{Transformation Mode~4: Hybridization}
+
+The Ming dynasty did not merely inherit the Yuan equatorial frame.  It
+transformed it a second time, producing a coordinate system with no
+counterpart in any other astronomical tradition---a system that looks
+ecliptic-like on its surface but is derived from equatorial
+measurements underneath.  This hybridization is the paper's most
+important case study, and it is the juncture at which the
+\zh{七政四餘} tradition achieves maximum distance from its Indian
+original in both coordinate conventions and interpretive content.
+
+\subsection*{The Canonical Texts}
+
+The primary vehicle for this transformation is the
+\zh{果老星宗} (\textit{Gu\v{o}l\v{a}o x\={\i}ngz\={o}ng}, ``Star-School
+of the Elder of the Fruit''), the Ming-dynasty canonical text of the
+\zh{七政四餘} tradition.\footnote{The \zh{果老星宗} takes its name
+from Zhang Guolao (\zh{張果老}), one of the Eight Immortals of Daoist
+legend and a figure credited, in mythologised form, with transmitting
+astral knowledge from antiquity.  The attribution is hagiographic
+rather than historical.}  The text compiles computational rules,
+interpretive glosses, and worked examples for all eleven bodies of
+the mature system.  It is the text that most modern Chinese
+astrologers regard as the authoritative statement of ``standard''
+\zh{七政四餘} practice, and its coordinate conventions are therefore
+the ones most consequential for the living tradition.
+
+A near-contemporary source of comparable authority is the
+\zh{星學大成} (\textit{X\={\i}ngxu\'e d\`ach\'eng}, ``Great Compendium
+of Astral Studies'') by Wan Minying \zh{萬民英} (1521--1603)
+\cite{ho2003astrology}.  Wan's compilation is more systematic in its
+presentation of computational methods, and the two texts are
+frequently cited together as the twin pillars of Ming
+\zh{七政四餘} scholarship.  Where they agree---and on the coordinate
+conventions they agree---we can speak of a Ming consensus.
+
+\subsection*{Coordinate Thread: Defining the \zh{似黃道恆星製}}
+
+The coordinate system of the Ming texts is the
+\zh{似黃道恆星製} (\textit{s\`{\i} hu\'angd\`ao h\'engx\={\i}ng
+zh\`{\i}}, ``quasi-ecliptic sidereal system'').  The name encodes
+both an assertion and a qualification: the system is \textit{like}
+(\zh{似}) the ecliptic---it maps positions onto zodiac-style signs
+and houses---but the underlying measurements are taken along the
+equator, not the ecliptic.  No other astronomical tradition has
+produced such a hybrid.
+
+\subsubsection*{Mathematical Definition}
+
+The construction proceeds in three steps.  First, the equator is
+divided into twelve equal houses of $30\degree$ each, beginning at
+the vernal equinox.  Second, each equatorial boundary is projected
+onto the ecliptic plane using the standard transformation between
+right ascension $\alpha$ and ecliptic longitude $\lambda$ at zero
+ecliptic latitude ($\beta = 0$):
+\begin{equation}
+  \tan\alpha = \cos\varepsilon \cdot \tan\lambda
+  \label{eq:ra-to-ecl}
+\end{equation}
+where $\varepsilon \approx 23.5\degree$ is the obliquity of the
+ecliptic.  Inverting to obtain the ecliptic boundary corresponding to
+each equatorial house boundary:
+\begin{equation}
+  \lambda = \arctan\!\left(\frac{\sin\alpha}{\cos\alpha \cdot \cos\varepsilon}\right)
+  \label{eq:ecl-boundary}
+\end{equation}
+Third, planetary positions, originally computed in equatorial
+coordinates, are re-expressed in terms of whichever ecliptic house
+they fall into under the projected boundaries.
+
+The result is that the twelve ``signs'' look ecliptic---they are
+labelled with the same zodiacal names as in any ecliptic
+system---but their boundaries are not equally spaced in ecliptic
+longitude.  The unequal spacing is a direct consequence of the
+obliquity $\varepsilon$.  Houses near the equinoxes, where the
+equator and ecliptic are most nearly parallel in their rate of
+longitude change, acquire wider ecliptic extents; houses near the
+solstices, where the relationship is most compressed, acquire
+narrower extents.
+
+\subsubsection*{Computed Boundaries and the Symmetry Pattern}
+
+Table~\ref{tab:quasi-ecliptic} gives the computed ecliptic boundaries
+for all twelve houses under obliquity $\varepsilon = 23.5\degree$
+(appropriate for approximately 1400~CE).
+
+\begin{table}[ht]
+\centering
+\caption{Quasi-ecliptic (\zh{似黃道}) house boundaries compared to equal ecliptic divisions. Obliquity $\varepsilon = 23.5\degree$ (circa 1400~CE). Houses near equinoxes are wider ($\sim$32.2\degree); houses near solstices are narrower ($\sim$27.9\degree).}
+\label{tab:quasi-ecliptic}
+\small
+\begin{tabular}{@{}rrrr@{}}
+\toprule
+House & RA boundary & Ecliptic boundary & Width \\
+\midrule
+1 & 0.0\degree & 0.00\degree & 32.19\degree \\
+2 & 30.0\degree & 32.19\degree & 29.91\degree \\
+3 & 60.0\degree & 62.10\degree & 27.90\degree \\
+4 & 90.0\degree & 90.00\degree & 27.90\degree \\
+5 & 120.0\degree & 117.90\degree & 29.91\degree \\
+6 & 150.0\degree & 147.81\degree & 32.19\degree \\
+7 & 180.0\degree & 180.00\degree & 32.19\degree \\
+8 & 210.0\degree & 212.19\degree & 29.91\degree \\
+9 & 240.0\degree & 242.10\degree & 27.90\degree \\
+10 & 270.0\degree & 270.00\degree & 27.90\degree \\
+11 & 300.0\degree & 297.90\degree & 29.91\degree \\
+12 & 330.0\degree & 327.81\degree & 32.19\degree \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The symmetry pattern is instructive.  Houses~1, 6, 7, and~12 (near
+the equinoxes) are the widest at $\approx 32.19\degree$; houses~3,
+4, 9, and~10 (near the solstices) are the narrowest at
+$\approx 27.90\degree$.  The intermediate houses (2, 5, 8, 11) fall
+at $\approx 29.91\degree$.  The pattern has period-two symmetry
+because the obliquity effect is symmetric about both equinox lines:
+the ecliptic and equator cross at the same angle at Aries~$0\degree$
+and at Libra~$0\degree$, and the same compression applies at the two
+solsticial points.
+
+The maximum deviation from the equal $30\degree$ division is
+$\approx \pm 2.19\degree$.  This seems small.  It is not
+astronomically negligible.  A body at the boundary between two houses
+can be placed in either house depending solely on which convention is
+applied.  For slow-moving bodies such as Saturn (average motion
+$\approx 0.033\degree$/day), the $\pm 2.19\degree$ discrepancy
+corresponds to a positional ambiguity of roughly 66 days.  For the
+nodes (average regression $\approx 0.053\degree$/day) the ambiguity
+is approximately 41 days.  The quasi-ecliptic frame therefore
+introduces a systematic, predictable source of inter-system
+discrepancy that is distinct from---and additive with---the
+coordinate-zero-point discrepancies discussed in
+Sections~\ref{sec:song} and~\ref{sec:jesuit}.
+
+\subsubsection*{Why the System Is Novel}
+
+It is worth pausing on this point.  Indian astrology uses ecliptic
+coordinates directly.  Greek astrology uses ecliptic coordinates
+directly.  Persian and Arabic astrology---the traditions that served
+as intermediaries for the Tang transmission---use ecliptic
+coordinates directly.  The Yuan reform replaced ecliptic with
+equatorial coordinates.  The Ming synthesis did something none of
+these did: it used equatorial measurements to generate apparently
+ecliptic house divisions.  The \zh{似黃道恆星製} is a genuinely new
+coordinate species, not a corruption or a simplification of any
+predecessor system.
+
+\subsection*{Identity Thread: The Mature \zh{四餘} System}
+
+The Ming texts present the most fully elaborated version of the
+four-remainder (\zh{四餘}) system.  The four bodies are now formally
+defined, their computational methods codified, and their astrological
+significances established.  The two bodies whose identities were
+contested in earlier periods now coexist in a stable, if
+theoretically uneasy, configuration.
+
+\zh{羅睺} (\textit{R\'ahu}) retains the identity it has held since
+the Tang transmission: the ascending lunar node.  No reidentification
+touches it.  It remains the closest of the four bodies to its Indian
+original in both name and astronomical definition.
+
+\zh{計都} (\textit{K\`et\`u}) is the osculating lunar apogee---the
+reidentification already in place by the end of the Tang and
+confirmed by the Song codification.  In the Ming texts this identity
+is simply assumed, not argued; the apogee assignment has become the
+tradition.
+
+\subsubsection*{The Mean Apogee: \zh{月孛}}
+
+\zh{月孛} (\textit{Yu\`eb\`o\`{\i}}, ``lunar comet'' or ``lunar
+apoapsis'') is the mean lunar apogee---the apogee averaged over the
+Moon's short-period perturbations and free of the oscillations that
+distinguish the osculating apogee.  Its identification with Zhao
+Youqin (\zh{趙友欽}, fl.\ late 13th--early 14th century) represents
+one of the genuinely indigenous contributions to the system
+\cite{niu2010fourremains}.  Zhao's derivation proceeded from careful
+observation of the Moon's varying daily motion: slower motion near
+apogee, faster near perigee.  By tracking the Moon's speed across
+many lunations, the mean apogee longitude can be extracted without
+requiring explicit knowledge of the underlying orbital geometry.
+The result is a quantity distinct from \zh{計都} precisely because
+it is mean rather than osculating.
+
+\subsubsection*{The Purple Qi: \zh{紫氣}}
+
+\zh{紫氣} (\textit{Z\v{\i}q\`{\i}}, ``Purple Qi'') is a fictitious
+point with a cycle of approximately 28 years.  It has no
+astronomical counterpart---it does not correspond to any orbital
+element of the Moon, the Sun, or any planet---and it has no Indian
+precedent.  It is a purely Chinese invention, its cycle apparently
+chosen to be commensurate with Jupiter's 12-year cycle and Saturn's
+29.5-year cycle in a numerologically satisfying way.  Unlike the
+other three remainders, \zh{紫氣} cannot be confirmed or disconfirmed
+by independent astronomical observation; its position is determined
+entirely by the calendrical formula that defines it.
+
+\subsubsection*{The Doubled Apogee Problem}
+
+The Ming system thus contains two bodies that both track the lunar
+apse line: \zh{計都} (osculating apogee) and \zh{月孛} (mean
+apogee).  They inhabit the same orbital degree of freedom.  At any
+given moment they differ by a quantity that is the difference between
+the osculating and mean lunar apogee---a difference that varies over
+the anomalistic month and reaches a maximum of several degrees.
+
+This structural redundancy has never been satisfactorily resolved
+within the tradition.  No Ming or subsequent text provides a rigorous
+explanation of why both bodies are necessary, or what astrological
+distinction should be drawn between them.  The doubled apogee
+remains an open theoretical question \cite{niu2010fourremains}.
+
+\subsubsection*{The Beginning of Bazi-ification}
+
+One further development of the Ming period deserves mention, even
+though its full consequences belong to a later section.  Mak (2014)
+documents the emergence of a practice he terms ``bazi-ification'':
+the derivation of \zh{四餘} positions from \zh{八字}
+(\textit{b\={a}z\`{\i}}, ``eight characters'' or ``four pillars'')
+numerology rather than from astronomical ephemerides
+\cite{mak2014pseudoplanets}.  In this approach, a practitioner
+determines the positions of the four remainders not by computing
+their actual positions in the sky but by applying formulas that take
+the birth date and time as input and yield positions by arithmetic
+rule.  The positions so obtained are not guaranteed to match the
+astronomical bodies they nominally represent.
+
+This is the first step toward the algorithmic fossilization that
+will be examined in Section~\ref{sec:fossil}.  At the Ming stage it
+is a minority practice competing with genuine ephemeris-based
+computation.  Its significance is not yet apparent.
+
+\subsection*{Significance: High-Water Mark of Sinicization}
+
+The Ming synthesis represents the maximum distance the
+\zh{七政四餘} system ever achieved from its Indian original,
+measured along both the coordinate and identity threads simultaneously.
+
+On the coordinate thread, the \zh{似黃道恆星製} is the culmination
+of a three-stage transformation.  The Song system preserved the
+Indian ecliptic frame.  The Yuan reform replaced it with the native
+Chinese equatorial frame.  The Ming synthesis performed a further
+operation: it used the equatorial frame to construct an
+\textit{apparent} ecliptic frame whose divisions are unequal in
+ecliptic longitude.  The result superficially resembles the ecliptic
+systems of the Indian, Greek, and Arabic traditions but is not
+reducible to any of them.  Mode~4 (hybridization) is the appropriate
+designation: the imported ecliptic appearance and the native
+equatorial foundation are fused into something genuinely new.
+
+On the identity thread, all four remainders are now present, two of
+them (\zh{月孛} and \zh{紫氣}) without Indian precedent.  The
+tradition has added bodies from native Chinese sources and retained
+them in permanent parallel with the bodies inherited from India.
+
+Yet the system has not yet fossilized.  The \zh{果老星宗} and
+\zh{星學大成} both give computational procedures that, however
+hybrid, are in principle checkable against the sky.  Positions are
+derived from genuine orbital elements, even if the coordinate frame
+in which they are expressed is novel.  The astronomical content
+survives.  The next disruption will come not from Chinese synthesis
+but from European imposition \cite{mak2014pseudoplanets,niu2010fourremains}.
 
 % === §7 The Jesuit Disruption =================================================
 \section{Ecliptic Tropical: The Jesuit Disruption (1645)}
 \label{sec:jesuit}
 % ~2,000 words — Task 9
 
-\textit{Section placeholder.}
+\subsection*{Transformation Mode~5: Foreign Correction}
+
+In 1645 Johann Adam Schall von Bell (\zh{湯若望}), a German Jesuit
+astronomer serving as director of the imperial Bureau of Astronomy,
+promulgated a reformed astronomical system under the new Qing dynasty.
+The reform was the most violent single disruption in the history of
+the \zh{七政四餘} tradition---more disruptive, in the short term,
+than even the Tang transmission---because it changed both the
+coordinate thread and the identity thread simultaneously, imposed
+from outside the tradition by institutional authority rather than
+emerging from internal Chinese scholarly development.
+
+This is Mode~5: foreign correction.  Unlike Mode~3 (indigenous
+restructuring, which was organic cultural pressure adapting an
+imported system to native categories), Mode~5 is a deliberate,
+externally authorized reset.  The new system was not proposed for
+scholarly debate; it was mandated by imperial decree.
+
+\subsection*{The Reform and Its Context}
+
+The institutional context matters.  The late Ming dynasty had
+suffered a series of calendar prediction failures that undermined
+the credibility of the existing astronomical administration.  When
+the Qing forces captured Beijing in 1644, Schall---who had been in
+China since 1622 and had already demonstrated the accuracy of
+European methods in predicting eclipses---was positioned to offer an
+alternative.  In 1645 the Shunzhi Emperor promulgated the
+\zh{時憲曆} (\textit{Sh\`{\i}xi\`an l\`{\i}}, ``Calendar of Edicts
+Conforming to Heaven''), the new official calendar based on European
+methods \cite{liu2020missionary}.
+
+The computational infrastructure underlying the calendar was drawn
+from the Tychonic system: Tycho Brahe's geo-heliocentric model,
+which placed the planets in orbit around the Sun while maintaining
+the Sun in orbit around the Earth.  From a positional astronomy
+standpoint, the Tychonic system is mathematically equivalent to the
+Copernican heliocentric model for the purposes of computing planetary
+longitudes, and its predictions were substantially more accurate
+than those of the Chinese \zh{授時曆} over the century of positional
+drift that had accumulated since the Yuan reform \cite{jami2015calendar}.
+
+For the \zh{七政四餘} system specifically, the reform imposed a
+coordinate change of fundamental character: from sidereal to tropical.
+The zero point of longitude shifted from fixed stars to the vernal
+equinox.  The new system can be designated the
+\zh{黃道迴歸製} (\textit{hu\'angd\`ao hu\'{\i}gu\={\i} zh\`{\i}},
+``ecliptic tropical system'').
+
+\subsection*{Coordinate Thread: The Ironic Completion}
+
+The coordinate history of \zh{七政四餘} traces a closed trajectory
+whose ironic structure is only visible from the vantage point of
+the Qing reform.
+
+The Song system used \textit{ecliptic sidereal} coordinates: the
+ecliptic plane, zero point at a fixed star.  The Yuan reform
+shifted to \textit{equatorial sidereal} coordinates: the equatorial
+plane, zero point still at a fixed star.  The Ming synthesis
+produced the \textit{quasi-ecliptic sidereal} hybrid: equatorial
+measurements mapped to ecliptic-like divisions, zero point at a
+fixed star.  The Qing reform imposed \textit{ecliptic tropical}
+coordinates: the ecliptic plane, zero point at the vernal equinox.
+
+The trajectory thus moves from ecliptic sidereal (Song) to equatorial
+sidereal (Yuan) to quasi-ecliptic sidereal (Ming) and then snaps
+back to the ecliptic plane (Qing)---but with the zero point
+replaced.  The system ended in the ``opposite corner'' from where
+it began: same plane as the Indian original (ecliptic), same plane
+as the Song codification, but a different zero point.
+
+The magnitude of the coordinate zero-point discrepancy is
+substantial.  The tropical-sidereal difference is the precession
+accumulated since the epoch at which the sidereal zero was defined.
+By 1645, this amounts to approximately $24\degree$.  A planet at
+\textit{tropical} $\lambda = 30\degree$ (the start of Taurus in
+the tropical frame) is located at approximately \textit{sidereal}
+$\lambda = 6\degree$ (still in Aries in the sidereal frame).  All
+eleven bodies of the \zh{七政四餘} system shift by roughly one
+zodiac sign under the change of convention.
+
+This $\approx 24\degree$ discrepancy is the coordinate source of
+the inter-system disagreements documented in the companion paper
+\cite{liu2020missionary}.  When modern practitioners inadvertently
+mix the Ming (sidereal) and Qing (tropical) conventions, a
+systematic error of this magnitude is introduced into every
+positional judgment.
+
+\subsection*{Identity Thread: Ketu Restored, \zh{紫氣} Abolished}
+
+The Jesuit reform was no less consequential on the identity thread.
+Two changes stand out.
+
+First, \zh{計都} reverted to the descending lunar node.  The
+apogee reidentification that had persisted from the Tang period
+through the Song and Ming codifications---a reidentification
+demonstrated by Niu Weixing's computational analysis
+\cite{niu1995ketu}---was reversed.  In the Schall reform,
+\zh{計都} is once again the descending node, its original Indian
+identity restored after approximately 900 years in the guise of
+the apogee.  The reversal was not the result of Chinese scholarly
+debate about the original Indian sources; it was a consequence of
+the imported European computational framework, which had no concept
+of an ``apogee body'' and naturally assigned the node bodies their
+standard Indian identities.
+
+Second, \zh{紫氣} was abolished entirely.  The purely Chinese
+fictitious point with its 28-year cycle had no place in the
+European-derived framework.  Its removal was a decisive reduction of
+the tradition's indigenous Chinese additions, eliminating the one
+body that had been added by Chinese astronomers with no foreign
+precedent.
+
+An elemental inconsistency followed from the \zh{計都} reidentification.
+Within the \zh{五行} (\textit{w\v{u}x\'{\i}ng}, ``five phases'')
+assignments that govern astrological interpretation, the Cai Boli
+(\zh{蔡伯勵}) tradition---which preserves the Qing convention and
+remains influential in Cantonese-speaking communities---encodes a
+fire/earth swap relative to the earlier convention.  Because
+\zh{計都} as apogee and \zh{計都} as descending node occupy
+different positions in the sky at the same moment, their
+phase-element affinities, derived from their positions in the
+annual cycle, differ systematically.  The resulting
+\zh{計北羅南}/\zh{計南羅北} toggle (``Ketu north, Rahu south'' vs.\
+``Ketu south, Rahu north'') that appears in modern software
+encoding reflects not a computational error but a genuine dual
+inheritance from the pre- and post-Jesuit conventions
+\cite{liu2020missionary}.
+
+\subsection*{The Calendar Case (1664--1669)}
+
+The Jesuit reform did not go unchallenged.  In 1664, Yang Guangxian
+(\zh{楊光先}), a Han Chinese official and amateur astronomer,
+submitted a memorial to the Kangxi Emperor accusing the Jesuits
+of errors in their astronomical methods, of promoting heterodox
+cosmology (the heliocentric model was philosophically suspect in
+the Confucian framework), and of using their calendar monopoly to
+subvert Chinese institutions \cite{jami2015calendar}.
+
+The accusation had political as well as astronomical dimensions.
+The Kangxi Emperor was a child; the regency was dominated by
+conservative bannermen suspicious of European influence.  In 1665
+Schall was convicted, sentenced to death, and subjected to the
+\textit{lingchi} (``death by a thousand cuts'').  The sentence was
+commuted---according to contemporary accounts, because a severe
+earthquake struck Beijing shortly after sentencing, interpreted as
+a sign of heaven's displeasure at the verdict.  Schall died under
+house arrest later that year.  Yang Guangxian was appointed to lead
+the Bureau of Astronomy, reverting briefly to Chinese computational
+methods.
+
+The scientific resolution came in 1669.  The Kangxi Emperor, now
+governing in his own right and genuinely curious about mathematics
+and astronomy, arranged a public astronomical competition.  Ferdinand
+Verbiest (\zh{南懷仁}), a Flemish Jesuit who had served under
+Schall, challenged Yang Guangxian to predict the length of a shadow
+cast by a gnomon at noon on a specified date, the position of the
+Sun, Moon, and visible planets for a specified day, and the timing
+of an impending lunar eclipse.  Verbiest's predictions, based on
+European methods, were consistently more accurate.  Yang Guangxian
+conceded, resigned his post, and was escorted home in disgrace
+\cite{jami2015calendar}.
+
+Verbiest was appointed to lead the Bureau of Astronomy.  The
+European astronomical infrastructure was reinstated.  The Qing
+\zh{七政四餘} convention---ecliptic tropical coordinates, Ketu as
+descending node, no \zh{紫氣}---was confirmed as the official
+standard.
+
+\subsection*{The Kangxi Synthesis and Pragmatic Dualism}
+
+The Kangxi Emperor's resolution of the Calendar Case was not merely
+a vindication of European methods.  It was the articulation of a
+pragmatic dualism that persists in the tradition to this day: Western
+astronomical data for computational precision, Chinese astrological
+framework for interpretive content.
+
+The Emperor did not mandate that Chinese practitioners adopt European
+cosmology.  He mandated that official calendrical computation use
+European positional astronomy.  The astrological interpretations
+attached to planetary positions---the \zh{五行} element assignments,
+the house-by-house delineations, the fate-technical categories
+inherited from the medieval Chinese synthesis---remained Chinese.
+The result was a hybrid of a different kind from the Ming
+\zh{似黃道恆星製}: not a mathematical hybrid of coordinate systems
+but an institutional hybrid of computational authority and
+interpretive sovereignty \cite{liu2020missionary,jami2015calendar}.
+
+\subsection*{Significance: The Ironic Circle}
+
+The Jesuit disruption completes what may be called the coordinate
+irony of \zh{七政四餘} history.  The tradition began with ecliptic
+coordinates imported from India.  Over six centuries it migrated
+away from the ecliptic, first to the equator (Yuan), then to the
+quasi-ecliptic hybrid (Ming), achieving maximum sinicization.  The
+Jesuit reform pulled it back to the ecliptic plane---but not to the
+Indian ecliptic.  The new ecliptic system had a European zero point
+(vernal equinox) rather than a sidereal Indian zero point, making
+it tropical rather than sidereal.  The coordinate trajectory
+returned to its plane of origin but not to its origin.
+
+The contrast with Mode~3 (indigenous restructuring) illuminates what
+makes Mode~5 distinctive.  The Yuan reform was driven by Chinese
+astronomers applying the tools of Chinese observational astronomy to
+an inherited system; the result was organic, internally motivated,
+and absorbed over several generations.  The Qing reform was driven
+by Jesuit astronomers with institutional backing from the imperial
+court; the result was abrupt, externally imposed, and generated a
+fractured dual tradition that survives into the present.
+
+The fracture is visible in modern practice.  The Cai Boli tradition
+(predominantly Cantonese, post-Qing) uses tropical coordinates and
+identifies \zh{計都} as the descending node.  The mainstream
+\zh{果老星宗} tradition (drawing on Ming texts) uses sidereal
+coordinates and identifies \zh{計都} as the apogee.  Both claim
+historical legitimacy.  Both are historically legitimate.  The
+$\approx 24\degree$ positional discrepancy between them is not an
+error; it is the fossil record of 1645.
 
 % === §8 Algorithmic Fossilization =============================================
 \section{Algorithmic Fossilization}\label{sec:fossil}
