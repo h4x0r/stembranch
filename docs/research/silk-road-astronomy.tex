@@ -1714,15 +1714,246 @@ indeterminacy~\cite{mak2014pseudoplanets}.
 
 % === §10 Discussion ===========================================================
 \section{Discussion}\label{sec:discussion}
-% ~1,200 words — Task 11
 
-\textit{Section placeholder.}
+\subsection*{The Six Modes Validated Across Both Threads}
+
+The evidence assembled in Sections~\ref{sec:tang}--\ref{sec:computation} allows
+the six-mode framework introduced in \S\ref{sec:intro} to be evaluated against
+two independent empirical threads: the coordinate reference frame and the
+identity of \zh{計都}.  Both threads exhibit the same transformation patterns,
+and the convergence of the two provides stronger support for the framework than
+either thread could supply alone.
+
+Three results are particularly important.  First, the modes are not sequential
+developmental stages.  Mode~1 (transliteration) and Mode~2 (reidentification)
+appear simultaneously in the Tang period
+(\S\ref{sec:tang})~\cite{kotyk2018sinicization,mak2024persian}: the
+\textit{Jiuzhi li} imported the Sanskrit terminology intact while the
+\zh{七曜攘災訣} immediately began repurposing \textit{Ketu} as the apogee.
+Transliteration and reidentification are logically independent operations, and
+the historical record shows that they can---and did---proceed in parallel.
+
+Second, Mode~3 (indigenous restructuring) and Mode~4 (hybridization) are
+cumulative rather than mutually exclusive.  The Yuan equatorial shift
+(\S\ref{sec:yuan}) created the structural precondition for the Ming synthesis:
+without an established equatorial infrastructure, the \zh{似黃道} of
+\S\ref{sec:ming} would have had no equatorial layer to hybridize with the
+inherited ecliptic terminology~\cite{ho2003astrology}.  The modes can therefore
+build on each other rather than simply succeeding one another.
+
+Third, Mode~5 (foreign correction) can reset the system to an apparently
+earlier state without reproducing that state exactly.  The Jesuit reform of
+1645 (\S\ref{sec:jesuit}) returned the \zh{七政四餘} to an ecliptic-based
+coordinate frame---ostensibly the same choice made in the Song
+(\S\ref{sec:song})---but the new frame was tropical rather than sidereal.  A
+reset is not a restoration.  This distinction has direct practical consequences:
+the tropical and sidereal frames diverge by the ayanam\'{s}a ($\approx
+24\degree$ at the present epoch), and the computational verification in
+\S\ref{sec:computation} shows that the two Ketu conventions place the body in
+houses that are separated by more than $112\degree$ for the test date.
+
+Mode~6 (algorithmic fossilization, \S\ref{sec:fossil}) stands apart from the
+other five in a theoretically important respect: it is the only passive mode.
+Modes~1--5 all involve deliberate choices by identifiable historical actors---
+translators, astrologers, reformers, missionaries.  Mode~6 requires no such
+agency.  It operates through the inertia of implementation: once a convention
+is encoded in software that is widely distributed, the convention persists until
+an equally authoritative competing implementation displaces it.
+
+\begin{table}[ht]
+\centering
+\caption{Six modes of cross-civilizational astronomical transformation.}
+\label{tab:modes}
+\small
+\begin{tabular}{@{}llr@{}}
+\toprule
+Mode & Primary evidence & Section \\
+\midrule
+1. Transliteration & \zh{九執曆} (718~CE) & \S\ref{sec:tang} \\
+2. Reidentification & Ketu: node $\to$ apogee & \S\ref{sec:tang} \\
+3. Indigenous restructuring & Yuan equatorial shift & \S\ref{sec:yuan} \\
+4. Hybridization & \zh{似黃道} system & \S\ref{sec:ming} \\
+5. Foreign correction & Jesuit reform (1645) & \S\ref{sec:jesuit} \\
+6. Algorithmic fossilization & Modern software & \S\ref{sec:fossil} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection*{There and Back Again, But Not Quite}
+
+The coordinate thread traces a trajectory that, viewed superficially, looks
+circular.  The Indian original used an ecliptic sidereal frame
+(\S\ref{sec:indian}).  The Tang transmission preserved that frame while
+struggling to fit it into an equatorial Chinese context
+(\S\ref{sec:tang}).  The Song codification (\S\ref{sec:song}) established
+ecliptic sidereal measurement as the canonical baseline.  The Yuan reform
+(\S\ref{sec:yuan}) abandoned ecliptic coordinates for equatorial ones.  The
+Ming synthesis (\S\ref{sec:ming}) constructed the quasi-ecliptic hybrid, moving
+back toward an ecliptic-like frame.  The Jesuit reform (\S\ref{sec:jesuit})
+completed the return by adopting a fully ecliptic frame.
+
+The system had apparently come home.
+
+But the return destination was tropical rather than sidereal---the ``opposite
+corner'' of the coordinate space from the Indian starting point.  Ecliptic
+sidereal and ecliptic tropical agree on the plane of measurement but disagree
+on the zero point.  The ayanam\'{s}a that separates them is not a small
+correction but a displacement comparable to a full zodiacal sign.  A
+practitioner who computes a chart in one system and reads it in the other will
+find every planetary position shifted by approximately the same amount---a
+systematic, uniform error that can be mistaken for a variant tradition.
+
+This trajectory was not planned by any single actor.  The Tang translators
+sought fidelity to their Sanskrit sources.  The Yuan astronomers sought
+compatibility with the \textit{Shoushi li} equatorial infrastructure
+\cite{sivin2009granting}.  The Ming compilers sought a vocabulary that their
+practitioners could recognize.  The Jesuit reformers sought scientific
+correctness by the standards of seventeenth-century European astronomy
+\cite{liu2020missionary}.  Each decision was locally rational.  The cumulative
+result---a system that is ecliptic but tropical where the original was ecliptic
+but sidereal---emerged from centuries of independent choices without being
+intended by any of them.
+
+\subsection*{The Six Modes Beyond the China Case}
+
+The Silk Road astronomical corridor carried knowledge in multiple directions
+across multiple centuries, and the six modes described here are not specific to
+the India--Persia--China pathway.  Two further transmission episodes illustrate
+the framework's generality.
+
+The translation movement of the House of Wisdom (Baghdad, 8th--9th centuries)
+involved the transfer of Greek astronomical texts into Arabic.  The process
+began with transliteration of technical terms (Mode~1)---Greek planetary names
+were rendered phonetically before Arabic equivalents were established---and
+proceeded through a phase of indigenous restructuring (Mode~3) in which Arab
+astronomers embedded Greek parameters into the \textit{zij} tradition with its
+own computational conventions~\cite{pingree1981jyotih}.  The Arabic
+transformation of Ptolemaic astronomy was neither a passive copying nor a
+wholesale replacement but a systematic reworking that parallels the Yuan
+treatment of the Indian \zh{七政四餘}.
+
+The \textit{Yavanaj\={a}taka} (2nd century CE) represents an earlier episode:
+the transfer of Greek horoscopic astrology into Sanskrit.  Here, Mode~1 is
+visible in the transliteration of Greek zodiacal terms (\textit{kri\'{y}\={a}}
+for Aries, \textit{t\={a}vuri} for Taurus, and so on), while Mode~4 is visible
+in the hybridization of the imported zodiacal framework with the existing
+\textit{nakshatra} lunar mansion tradition, producing a system that is neither
+purely Greek nor purely Vedic~\cite{pingree1981jyotih}.
+
+These parallels suggest that the six-mode framework captures something general
+about how astronomical knowledge moves across civilizational boundaries.  A
+rigorous application to each episode---with the same dual-thread method applied
+here---would require dedicated case studies; the present paper has established
+the vocabulary and demonstrated the method.  What the parallels already confirm
+is that the modes are not artefacts of the particular source and target cultures
+under examination.
+
+\subsection*{Limitations and Open Questions}
+
+Several limitations constrain the current analysis.  Most importantly, the
+characterizations of \zh{三辰通載} and \zh{鄭氏星案} in Sections~\ref{sec:song}
+and \ref{sec:yuan} rely substantially on secondary analyses by
+Niu~\cite{niu1995ketu,niu2010fourremains} and Mak~\cite{mak2014pseudoplanets}.
+Critical editions of both texts would strengthen the argument in those
+sections; the present paper has proceeded on the basis of the best available
+scholarship, but primary philological work remains a prerequisite for
+definitively establishing the coordinate conventions of the Song and Yuan
+systems.
+
+The \zh{似黃道} mathematical definition (\S\ref{sec:ming}) has been derived from
+first principles and verified computationally (\S\ref{sec:computation}), but
+cross-checking the derivation against attested historical computational
+examples from the \zh{果老星宗} manuscript tradition would further consolidate
+the result.  The computational agreement between the \texttt{stem-branch}
+library and the independently reconstructed \zh{似黃道} boundary gives
+confidence in the derivation, but it cannot substitute for documentary
+confirmation.
+
+The locus of the Ketu reidentification---whether the node-to-apogee shift
+originated with Persian intermediaries or with early Chinese adapters---remains
+genuinely open.  Mak's work on the Persian intermediary
+\cite{mak2024persian} has narrowed the question without resolving it.  The
+identification may have been polycentric, occurring independently in multiple
+contexts, which would itself be a theoretically interesting finding.
+
+Finally, this paper has examined one system (\zh{七政四餘}) within one
+transmission corridor (India--Persia--China).  The extent to which the six-mode
+framework generalizes to other astronomical traditions---Babylonian--Greek,
+Arabic--Latin, Chinese--Korean--Japanese---remains to be tested empirically.
+
+\subsection*{Relationship to the Companion Paper}
+
+The companion paper ``When the Stars Disagree'' presents a computational error
+taxonomy across five Chinese divination systems, documenting systematic
+divergences between modern software implementations and their claimed historical
+sources.  The coordinate-regime analysis developed here provides the historical
+explanation for that paper's key finding in \S6.7: the tropical--sidereal
+divergence that the computational survey identifies as the single largest source
+of inter-implementation disagreement is not a technical error propagated by
+inattentive developers.  It is the archaeological residue of Mode~5 (the Jesuit
+foreign correction) overwriting an earlier Mode~3 convention (Yuan equatorial
+sidereal) that had itself overwritten the original Mode~1 ecliptic sidereal
+baseline.  The software disagreement is a stratified deposit; the present
+paper supplies the stratigraphy.
 
 % === §11 Conclusion ===========================================================
 \section{Conclusion}\label{sec:conclusion}
-% ~500 words — Task 11
 
-\textit{Section placeholder.}
+This paper has traced two parallel threads---the coordinate reference frame and
+the identity of the pseudo-planet \zh{計都}---through four dynasties and
+thirteen centuries of the Chinese \zh{七政四餘} system.  The trajectory spans
+four distinct coordinate regimes (ecliptic sidereal, equatorial sidereal,
+quasi-ecliptic hybrid, ecliptic tropical) and two fully distinct astronomical
+identities for \zh{計都} (descending lunar node; osculating lunar apogee).  Six
+transformation modes account for every transition observed: transliteration,
+reidentification, indigenous restructuring, hybridization, foreign correction,
+and algorithmic fossilization.
+
+The central finding is that cross-civilizational astronomical transmission is
+not passive copying.  Each time the \zh{七政四餘} crossed a cultural or
+institutional boundary---from Sanskrit into Chinese, from Tang court astronomy
+into Song astrological practice, from the equatorial \textit{Shoushi} world
+into Ming popular divination, from Chinese convention into Jesuit-reformed
+state astronomy, from printed manuals into digital software---the transmitted
+material was actively transformed.  The transformations were systematic: they
+followed identifiable patterns that recur across the historical record and that
+appear in other Silk Road transmission episodes.  But they were not
+teleological: no single actor planned the trajectory, and the end state---a
+tropical ecliptic frame with \zh{計都} as the lunar apogee---is not a
+destination that any participant in the transmission history set out to reach.
+
+This has an important consequence for how we interpret the fragmented,
+contradictory landscape of modern \zh{七政四餘} software.  The confused
+conventions, mismatched coordinate frames, and contested \zh{計都} toggles that
+practitioners encounter today are not bugs awaiting correction.  They are
+archaeological artifacts: each ``error'' preserves a trace of a legitimate
+historical transformation.  Software that computes \zh{計都} as the descending
+node is not wrong---it faithfully implements the Qing-era convention introduced
+by Schall von Bell's reform.  Software that uses the lunar apogee is not
+wrong---it faithfully implements the scholarly consensus established by
+Niu~\cite{niu1995ketu} and Mak~\cite{mak2014pseudoplanets} regarding the
+\zh{果老星宗} original.  The disagreement between them is real, but its source
+is historical, not computational.
+
+The six-mode framework developed here provides a vocabulary for analysing other
+transmission episodes along the Silk Road astronomical corridor and beyond.  The
+parallels noted in \S\ref{sec:discussion}---the House of Wisdom translations,
+the \textit{Yavanaj\={a}taka} synthesis---suggest that the modes are general
+features of how technical knowledge moves across civilizational boundaries,
+rather than peculiarities of the China case.  Applying the framework rigorously
+to further episodes, with the same dual-thread methodology used here, is a
+natural direction for future work.
+
+The deeper implication is historiographical.  Transformation is not a deviation
+from transmission---it is the mechanism of transmission.  Every time a
+practitioner in a new cultural context received the \zh{七政四餘}, they
+encountered not a finished system but a set of tools and a set of problems, and
+they rebuilt the system around the problems that mattered to them.  The system
+that survived was not preserved; it was perpetually reconstructed.  Understanding
+that history of reconstructions is not merely of antiquarian interest.  It is
+the only reliable basis for deciding which convention any given historical source
+actually implements---and therefore the only sound foundation for software that
+faithfully computes what it claims to compute.
 
 % === Bibliography =============================================================
 \bibliographystyle{unsrtnat}
